@@ -1,6 +1,7 @@
 <script>
   import Login from "./components/Login.svelte";
   import Tree from "./components/Tree.svelte";
+  import AccountPage from "./components/AccountPage.svelte";
   
   let loggedInUser = null;
   let tree = [
@@ -15,9 +16,10 @@
 </script>
 
 <main>
-  {#if !loggedInUser}<Login {appLogin} />
+  <AccountPage {loggedInUser}/>
+  <!-- {#if !loggedInUser}<Login {appLogin} />
   {:else}<Tree {tree} {loggedInUser}/>
-  {/if}
+  {/if} -->
 </main>
 
 <style>
