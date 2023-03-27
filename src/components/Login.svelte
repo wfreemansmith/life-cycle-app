@@ -168,8 +168,8 @@
     cursor: pointer;
   }
 
-  img {
+  /* img {
     width: 200px;
     margin-top: 20px;
-  }
+  } */
 </style>

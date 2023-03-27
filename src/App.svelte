@@ -1,6 +1,7 @@
 <script>
   import Login from "./components/Login.svelte";
   import Tree from "./components/Tree.svelte";
+  import AccountPage from "./components/AccountPage.svelte"
   
   let loggedInUser = null;
   let tree = [
@@ -16,10 +17,10 @@
 
 <main>
   {#if !loggedInUser}<Login {appLogin} />
-  {:else}<Tree {tree} {loggedInUser}/>
+  {:else}<AccountPage {loggedInUser}/>
   {/if}
 </main>
-
+  <!-- {:else}<Tree {tree} {loggedInUser}/> -->
 <style>
   main {
     text-align: center;
