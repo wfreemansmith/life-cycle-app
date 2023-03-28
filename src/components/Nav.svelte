@@ -18,19 +18,6 @@
   };
 </script>
 
-<nav
-  class="nav py-2 h-fit w-[99vw] md:py-4 bg-[#FCBA28] z-1"
->
-  <div class="container px-4 mx-auto md:flex md:items-center">
-    <div class="flex justify-between items-center">
-      <Link to="/" class="font-bold text-xl text-gray-800">LOGO GOES HERE</Link>
-      <button
-        class="icon border hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] border-solid border-gray-600 px-3 py-1 rounded text-gray-600 opacity-50 hover:opacity-75 md:hidden w-10 h-10"
-        id="navbar-toggle"
-      >
-        <FaAlignJustify />
-      </button>
-    </div>
 
     <nav class="nav py-2 h-fit w-[99vw] md:py-4 bg-[#FCBA28] z-1">
       
