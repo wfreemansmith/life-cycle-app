@@ -13,11 +13,22 @@
     tree[0].dob = dob
   }
 </script>
-<div class="page h-screen">
+<div class="page">
 <Nav />
-<main class="text-center max-w-5xl  flex flex-col content-start items-start justify-center flex-wrap md:max-w-none">
+<main class="text-center flex flex-col  items-start justify-center flex-wrap w-auto h-screen">
   {#if !loggedInUser}<Login {appLogin} />
   {:else}<Tree {tree} {loggedInUser}/>
   {/if}
   </main>
 </div>
+
+<style global lang="postcss">
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+  body {
+  height: fit-content;
+  width: 100%;
+  overflow-x: hidden;
+}
+  </style>

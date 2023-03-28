@@ -77,16 +77,16 @@
   };
 </script>
 
-<main class="flex">
-  <h1 class="m-auto px-3 py-5 text-6xl" >Welcome to Life Cycle!</h1>
+<main class="flex bg-[#0f0d0e] flex-col items-center w-[99vw] h-full">
   <!-- <img src={logo} alt="life-cycle-logo" /> -->
+  <h1 class="px-3 my-14 py-1 text-6xl text-[#f0ebd2]" >Welcome to Life Cycle!</h1>
 
   {#if isSignIn}
     <p>
-      Already created an account? <button on:click={toggleForm}
-        >Log in here</button
-      >
+      Already created an account?
+      
     </p>
+    <button on:click={toggleForm}>Log in here</button>
     <form class="form-signup" on:submit={handleSubmit}>
       <label>
         Name:
@@ -117,8 +117,9 @@
     </form>
   {:else}
     <p>
-      Don't have an account? <button on:click={toggleForm}>Sign up here</button>
+      Don't have an account?
     </p>
+      <button on:click={toggleForm}>Sign up here</button>
     <form class="form-signin" on:submit={handleSubmit}>
       <label>
         Email:
@@ -135,20 +136,21 @@
 </main>
 
 <style>
-  main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
+  p {
+    color:#f0ebd2
   }
 
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 2px solid #ddd;
+    border: 2px solid #7b5ea7;
     padding: 20px;
     margin-top: 20px;
+    height: fit-content;
+    background-color: #7b5ea7;
+    border-radius: 10px;
+    box-shadow: -8px 8px #F5BECC
   }
 
   label {
@@ -160,18 +162,22 @@
   input {
     padding: 10px;
     border: none;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 2px solid black;
     font-size: 16px;
+    background-color: #f38ba3;
+    box-shadow: -10px 6px 2px black;
   }
 
   button {
     padding: 10px 20px;
-    background-color: #4caf50;
+    background-color: #ed203d;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    box-shadow: -4px 4px 0px 1px 
+    #F5BECC;
   }
 
   img {
