@@ -5,6 +5,14 @@
     signInWithEmailAndPassword,
   } from "firebase/auth";
   import { auth, db } from "../utils/firebase";
+  import userStore from "../utils/userStore";
+
+  let user = { name: "", email: "", dob: "" };
+  userStore.subscribe(($user) => {
+    if ($user) {
+      user = $user;
+    }
+  });
 
   export let appLogin;
 
@@ -16,27 +24,30 @@
   };
 
   async function signUp(formData) {
-    try {
-      const { email, password, dob } = formData;
-      const { user } = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      console.log("User created:", user);
-      message = `Account created successfully`
-      appLogin(email.replace(/[@.]/g, "-"), dob);
-    } catch (error) {
-      console.error("Error creating user:", error);
-      // Display error message to the user
-    }
+  try {
+    const { email, password, name, dob } = formData;
+    const { user } = await createUserWithEmailAndPassword(auth, email, password);
+    console.log("User created:", user);
+    message = `Account created successfully`
+    const username = email.replace(/[@.]/g, "-");
+    set(ref(db, "users/" + username), {
+      name,
+      dob,
+    })
+    appLogin(username, dob);
+  } catch (error) {
+    console.error("Error creating user:", error);
+    // Display error message to the user
   }
+}
+
+
   async function logIn(formData) {
     try {
       const { email, password } = formData;
       const { user } = await signInWithEmailAndPassword(auth, email, password);
       console.log("User logged in:", user);
-      message = `Logged in`
+      message = `Logged in`;
       appLogin(email.replace(/[@.]/g, "-"));
 
     } catch (error) {
@@ -44,6 +55,7 @@
       // Display error message to the user
     }
   }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -57,23 +69,10 @@
       return;
     }
     if (isSignIn) {
-      signUp({ email, password });
-    } else {
       logIn({ email, password });
+    } else {
+      signUp({ email, password, name, dob });
     }
-    // Write the form data to the Firebase Realtime Database
-    const username = email.replace(/[@.]/g, "-"); // create a username from the user's email
-    set(ref(db, "users/" + username), {
-      name,
-      dob,
-    })
-      .then(() => {
-        console.log("Data written successfully!");
-      })
-      .catch((error) => {
-        console.error("Error writing data: ", error);
-        // Display error message to the user
-      });
   };
 </script>
 

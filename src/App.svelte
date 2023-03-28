@@ -2,24 +2,28 @@
   import Login from "./components/Login.svelte";
   import Tree from "./components/Tree.svelte";
   import AccountPage from "./components/AccountPage.svelte";
+  import  userStore  from "./utils/userStore";
   
   let loggedInUser = null;
   let tree = [
     { id: 1, name: "Birth", detail: "It all starts here", dob: null, menu: null },
   ];
 
-  const appLogin = (username, dob) => {
+  const appLogin = (username, dob, name) => {
     console.log("loggedInUser: ", username)
-    loggedInUser = username
+    loggedInUser = {id: username, name};
     tree[0].dob = dob
   }
+  $: loggedInUser = $userStore;
 </script>
 
 <main>
-  <AccountPage {loggedInUser}/>
-  <!-- {#if !loggedInUser}<Login {appLogin} />
-  {:else}<Tree {tree} {loggedInUser}/>
-  {/if} -->
+  {#if !loggedInUser}
+    <Login {appLogin} />
+  {:else}
+    <AccountPage {loggedInUser} />
+    <!-- <Tree {tree} {loggedInUser} /> -->
+  {/if}
 </main>
 
 <style>
