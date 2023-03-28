@@ -46,6 +46,7 @@
   @tailwind base;
   @tailwind components;
   @tailwind utilities;
+  @import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
   body {
     height: fit-content;
     width: 100%;
