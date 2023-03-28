@@ -6,7 +6,8 @@
   import userStore from "./utils/userStore";
   import Nav from "./components/Nav.svelte";
 
-  let loggedInUser = null;
+  let loggedInUser = {username: "steve-hotmail-com", name: "Steve", dob: "1999-04-02"};
+  // Test data
 
   let tree = [
     {
@@ -23,7 +24,7 @@
     loggedInUser = { id: username, name };
     tree[0].dob = dob;
   };
-  $: loggedInUser = $userStore;
+  // $: loggedInUser = $userStore;
 </script>
 
 

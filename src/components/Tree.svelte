@@ -15,7 +15,7 @@
       id: tree.length + 1,
       name: "",
       detail: "",
-      dob: "",
+      date: "",
       menu: "form"
     };
     tree.splice(position + 1, 0, newEvent);
