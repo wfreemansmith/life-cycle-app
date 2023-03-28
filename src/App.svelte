@@ -1,43 +1,42 @@
 <script>
   import Login from "./components/Login.svelte";
   import Tree from "./components/Tree.svelte";
-  import AccountPage from "./components/AccountPage.svelte"
+  import AccountPage from "./components/AccountPage.svelte";
+  import  userStore  from "./utils/userStore";
+  import Nav from "./components/Nav.svelte";
+
   
   let loggedInUser = null;
   let tree = [
     { id: 1, name: "Birth", detail: "It all starts here", dob: null, menu: null },
   ];
 
-  const appLogin = (username, dob) => {
+  const appLogin = (username, dob, name) => {
     console.log("loggedInUser: ", username)
-    loggedInUser = username
+    loggedInUser = {id: username, name};
     tree[0].dob = dob
   }
+  $: loggedInUser = $userStore;
 </script>
 
-<main>
-  {#if !loggedInUser}<Login {appLogin} />
-  {:else}<AccountPage {loggedInUser}/>
+<div class="page">
+<Nav />
+<main class="text-center flex flex-col  items-start justify-center flex-wrap w-auto h-screen">
+    {#if !loggedInUser}
+    <Login {appLogin} />
+  {:else}
+    <AccountPage {loggedInUser} />
   {/if}
-</main>
-  <!-- {:else}<Tree {tree} {loggedInUser}/> -->
-<style>
-  main {
-    text-align: center;
-    padding: 1em;
-    max-width: 240px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-content: flex-start;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+  </main>
+</div>
 
-  @media (min-width: 640px) {
-    main {
-      max-width: none;
-    }
-  }
-</style>
+<style global lang="postcss">
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+  body {
+  height: fit-content;
+  width: 100%;
+  overflow-x: hidden;
+}
+  </style>
