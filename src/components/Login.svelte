@@ -83,10 +83,10 @@
 
   {#if isSignIn}
     <p>
-      Already created an account? <button on:click={toggleForm}
-        >Log in here</button
-      >
+      Already created an account?
+      
     </p>
+    <button on:click={toggleForm}>Log in here</button>
     <form class="form-signup" on:submit={handleSubmit}>
       <label>
         Name:
@@ -112,8 +112,9 @@
     </form>
   {:else}
     <p>
-      Don't have an account? <button on:click={toggleForm}>Sign up here</button>
+      Don't have an account?
     </p>
+      <button on:click={toggleForm}>Sign up here</button>
     <form class="form-signin" on:submit={handleSubmit}>
       <label>
         Username:
@@ -142,6 +143,8 @@
     margin-top: 20px;
     height: fit-content;
     background-color: #7b5ea7;
+    border-radius: 10px;
+    box-shadow: -8px 8px #F5BECC
   }
 
   label {
@@ -167,6 +170,8 @@
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    box-shadow: -4px 4px 0px 1px 
+    #F5BECC;
   }
 
   img {
