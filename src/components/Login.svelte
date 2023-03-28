@@ -91,9 +91,14 @@
   };
 </script>
 
-<main class="flex bg-[#0f0d0e] flex-col items-center w-[99vw] h-full">
+<main class="flex bg-[#0f0d0e] flex-col items-center w-[99vw] h-full relative">
+  <div class="custom-shape-divider-top-1680002298">
+    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+    </svg>
+</div>
   <!-- <img src={logo} alt="life-cycle-logo" /> -->
-  <h1 class="px-3 my-14 py-1 text-6xl text-[#f0ebd2]" >Welcome to Life Cycle!</h1>
+  <h1 class="px-3 my-14 py-1 text-6xl text-[#f0ebd2] z-1" >Welcome to Life Cycle!</h1>
 
   {#if isSignIn}
     <p>
@@ -147,11 +152,20 @@
     </form>
   {/if}
   <p>{message ? message : ""}</p>
+  <div class="custom-shape-divider-bottom-1680002532">
+    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+    </svg>
+</div>
 </main>
 
 <style>
   p {
     color:#f0ebd2
+  }
+  h1 {
+    z-index: 1;
+    color: #7b5ea7
   }
 
   form {
@@ -164,13 +178,15 @@
     height: fit-content;
     background-color: #7b5ea7;
     border-radius: 10px;
-    box-shadow: -8px 8px #F5BECC
+    box-shadow: -8px 8px #F5BECC;
+    z-index: 1;
   }
 
   label {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
+    z-index: 1;
   }
 
   input {
@@ -180,6 +196,7 @@
     font-size: 16px;
     background-color: #f38ba3;
     box-shadow: -10px 6px 2px black;
+    z-index: 1;
   }
 
   button {
@@ -198,4 +215,52 @@
     width: 200px;
     margin-top: 20px;
   }
+
+  .custom-shape-divider-top-1680002298 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    z-index: 0;
+}
+
+.custom-shape-divider-top-1680002298 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 144px;
+    z-index: 0;
+}
+
+.custom-shape-divider-top-1680002298 .shape-fill {
+    fill: #FCBA28;
+    z-index: 0;
+}
+
+.custom-shape-divider-bottom-1680002532 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+    z-index: 0;
+}
+
+.custom-shape-divider-bottom-1680002532 svg {
+    position: relative;
+    display: block;
+    width: calc(211% + 1.3px);
+    height: 152px;
+    transform: rotateY(180deg);
+    z-index: 0    
+}
+
+.custom-shape-divider-bottom-1680002532 .shape-fill {
+    fill: #0CB2C0;
+    z-index: 0
+}
 </style>
