@@ -36,7 +36,6 @@
           : "Could not connect to LifeCycle";
     }
   }
-}
 
 
   async function logIn(formData) {

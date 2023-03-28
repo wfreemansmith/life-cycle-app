@@ -6,7 +6,7 @@
   import Nav from "./components/Nav.svelte";
 
   
-  let loggedInUser = null;
+  let loggedInUser = null
   let tree = [
     { id: 1, name: "Birth", detail: "It all starts here", dob: null, menu: null },
   ];
@@ -22,14 +22,14 @@
 <div class="page">
 <Nav />
 <main class="text-center flex flex-col  items-start justify-center flex-wrap w-auto h-screen">
-    {#if !loggedInUser}
-    <Login {appLogin} />
-  {:else}
-    <AccountPage {loggedInUser} />
-  {/if}
+  <AccountPage {loggedInUser} />
   </main>
-</div>
-
+  </div>
+//   {#if !loggedInUser}
+//   <Login {appLogin} />
+// {:else}
+  
+  // {/if}
 <style global lang="postcss">
   @tailwind base;
   @tailwind components;
