@@ -183,6 +183,9 @@ async function saveChanges(event) {
     flex-direction: column;
     margin: auto;
     align-items: center;
+    background-color: #ed203d;
+    box-shadow: -3px 3px 0px 1px 
+    #F5BECC;
     z-index: 1;
   }
   main {
