@@ -7,6 +7,7 @@
   import Nav from "./components/Nav.svelte";
 
   let loggedInUser = null;
+
   let tree = [
     {
       id: 1,
@@ -24,6 +25,7 @@
   };
   $: loggedInUser = $userStore;
 </script>
+
 
 <Router>
   <div class="page">
