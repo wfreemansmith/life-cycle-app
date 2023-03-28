@@ -9,7 +9,7 @@
   export let appLogin;
 
   let isSignIn = false;
-  let message = ``;
+  let message = "";
 
   const toggleForm = () => {
     isSignIn = !isSignIn;
@@ -18,68 +18,67 @@
   async function signUp(formData) {
     try {
       const { email, password, dob } = formData;
-      const { user } = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      console.log("User created:", user);
-      message = `Account created successfully`
+      await createUserWithEmailAndPassword(auth, email, password);
+      message = "Account created successfully";
       appLogin(email.replace(/[@.]/g, "-"), dob);
-    } catch (error) {
-      console.error("Error creating user:", error);
-      // Display error message to the user
+    } catch (err) {
+      message =
+        err.code === "auth/email-already-in-use"
+          ? "That email is already registered"
+          : "Could not connect to LifeCycle";
     }
   }
   async function logIn(formData) {
     try {
       const { email, password } = formData;
-      const { user } = await signInWithEmailAndPassword(auth, email, password);
-      console.log("User logged in:", user);
-      message = `Logged in`
+      await signInWithEmailAndPassword(auth, email, password);
+      message = "Logged in!";
       appLogin(email.replace(/[@.]/g, "-"));
-
-    } catch (error) {
-      console.error("Error logging in:", error);
-      // Display error message to the user
+    } catch (err) {
+      message =
+        err.code === "auth/user-not-found"
+          ? "User not found"
+          : err.code === "auth/wrong-password"
+          ? "Password is incorrect"
+          : "Could not connect to LifeCycle";
     }
   }
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log("event.target", event.target);
     const formData = new FormData(event.target);
     const name = formData.get("name");
     const dob = formData.get("dob");
     const email = formData.get("email");
     const password = formData.get("password");
     const confirmPassword = formData.get("confirmPassword");
-    if (password !== confirmPassword) {
-      // Display error message to the user
-      return;
-    }
+
     if (isSignIn) {
+      if (password !== confirmPassword) {
+        message = "Passwords do not match";
+        return;
+      }
+      message = "Creating user profile...";
       signUp({ email, password });
     } else {
+      message = "Loggin in...";
       logIn({ email, password });
+      return;
     }
+
     // Write the form data to the Firebase Realtime Database
     const username = email.replace(/[@.]/g, "-"); // create a username from the user's email
     set(ref(db, "users/" + username), {
       name,
       dob,
-    })
-      .then(() => {
-        console.log("Data written successfully!");
-      })
-      .catch((error) => {
-        console.error("Error writing data: ", error);
-        // Display error message to the user
-      });
+    }).catch(() => {
+      message = "There was a problem connecting to LifeCycle";
+    });
   };
 </script>
 
 <main>
   <h1>Welcome to Life Cycle!</h1>
-  <!-- <img src={logo} alt="life-cycle-logo" /> -->
 
   {#if isSignIn}
     <p>
@@ -94,7 +93,12 @@
       </label>
       <label>
         Date of Birth:
-        <input type="date" name="dob" required />
+        <input
+          type="date"
+          name="dob"
+          max={new Date().toLocaleDateString("fr-ca")}
+          required
+        />
       </label>
       <label>
         Email:
@@ -116,8 +120,8 @@
     </p>
     <form class="form-signin" on:submit={handleSubmit}>
       <label>
-        Username:
-        <input type="text" name="username" required />
+        Email:
+        <input type="email" name="email" required />
       </label>
       <label>
         Password:
@@ -126,6 +130,7 @@
       <button class="button" type="submit">Log In</button>
     </form>
   {/if}
+  <p>{message ? message : ""}</p>
 </main>
 
 <style>
