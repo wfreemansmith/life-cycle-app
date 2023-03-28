@@ -13,7 +13,7 @@ collapse.classList.toggle("flex");
 
   
     
-    <nav class="nav py-2 h-fit w-[99vw] md:py-4 bg-gradient-to-r from-[#F2B39D] via-[#97C9E8] to-[#CD87E8]">
+    <nav class="nav py-2 h-fit w-[99vw] md:py-4 bg-[#FCBA28] z-1">
       
       <div class="container px-4 mx-auto md:flex md:items-center"> 
         <div class="flex justify-between items-center">
