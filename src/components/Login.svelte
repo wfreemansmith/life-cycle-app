@@ -77,9 +77,9 @@
   };
 </script>
 
-<main class="flex">
-  <h1 class="m-auto px-3 py-5 text-6xl" >Welcome to Life Cycle!</h1>
+<main class="flex bg-[#0f0d0e] flex-col items-center w-[99vw] h-full">
   <!-- <img src={logo} alt="life-cycle-logo" /> -->
+  <h1 class="px-3 my-14 py-1 text-6xl text-[#f0ebd2]" >Welcome to Life Cycle!</h1>
 
   {#if isSignIn}
     <p>
@@ -129,20 +129,19 @@
 </main>
 
 <style>
-  main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
+  p {
+    color:#f0ebd2
   }
 
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 2px solid #ddd;
+    border: 2px solid #7b5ea7;
     padding: 20px;
     margin-top: 20px;
+    height: fit-content;
+    background-color: #7b5ea7;
   }
 
   label {
@@ -154,13 +153,15 @@
   input {
     padding: 10px;
     border: none;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 2px solid black;
     font-size: 16px;
+    background-color: #f38ba3;
+    box-shadow: -10px 6px 2px black;
   }
 
   button {
     padding: 10px 20px;
-    background-color: #4caf50;
+    background-color: #ed203d;
     color: white;
     border: none;
     border-radius: 5px;
