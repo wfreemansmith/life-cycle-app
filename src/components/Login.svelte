@@ -17,27 +17,24 @@
   export let appLogin;
 
   let isSignIn = false;
-  let message = ``;
+  let message = "";
 
   const toggleForm = () => {
     isSignIn = !isSignIn;
   };
 
   async function signUp(formData) {
-  try {
-    const { email, password, name, dob } = formData;
-    const { user } = await createUserWithEmailAndPassword(auth, email, password);
-    console.log("User created:", user);
-    message = `Account created successfully`
-    const username = email.replace(/[@.]/g, "-");
-    set(ref(db, "users/" + username), {
-      name,
-      dob,
-    })
-    appLogin(username, dob);
-  } catch (error) {
-    console.error("Error creating user:", error);
-    // Display error message to the user
+    try {
+      const { email, password, dob } = formData;
+      await createUserWithEmailAndPassword(auth, email, password);
+      message = "Account created successfully";
+      appLogin(email.replace(/[@.]/g, "-"), dob);
+    } catch (err) {
+      message =
+        err.code === "auth/email-already-in-use"
+          ? "That email is already registered"
+          : "Could not connect to LifeCycle";
+    }
   }
 }
 
@@ -45,47 +42,65 @@
   async function logIn(formData) {
     try {
       const { email, password } = formData;
-      const { user } = await signInWithEmailAndPassword(auth, email, password);
-      console.log("User logged in:", user);
-      message = `Logged in`;
-      appLogin(email.replace(/[@.]/g, "-"));
+      await signInWithEmailAndPassword(auth, email, password);
+      message = "Logged in!";
 
-    } catch (error) {
-      console.error("Error logging in:", error);
-      // Display error message to the user
+      appLogin(email.replace(/[@.]/g, "-"));
+    } catch (err) {
+      message =
+        err.code === "auth/user-not-found"
+          ? "User not found"
+          : err.code === "auth/wrong-password"
+          ? "Password is incorrect"
+          : "Could not connect to LifeCycle";
     }
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log("event.target", event.target);
     const formData = new FormData(event.target);
     const name = formData.get("name");
     const dob = formData.get("dob");
     const email = formData.get("email");
     const password = formData.get("password");
     const confirmPassword = formData.get("confirmPassword");
-    if (password !== confirmPassword) {
-      // Display error message to the user
+
+    if (isSignIn) {
+      if (password !== confirmPassword) {
+        message = "Passwords do not match";
+        return;
+      }
+      message = "Creating user profile...";
+      signUp({ email, password });
+    } else {
+      message = "Loggin in...";
+      logIn({ email, password });
       return;
     }
-    if (isSignIn) {
-      logIn({ email, password });
-    } else {
-      signUp({ email, password, name, dob });
-    }
+
+    // Write the form data to the Firebase Realtime Database
+    const username = email.replace(/[@.]/g, "-"); // create a username from the user's email
+    set(ref(db, "users/" + username), {
+      name,
+      dob,
+    }).catch(() => {
+      message = "There was a problem connecting to LifeCycle";
+    });
+
   };
 </script>
 
-<main>
-  <h1>Welcome to Life Cycle!</h1>
+<main class="flex bg-[#0f0d0e] flex-col items-center w-[99vw] h-full">
   <!-- <img src={logo} alt="life-cycle-logo" /> -->
+  <h1 class="px-3 my-14 py-1 text-6xl text-[#f0ebd2]" >Welcome to Life Cycle!</h1>
 
   {#if isSignIn}
     <p>
-      Already created an account? <button on:click={toggleForm}
-        >Log in here</button
-      >
+      Already created an account?
+      
     </p>
+    <button on:click={toggleForm}>Log in here</button>
     <form class="form-signup" on:submit={handleSubmit}>
       <label>
         Name:
@@ -93,7 +108,12 @@
       </label>
       <label>
         Date of Birth:
-        <input type="date" name="dob" required />
+        <input
+          type="date"
+          name="dob"
+          max={new Date().toLocaleDateString("fr-ca")}
+          required
+        />
       </label>
       <label>
         Email:
@@ -111,12 +131,13 @@
     </form>
   {:else}
     <p>
-      Don't have an account? <button on:click={toggleForm}>Sign up here</button>
+      Don't have an account?
     </p>
+      <button on:click={toggleForm}>Sign up here</button>
     <form class="form-signin" on:submit={handleSubmit}>
       <label>
-        Username:
-        <input type="text" name="username" required />
+        Email:
+        <input type="email" name="email" required />
       </label>
       <label>
         Password:
@@ -125,23 +146,25 @@
       <button class="button" type="submit">Log In</button>
     </form>
   {/if}
+  <p>{message ? message : ""}</p>
 </main>
 
 <style>
-  main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
+  p {
+    color:#f0ebd2
   }
 
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 2px solid #ddd;
+    border: 2px solid #7b5ea7;
     padding: 20px;
     margin-top: 20px;
+    height: fit-content;
+    background-color: #7b5ea7;
+    border-radius: 10px;
+    box-shadow: -8px 8px #F5BECC
   }
 
   label {
@@ -153,18 +176,22 @@
   input {
     padding: 10px;
     border: none;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 2px solid black;
     font-size: 16px;
+    background-color: #f38ba3;
+    box-shadow: -10px 6px 2px black;
   }
 
   button {
     padding: 10px 20px;
-    background-color: #4caf50;
+    background-color: #ed203d;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    box-shadow: -4px 4px 0px 1px 
+    #F5BECC;
   }
 
   img {

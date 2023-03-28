@@ -3,6 +3,8 @@
   import Tree from "./components/Tree.svelte";
   import AccountPage from "./components/AccountPage.svelte";
   import  userStore  from "./utils/userStore";
+  import Nav from "./components/Nav.svelte";
+
   
   let loggedInUser = null;
   let tree = [
@@ -17,32 +19,24 @@
   $: loggedInUser = $userStore;
 </script>
 
-<main>
-  {#if !loggedInUser}
+<div class="page">
+<Nav />
+<main class="text-center flex flex-col  items-start justify-center flex-wrap w-auto h-screen">
+    {#if !loggedInUser}
     <Login {appLogin} />
   {:else}
     <AccountPage {loggedInUser} />
-    <!-- <Tree {tree} {loggedInUser} /> -->
   {/if}
-</main>
+  </main>
+</div>
 
-<style>
-  main {
-    text-align: center;
-    padding: 1em;
-    max-width: 240px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-content: flex-start;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  @media (min-width: 640px) {
-    main {
-      max-width: none;
-    }
-  }
-</style>
+<style global lang="postcss">
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+  body {
+  height: fit-content;
+  width: 100%;
+  overflow-x: hidden;
+}
+  </style>
