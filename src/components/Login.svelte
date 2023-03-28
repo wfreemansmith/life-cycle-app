@@ -1,5 +1,6 @@
 <script>
   import { ref, set } from "firebase/database";
+  import { navigate } from "svelte-navigator";
   import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -29,6 +30,7 @@
       await createUserWithEmailAndPassword(auth, email, password);
       message = "Account created successfully";
       appLogin(email.replace(/[@.]/g, "-"), dob);
+      navigate("/account");
     } catch (err) {
       message =
         err.code === "auth/email-already-in-use"
@@ -37,7 +39,6 @@
     }
   }
 
-
   async function logIn(formData) {
     try {
       const { email, password } = formData;
@@ -45,6 +46,7 @@
       message = "Logged in!";
 
       appLogin(email.replace(/[@.]/g, "-"));
+      navigate("/account");
     } catch (err) {
       message =
         err.code === "auth/user-not-found"
