@@ -5,6 +5,14 @@
     signInWithEmailAndPassword,
   } from "firebase/auth";
   import { auth, db } from "../utils/firebase";
+  import userStore from "../utils/userStore";
+
+  let user = { name: "", email: "", dob: "" };
+  userStore.subscribe(($user) => {
+    if ($user) {
+      user = $user;
+    }
+  });
 
   export let appLogin;
 
@@ -28,11 +36,15 @@
           : "Could not connect to LifeCycle";
     }
   }
+}
+
+
   async function logIn(formData) {
     try {
       const { email, password } = formData;
       await signInWithEmailAndPassword(auth, email, password);
       message = "Logged in!";
+
       appLogin(email.replace(/[@.]/g, "-"));
     } catch (err) {
       message =
@@ -43,6 +55,7 @@
           : "Could not connect to LifeCycle";
     }
   }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("event.target", event.target);
@@ -74,6 +87,7 @@
     }).catch(() => {
       message = "There was a problem connecting to LifeCycle";
     });
+
   };
 </script>
 
