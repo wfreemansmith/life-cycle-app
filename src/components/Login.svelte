@@ -77,8 +77,9 @@
   };
 </script>
 
-<main>
-  <h1>Welcome to Life Cycle!</h1>
+<main class="flex">
+  <h1 class="m-auto px-3 py-5 text-6xl" >Welcome to Life Cycle!</h1>
+  <!-- <img src={logo} alt="life-cycle-logo" /> -->
 
   {#if isSignIn}
     <p>
