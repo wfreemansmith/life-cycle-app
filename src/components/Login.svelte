@@ -92,7 +92,7 @@
   };
 </script>
 
-<main class="flex bg-[#0f0d0e] flex-col items-center w-[99vw] h-full relative">
+<main class="flex bg-black flex-col items-center w-[99vw] h-full relative">
   <div class="custom-shape-divider-top-1680002298">
     <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
         <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
@@ -136,7 +136,7 @@
       <button type="submit">Sign Up</button>
     </form>
   {:else}
-    <p>
+    <p class="no-account">
       Don't have an account?
     </p>
       <button on:click={toggleForm}>Sign up here</button>
@@ -164,6 +164,7 @@
   p {
     color:#f0ebd2
   }
+
   h1 {
     z-index: 1;
     color: #7b5ea7
@@ -186,8 +187,11 @@
   label {
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    margin-bottom: 2px;
+    margin-top: 8px;
     z-index: 1;
+    color: #272122;
+    font-size: large;
   }
 
   input {

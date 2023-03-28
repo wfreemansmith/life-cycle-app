@@ -118,7 +118,7 @@ async function saveChanges(event) {
         />
       </label>
 
-      <button type="button" on:click="{togglePresets}">Select Preset</button>
+      <button class="button-create" type="button" on:click="{togglePresets}">Select Preset</button>
 
       {#if showPresets}
         <div>
@@ -146,8 +146,6 @@ async function saveChanges(event) {
   </div>
 
   <button on:click="{() => createLifeCycle()}">Create Life Cycle</button>
-
-  <button on:click="{handleSignOut}">Sign Out</button>
   <div class="custom-shape-divider-bottom-1680013680">
     <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
         <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
@@ -178,15 +176,20 @@ async function saveChanges(event) {
     border-radius: 10px;
     z-index: 1;
   }
+  .button-create {
+    margin-bottom: 30px;
+  }
   button {
     display: flex;
     flex-direction: column;
     margin: auto;
     align-items: center;
     background-color: #ed203d;
-    box-shadow: -3px 3px 0px 1px 
-    #F5BECC;
+    box-shadow: -3px 3px 0px 0px #F5BECC;
     z-index: 1;
+    color: white;
+    border: none;
+    border-radius: 5px;
   }
   main {
     display: flex;
@@ -219,6 +222,7 @@ async function saveChanges(event) {
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
     margin: auto;
+    color: #272122;
   }
 
   /* input[type="text"],
@@ -234,16 +238,7 @@ async function saveChanges(event) {
     box-sizing: border-box;
   } */
 
-  button[type="submit"] {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
 
-  button[type="submit"]:hover {
-    background-color: #0062cc;
-  }
 
   input[type="file"] {
     padding: 0;
