@@ -1,159 +1,161 @@
 <script>
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { writable } from "svelte/store";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
-import { signOut } from "firebase/auth";
-import { auth } from "../utils/firebase";
-import { getAuth } from "firebase/auth";
+  import { getStorage, ref, getDownloadURL } from "firebase/storage";
+  import { writable } from "svelte/store";
+  import { getFirestore, doc, setDoc } from "firebase/firestore";
+  import { signOut } from "firebase/auth";
+  import { auth } from "../utils/firebase";
+  // import { getAuth } from "firebase/auth";
+  import userStore from "../utils/userStore";
+  import { onMount } from "svelte";
 
+  const db = getFirestore();
 
+  // let username = "";
+  // let email = "";
+  // export let loggedInUser;
+  // let user = "";
+  // userStore.subscribe(($user) => {
+  //   user = $user;
+  //   console.log("userStore updated:", user);
+  // });
+  let user = "";
+  let file;
+  let avatarURL;
+  let showPresets = false;
+  const storage = getStorage();
+  const presetImages = [
+    "preset1.png",
+    "preset2.png",
+    "preset3.png",
+    // "preset4.png",
+    // "preset5.png",
+    // "preset6.png",
+  ];
 
-const db = getFirestore();
-
-let username = "";
-let email = "";
-
-let user = "Bob";
-let file;
-let avatarURL;
-let showPresets = false;
-const storage = getStorage();
-const presetImages = [
-  "preset1.png",
-  "preset2.png",
-  "preset3.png",
-  // "preset4.png",
-  // "preset5.png",
-  // "preset6.png",
-];
-
-const presetURLsStore = writable([]);
-const togglePresets = () => {
-  showPresets = !showPresets;
-};
-// save data function
-function handleFileInputChange(event) {
-  file = event.target.files[0];
-  if (file) {
-    avatarURL = URL.createObjectURL(file);
+  const presetURLsStore = writable([]);
+  const togglePresets = () => {
+    showPresets = !showPresets;
+  };
+  // save data function
+  function handleFileInputChange(event) {
+    file = event.target.files[0];
+    if (file) {
+      avatarURL = URL.createObjectURL(file);
+    }
   }
-}
 
-//select an avatar preset function
-function selectPreset(preset) {
-  const storageRef = ref(storage, `images/Avatars/${preset}`);
-  getDownloadURL(storageRef).then((url) => {
-    avatarURL = url;
-  });
-}
-//sign out function
-async function handleSignOut() {
-  try {
-    await signOut(auth);
-    console.log("Signed out successfully");
-    userStore.set(null);
-  } catch (error) {
-    console.error("Error signing out:", error);
-  }
-}
-
-
-$: if (showPresets) {
-  Promise.all(
-    presetImages.map(async (preset) => {
-      const storageRef = ref(storage, `images/Avatars/${preset}`);
-      const url = await getDownloadURL(storageRef);
-      return url;
-    })
-  ).then((urls) => presetURLsStore.set(urls));
-} else {
-  presetURLsStore.set([]);
-}
-//save changes function
-async function saveChanges(event) {
-  event.preventDefault();
-  const auth = getAuth();
-  const userId = auth.currentUser.uid; //not sure about this uid??
-
-  try {
-    await update(ref(db, `users/${userId}`), {
-      name: user.name,
-      email: user.email,
-      avatarURL: avatarURL,
+  //select an avatar preset function
+  function selectPreset(preset) {
+    const storageRef = ref(storage, `images/Avatars/${preset}`);
+    getDownloadURL(storageRef).then((url) => {
+      avatarURL = url;
     });
-    console.log("User data saved successfully");
-  } catch (error) {
-    console.error("Error saving user data:", error);
   }
-}
+  //sign out function
+  async function handleSignOut() {
+    try {
+      await signOut(auth);
+      console.log("Signed out successfully");
+      userStore.set(null);
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  }
 
+  $: if (showPresets) {
+    Promise.all(
+      presetImages.map(async (preset) => {
+        const storageRef = ref(storage, `images/Avatars/${preset}`);
+        const url = await getDownloadURL(storageRef);
+        return url;
+      })
+    ).then((urls) => presetURLsStore.set(urls));
+  } else {
+    presetURLsStore.set([]);
+  }
 
+  onMount(() => {
+    userStore.subscribe((userData) => {
+      console.log(userData, "<<<<user data in on mount");
+      if (userData) {
+        user = userData;
+      }
+    });
+  });
+
+  //save changes function
+  async function saveChanges(event) {
+    event.preventDefault();
+
+    const userId = user.id;
+
+    try {
+      await db.collection("users").doc(userId).update({
+        name: user.name,
+        email: user.email,
+        username: user.username,
+        // ...
+      });
+      console.log("User data saved successfully");
+    } catch (error) {
+      console.error("Error saving user data:", error);
+    }
+  }
 </script>
 
 <main>
-  <h1>Welcome, {user}!</h1>
+  <h1>Welcome, {user.name}!</h1>
 
   {#if avatarURL}
-    <img src="{avatarURL}" alt="Avatar" width="200" />
+    <img src={avatarURL} alt="Avatar" width="200" />
   {/if}
 
   <div>
-    <form>
+    <form on:submit={saveChanges}>
       <label>Name:</label>
-      <input type="text" value="{user}" />
+      <input type="text" bind:value={user.name} />
+
+      <label>Username:</label>
+      <input type="text" bind:value={user.username} />
+
+      <label>Email:</label>
+      <input type="email" bind:value={user.email} />
 
       <label>
         Upload Avatar:
-        <input
-          type="file"
-          on:change="{handleFileInputChange}"
-          accept="image/*"
-        />
+        <input type="file" on:change={handleFileInputChange} accept="image/*" />
       </label>
 
-      <button type="button" on:click="{togglePresets}">Select Preset</button>
+      <button type="button" on:click={togglePresets}>Select Preset</button>
 
       {#if showPresets}
         <div>
           {#each $presetURLsStore as presetURL, index}
             <img
-              src="{presetURL}"
+              src={presetURL}
               alt="Preset {presetImages[index]}"
               width="100"
               height="100"
-              on:click="{() => selectPreset(presetImages[index])}"
+              on:click={() => selectPreset(presetImages[index])}
             />
           {/each}
         </div>
       {/if}
 
-      <label>Username:</label>
-     <input type="text" bind:value="{username}" />
-
-      <label>Email:</label>
-      <input type="email" bind:value="{email}" />
-
-      <button type="button" on:click="{saveChanges}">Save Changes</button>
-
+      <button type="submit">Save Changes</button>
     </form>
   </div>
 
-  <button on:click="{() => createLifeCycle()}">Create Life Cycle</button>
+  <button on:click={() => createLifeCycle()}>Create Life Cycle</button>
 
-  <button on:click="{handleSignOut}">Sign Out</button>
+  <button on:click={handleSignOut}>Sign Out</button>
 </main>
 
+<!-- // Add the createLifeCycle() function here -->
 
-
-
-  <!-- // Add the createLifeCycle() function here -->
-
-
-
-  <!-- function createLifeCycle() {
+<!-- function createLifeCycle() {
     // navigate to Poi.svelte component
   } -->
-
 
 <style>
   main {
