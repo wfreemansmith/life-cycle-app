@@ -7,7 +7,6 @@
   } from "firebase/auth";
   import { auth, db } from "../utils/firebase";
   import userStore from "../utils/userStore";
-  import { navigate } from "svelte-navigator";
 
   export let appLogin;
 
@@ -20,10 +19,10 @@
 
   async function signUp(formData) {
     try {
-      const { email, password, dob } = formData;
+      const { name, email, password, dob } = formData;
       await createUserWithEmailAndPassword(auth, email, password);
       message = "Account created successfully";
-      appLogin(email.replace(/[@.]/g, "-"), dob);
+      userStore.set({ username: email.replace(/[@.]/g, "-"), dob, name });
       navigate("/account");
     } catch (err) {
       message =
@@ -255,5 +254,5 @@
 .custom-shape-divider-bottom-1680002532 .shape-fill {
     fill: #0CB2C0;
     z-index: 0
-}
+} */
 </style>

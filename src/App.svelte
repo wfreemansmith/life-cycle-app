@@ -1,11 +1,10 @@
 <script>
-  import { Router, Link, Route } from "svelte-navigator";
+  import { Router, Route } from "svelte-navigator";
   import Login from "./components/Login.svelte";
   import Tree from "./components/Tree.svelte";
   import AccountPage from "./components/AccountPage.svelte";
   import userStore from "./utils/userStore";
   import Nav from "./components/Nav.svelte";
-  import { Router, Route } from "svelte-navigator";
 
   let loggedInUser = null;
 
