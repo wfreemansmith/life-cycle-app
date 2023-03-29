@@ -131,8 +131,17 @@
         class="shape-fill"
       />
     </svg>
+<<<<<<< HEAD
 </div>
 <span class="grid grid-cols-2 grid-rows-1">
+=======
+  </div>
+  <span class="grid grid-cols-2 grid-rows-1">
+
+  {#if avatarURL}
+    <img src={avatarURL} alt="Avatar" width="200" />
+  {/if}
+>>>>>>> f3a1e82848c6a8c1e7bf17db6a9e80c4d1d9ffa4
 
   <div class="form-wrapper bg-[#7b5ea7] mt-12">
     <form
@@ -183,6 +192,10 @@
       <input type="email" bind:value="{user.email}" />
 
       <button type="button" on:click="{saveChanges}">Save Changes</button>
+<<<<<<< HEAD
+=======
+
+>>>>>>> f3a1e82848c6a8c1e7bf17db6a9e80c4d1d9ffa4
 
       <button type="button" on:click={saveChanges}>Save Changes</button>
     </form>

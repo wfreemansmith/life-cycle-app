@@ -23,7 +23,7 @@
     <main
       class="main text-center flex flex-col items-start justify-center flex-wrap w-auto h-screen bg-[black]"
     >
-      <Route path="/">s
+      <Route path="/">
         <Login />
 
       </Route>
