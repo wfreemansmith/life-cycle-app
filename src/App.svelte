@@ -31,7 +31,7 @@
   <div class="page">
     <Nav />
     <main
-      class="text-center flex flex-col items-start justify-center flex-wrap w-auto h-screen"
+      class="main text-center flex flex-col items-start justify-center flex-wrap w-auto h-screen bg-[black]"
     >
       <Route path="/">
         <Login {appLogin} />
@@ -54,4 +54,10 @@
     width: 100%;
     overflow-x: hidden;
   }
+
+
+  .main {
+    z-index: -1;
+  }
+
 </style>

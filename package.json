@@ -28,6 +28,7 @@
   "dependencies": {
     "dotenv": "^16.0.3",
     "firebase": "^9.18.0",
+    "gsap": "^3.11.5",
     "sirv-cli": "^2.0.0",
     "svelte-icons": "^2.1.0",
     "svelte-navigator": "^3.2.2"
