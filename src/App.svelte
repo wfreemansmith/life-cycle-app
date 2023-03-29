@@ -5,9 +5,9 @@
   import AccountPage from "./components/AccountPage.svelte";
   import userStore from "./utils/userStore";
   import Nav from "./components/Nav.svelte";
+  import { Router, Route } from "svelte-navigator";
 
-  let loggedInUser = {username: "steve-hotmail-com", name: "Steve", dob: "1999-04-02"};
-  // Test data
+  let loggedInUser = null;
 
   let tree = [
     {
@@ -19,14 +19,14 @@
     },
   ];
 
-  const appLogin = (username, dob, name) => {
-    console.log("loggedInUser: ", username);
-    loggedInUser = { id: username, name };
-    tree[0].dob = dob;
-  };
-  // $: loggedInUser = $userStore;
+  $: userStore.subscribe((user) => {
+    if (user) {
+      loggedInUser = user;
+    } else {
+      loggedInUser = null;
+    }
+  });
 </script>
-
 
 <Router>
   <div class="page">
@@ -34,8 +34,9 @@
     <main
       class="text-center flex flex-col items-start justify-center flex-wrap w-auto h-screen"
     >
-      <Route path="/">
-        <Login {appLogin} />
+      <Route path="/">s
+        <Login />
+
       </Route>
       <Route path="/account" component={AccountPage} />
       <Route path="/create">
