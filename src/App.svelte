@@ -33,10 +33,7 @@
     <main
       class="text-center flex flex-col items-start justify-center flex-wrap w-auto h-screen"
     >
-      <Route path="/">s
-        <Login />
-
-      </Route>
+      <Route path="/"><Login /></Route>
       <Route path="/account" component={AccountPage} />
       <Route path="/create">
         <Tree {tree} {loggedInUser} />
@@ -49,7 +46,7 @@
   @tailwind base;
   @tailwind components;
   @tailwind utilities;
-  @import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
+  @import url("https://fonts.googleapis.com/css2?family=Arvo&display=swap");
   body {
     height: fit-content;
     width: 100%;

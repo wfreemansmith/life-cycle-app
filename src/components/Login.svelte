@@ -29,7 +29,6 @@
           : "Could not connect to LifeCycle";
     }
   }
-
   async function logIn(formData) {
     try {
       const { email, password } = formData;
@@ -46,6 +45,32 @@
           : "Could not connect to LifeCycle";
     }
   }
+  // async function logIn(formData) {
+  //   try {
+  //     const { email, password } = formData;
+  //     await signInWithEmailAndPassword(auth, email, password);
+  //     message = "Logged in!";
+
+  //     // Fetch user data from the Realtime Database
+  //     const username = email.replace(/[@.]/g, "-");
+  //     const userRef = ref(db, `users/${username}`);
+  //     console.log(userRef, ":user ref");
+  //     onValue(userRef, (snapshot) => {
+  //       const userData = snapshot.val();
+  //       console.log(userData, "<<<user data");
+  //       userStore.set({ ...userData, username });
+  //     });
+
+  //     navigate("/account");
+  //   } catch (err) {
+  //     message =
+  //       err.code === "auth/user-not-found"
+  //         ? "User not found"
+  //         : err.code === "auth/wrong-password"
+  //         ? "Password is incorrect"
+  //         : "Could not connect to LifeCycle";
+  //   }
+  // }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -55,7 +80,7 @@
     const email = formData.get("email");
     const password = formData.get("password");
     const confirmPassword = formData.get("confirmPassword");
-    // console.log(formData, "<<<form data");
+    console.log(formData, "<<<form data");
     if (isSignIn) {
       if (password !== confirmPassword) {
         message = "Passwords do not match";
@@ -78,13 +103,23 @@
 
 <main class="flex bg-black flex-col items-center w-[99vw] h-full relative">
   <div class="custom-shape-divider-top-1680002298">
-    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+    <svg
+      data-name="Layer 1"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1200 120"
+      preserveAspectRatio="none"
+    >
+      <path
+        d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+        class="shape-fill"
+      />
     </svg>
-</div>
+  </div>
   <!-- <img src={logo} alt="life-cycle-logo" /> -->
 
-  <h1 class="px-3 my-14 py-1 text-6xl text-[#f0ebd2] z-1" >Welcome to Life Cycle!</h1>
+  <h1 class="px-3 my-14 py-1 text-6xl text-[#f0ebd2] z-1">
+    Welcome to Life Cycle!
+  </h1>
 
   {#if isSignIn}
     <p>Already created an account?</p>
@@ -118,11 +153,8 @@
       <button type="submit">Sign Up</button>
     </form>
   {:else}
-
-    <p class="no-account">
-      Don't have an account?
-    </p>
-      <button on:click={toggleForm}>Sign up here</button>
+    <p class="no-account">Don't have an account?</p>
+    <button on:click={toggleForm}>Sign up here</button>
     <form class="form-signin" on:submit={handleSubmit}>
       <label>
         Email:
@@ -137,10 +169,18 @@
   {/if}
   <p>{message ? message : ""}</p>
   <div class="custom-shape-divider-bottom-1680002532">
-    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+    <svg
+      data-name="Layer 1"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1200 120"
+      preserveAspectRatio="none"
+    >
+      <path
+        d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+        class="shape-fill"
+      />
     </svg>
-</div>
+  </div>
 </main>
 
 <style>
@@ -150,7 +190,7 @@
 
   h1 {
     z-index: 1;
-    color: #7b5ea7
+    color: #7b5ea7;
   }
 
   form {
@@ -164,9 +204,8 @@
     background-color: #7b5ea7;
     border-radius: 10px;
 
-    box-shadow: -8px 8px #F5BECC;
+    box-shadow: -8px 8px #f5becc;
     z-index: 1;
-
   }
 
   label {

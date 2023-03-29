@@ -1,5 +1,10 @@
-<script>
-  import { getStorage, ref, getDownloadURL } from "firebase/storage";
+{
+  /* <script>
+  import {
+    getStorage,
+    ref as storageRef,
+    getDownloadURL,
+  } from "firebase/storage";
   import { writable } from "svelte/store";
   import { getFirestore, doc, setDoc } from "firebase/firestore";
   import { signOut } from "firebase/auth";
@@ -7,8 +12,7 @@
   // import { getAuth } from "firebase/auth";
   import userStore from "../utils/userStore";
   import { onMount } from "svelte";
-  import { getDatabase, ref as dbRef, set } from "firebase/database";
-  import { app } from "../utils/firebase";
+  import { getDatabase, ref as databaseRef, set } from "firebase/database";
 
   export const db = getDatabase(app);
 
@@ -43,7 +47,7 @@
     file = event.target.files[0];
     if (file) {
       avatarURL = URL.createObjectURL(file);
-      showPresets = false;
+      showPresets = !showPresets;
     }
   }
 
@@ -52,7 +56,6 @@
     const storageRef = ref(storage, `images/Avatars/${preset}`);
     getDownloadURL(storageRef).then((url) => {
       avatarURL = url;
-      showPresets = false;
     });
   }
   //sign out function
@@ -84,9 +87,6 @@
       console.log(userData, "<<<<user data in on mount");
       if (userData) {
         user = userData;
-        Setting the user's name and email here to the user store
-        document.getElementById("name").value = user.name;
-        document.getElementById("email").value = user.email;
       }
     });
   });
@@ -97,7 +97,7 @@
 
     const userId = user.id;
 
-    set(dbRef(db, `users/${user.username}`), {
+    set(ref(db, `users/${user.username}`), {
       id: user.id,
       name: user.name,
       email: user.email,
@@ -156,7 +156,7 @@
       <input id="username" type="text" bind:value={user.username} />
 
       <label for="email">Email:</label>
-      <input id="email" type="email" bind:value={user.email} disabled />
+      <input id="email" type="email" bind:value={user.email} />
 
       <label for="avatar">
         Upload Avatar:
@@ -219,131 +219,85 @@
       />
     </svg>
   </div>
-</main>
+</main> */
+// }
 
-<!-- // Add the createLifeCycle() function here -->
+// login script
+// <script>
+//   import { ref, set } from "firebase/database";
+//   import { navigate } from "svelte-navigator";
+//   import {
+//     createUserWithEmailAndPassword,
+//     signInWithEmailAndPassword,
+//   } from "firebase/auth";
+//   import { auth, db } from "../utils/firebase";
+//   import userStore from "../utils/userStore";
 
-<!-- function createLifeCycle() {
-    // navigate to Poi.svelte component
-  } -->
+//   let isSignIn = false;
+//   let message = "";
 
-<style>
-  h1 {
-    z-index: 1;
-  }
-  .form-wrapper {
-    box-shadow: -8px 8px #f5becc;
-    border-radius: 10px;
-    z-index: 1;
-  }
-  .button-create {
-    margin-bottom: 30px;
-  }
-  button {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    align-items: center;
-    background-color: #ed203d;
-    box-shadow: -3px 3px 0px 0px #f5becc;
-    z-index: 1;
-    color: white;
-    border: none;
-    border-radius: 5px;
-  }
-  main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem;
-  }
+//   const toggleForm = () => {
+//     isSignIn = !isSignIn;
+//   };
 
-  input {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: auto;
-    margin-bottom: 8px;
-    margin-top: 8px;
-    background-color: #f38ba3;
-    box-shadow: -10px 6px 2px black;
-    border: none;
-    border-bottom: 2px solid black;
-    justify-self: auto;
-    z-index: 1;
-  }
+//   async function signUp(formData) {
+//     try {
+//       const { name, email, password, dob } = formData;
+//       await createUserWithEmailAndPassword(auth, email, password);
+//       message = "Account created successfully";
+//       userStore.set({ username: email.replace(/[@.]/g, "-"), dob, name });
+//       navigate("/account");
+//     } catch (err) {
+//       message =
+//         err.code === "auth/email-already-in-use"
+//           ? "That email is already registered"
+//           : "Could not connect to LifeCycle";
+//     }
+//   }
 
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
+//   async function logIn(formData) {
+//     try {
+//       const { email, password } = formData;
+//       await signInWithEmailAndPassword(auth, email, password);
+//       message = "Logged in!";
+//       userStore.set({ username: email.replace(/[@.]/g, "-") });
+//       navigate("/account");
+//     } catch (err) {
+//       message =
+//         err.code === "auth/user-not-found"
+//           ? "User not found"
+//           : err.code === "auth/wrong-password"
+//           ? "Password is incorrect"
+//           : "Could not connect to LifeCycle";
+//     }
+//   }
 
-  label {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-    margin: auto;
-    color: #272122;
-  }
+//   const handleSubmit = async (event) => {
+//     event.preventDefault();
+//     const formData = new FormData(event.target);
+//     const name = formData.get("name");
+//     const dob = formData.get("dob");
+//     const email = formData.get("email");
+//     const password = formData.get("password");
+//     const confirmPassword = formData.get("confirmPassword");
+//     console.log(formData, "<<<form data");
+//     if (isSignIn) {
+//       if (password !== confirmPassword) {
+//         message = "Passwords do not match";
+//         return;
+//       }
+//       message = "Creating user profile...";
+//       signUp({ name, dob, email, password });
+//     } else {
+//       const { email, password } = Object.fromEntries(formData.entries());
+//       message = "Logging in...";
+//       logIn({ email, password });
+//     }
 
-  /* input[type="text"],
-  input[type="email"],
-  input[type="file"],
-  button[type="submit"] {
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    padding: 0.5rem;
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    width: 100%;
-    box-sizing: border-box;
-  } */
+//     const username = email.replace(/[@.]/g, "-");
+//     set(ref(db, `users/${username}`), { name, dob }).catch(() => {
+//       message = "There was a problem connecting to LifeCycle";
+//     });
+//   };
+// </script>
 
-  input[type="file"] {
-    padding: 0;
-  }
-  .custom-shape-divider-bottom-1680013680 {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-    transform: rotate(180deg);
-  }
-
-  .custom-shape-divider-bottom-1680013680 svg {
-    position: relative;
-    display: block;
-    width: calc(133% + 1.3px);
-    height: 160px;
-    transform: rotateY(180deg);
-  }
-
-  .custom-shape-divider-bottom-1680013680 .shape-fill {
-    fill: #0cb2c0;
-  }
-
-  .custom-shape-divider-top-1680013806 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-    z-index: 0;
-  }
-
-  .custom-shape-divider-top-1680013806 svg {
-    position: relative;
-    display: block;
-    width: calc(192% + 1.3px);
-    height: 160px;
-    transform: rotateY(180deg);
-    z-index: 0;
-  }
-
-  .custom-shape-divider-top-1680013806 .shape-fill {
-    fill: #fcba28;
-    z-index: 0;
-  }
-</style>
