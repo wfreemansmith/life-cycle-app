@@ -51,28 +51,35 @@
     >
       <!-- Nav bar notes: "Account" and "Trees" should only be visible if there is a user signed in (user store) -->
       <Link
-        class="hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300 justify-items-center"
+        class="a-button hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-black rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300 justify-items-center"
         to="/">Home</Link
       >
       <Link
-        class="hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300"
+        class="a-button hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-black rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300"
         to="/account">Account</Link
       >
       <Link
-        class="hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300"
+        class="a-button hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-black rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300"
         to="/create">Trees</Link
       >
       <Link
-        class="hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300"
+        class="a-button hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-black rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300"
         to="/about">About</Link
       >
       <button
-        class="hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-gray-600 rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300"
-        on:click={handleSignOut}>{!loggedInUser ? "Sign in" : "Sign out"}</button
+        class="a-button hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-black rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300"
+        on:click={signOut}>Sign out</button
       >
     </div>
   </div>
 </nav>
 
 <style>
+  nav {
+    z-index: 5;
+  }
+
+  a, .a-button {
+    color: black;
+  }
 </style>
