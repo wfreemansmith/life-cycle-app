@@ -1,5 +1,5 @@
 <script>
-  import { Router, Link, Route } from "svelte-navigator";
+  import { Router, Route } from "svelte-navigator";
   import Login from "./components/Login.svelte";
   import Tree from "./components/Tree.svelte";
   import AccountPage from "./components/AccountPage.svelte";
@@ -18,14 +18,14 @@
     },
   ];
 
-  const appLogin = (username, dob, name) => {
-    console.log("loggedInUser: ", username);
-    loggedInUser = { id: username, name };
-    tree[0].dob = dob;
-  };
-  $: loggedInUser = $userStore;
+  $: userStore.subscribe((user) => {
+    if (user) {
+      loggedInUser = user;
+    } else {
+      loggedInUser = null;
+    }
+  });
 </script>
-
 
 <Router>
   <div class="page">
@@ -33,8 +33,9 @@
     <main
       class="main text-center flex flex-col items-start justify-center flex-wrap w-auto h-screen bg-[black]"
     >
-      <Route path="/">
-        <Login {appLogin} />
+      <Route path="/">s
+        <Login />
+
       </Route>
       <Route path="/account" component={AccountPage} />
       <Route path="/create">
