@@ -12,7 +12,8 @@ module.exports = {
   purge: {
     content: [
       "./src/**/*.svelte",
-      "./src/components/Nav.svelte"
+      "./src/components/Nav.svelte",
+      "./src/components/AccountPage.svelte"
     ],
   }
 }
