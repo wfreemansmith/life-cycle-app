@@ -8,16 +8,6 @@
 
   let loggedInUser = null;
 
-  let tree = [
-    {
-      id: 1,
-      name: "Birth",
-      detail: "It all starts here",
-      dob: null,
-      menu: null,
-    },
-  ];
-
   $: userStore.subscribe((user) => {
     if (user) {
       loggedInUser = user;
@@ -39,7 +29,7 @@
       </Route>
       <Route path="/account" component={AccountPage} />
       <Route path="/create">
-        <Tree {tree} {loggedInUser} />
+        <Tree {loggedInUser} />
       </Route>
     </main>
   </div>
