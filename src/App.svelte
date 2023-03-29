@@ -4,6 +4,7 @@
   import AccountPage from "./components/AccountPage.svelte";
   import userStore from "./utils/userStore";
   import Nav from "./components/Nav.svelte";
+  import { Router, Route } from "svelte-navigator";
 
   let loggedInUser = null;
   let tree = [
@@ -23,25 +24,32 @@
       loggedInUser = null;
     }
   });
-  const appLogin = (username, dob, name) => {
-    console.log("loggedInUser: ", username);
-    loggedInUser = { id: username, name };
-    tree[0].dob = dob;
-  };
+  // const appLogin = (username, dob, name) => {
+  //   console.log("loggedInUser: ", username);
+  //   loggedInUser = { username, name, dob };
+  //   tree[0].dob = dob;
+  // };
 </script>
 
-<div class="page">
-  <Nav />
-  <main
-    class="text-center flex flex-col items-start justify-center flex-wrap w-auto h-screen"
-  >
-    {#if !loggedInUser}
-      <Login {appLogin} />
-    {:else}
-      <AccountPage />
+<Router>
+  <div class="page">
+    <Nav />
+    {#if loggedInUser}
+      <h1>Username: {loggedInUser.username}</h1>
     {/if}
-  </main>
-</div>
+    <main
+      class="text-center flex flex-col items-start justify-center flex-wrap w-auto h-screen"
+    >
+      <Route path="/">
+        <Login />
+      </Route>
+      <Route path="/account" component={AccountPage} />
+      <Route path="/create">
+        <Tree {tree} {loggedInUser} />
+      </Route>
+    </main>
+  </div>
+</Router>
 
 <style global lang="postcss">
   @tailwind base;

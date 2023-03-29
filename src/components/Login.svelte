@@ -6,13 +6,7 @@
   } from "firebase/auth";
   import { auth, db } from "../utils/firebase";
   import userStore from "../utils/userStore";
-
-  let user = { name: "", email: "", dob: "" };
-  userStore.subscribe(($user) => {
-    if ($user) {
-      user = $user;
-    }
-  });
+  import { navigate } from "svelte-navigator";
 
   export let appLogin;
 
@@ -28,7 +22,6 @@
       const { email, password, dob } = formData;
       await createUserWithEmailAndPassword(auth, email, password);
       message = "Account created successfully";
-      appLogin(email.replace(/[@.]/g, "-"), dob);
     } catch (err) {
       message =
         err.code === "auth/email-already-in-use"
@@ -37,15 +30,13 @@
     }
   }
 
-
-
   async function logIn(formData) {
     try {
       const { email, password } = formData;
       await signInWithEmailAndPassword(auth, email, password);
       message = "Logged in!";
-
-      appLogin(email.replace(/[@.]/g, "-"));
+      userStore.set({ username: email.replace(/[@.]/g, "-") });
+      navigate("/account");
     } catch (err) {
       message =
         err.code === "auth/user-not-found"
@@ -56,50 +47,43 @@
     }
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("event.target", event.target);
     const formData = new FormData(event.target);
     const name = formData.get("name");
     const dob = formData.get("dob");
     const email = formData.get("email");
     const password = formData.get("password");
     const confirmPassword = formData.get("confirmPassword");
-
+    // console.log(formData, "<<<form data");
     if (isSignIn) {
       if (password !== confirmPassword) {
         message = "Passwords do not match";
         return;
       }
       message = "Creating user profile...";
-      signUp({ email, password });
+      signUp({ name, dob, email, password });
     } else {
-      message = "Loggin in...";
+      const { email, password } = Object.fromEntries(formData.entries());
+      message = "Logging in...";
       logIn({ email, password });
-      return;
     }
 
-    // Write the form data to the Firebase Realtime Database
-    const username = email.replace(/[@.]/g, "-"); // create a username from the user's email
-    set(ref(db, "users/" + username), {
-      name,
-      dob,
-    }).catch(() => {
+    const username = email.replace(/[@.]/g, "-");
+    set(ref(db, `users/${username}`), { name, dob }).catch(() => {
       message = "There was a problem connecting to LifeCycle";
     });
-
   };
 </script>
 
 <main class="flex bg-[#0f0d0e] flex-col items-center w-[99vw] h-full">
   <!-- <img src={logo} alt="life-cycle-logo" /> -->
-  <h1 class="px-3 my-14 py-1 text-6xl text-[#f0ebd2]" >Welcome to Life Cycle!</h1>
+  <h1 class="px-3 my-14 py-1 text-6xl text-[#f0ebd2]">
+    Welcome to Life Cycle!
+  </h1>
 
   {#if isSignIn}
-    <p>
-      Already created an account?
-      
-    </p>
+    <p>Already created an account?</p>
     <button on:click={toggleForm}>Log in here</button>
     <form class="form-signup" on:submit={handleSubmit}>
       <label>
@@ -130,10 +114,8 @@
       <button type="submit">Sign Up</button>
     </form>
   {:else}
-    <p>
-      Don't have an account?
-    </p>
-      <button on:click={toggleForm}>Sign up here</button>
+    <p>Don't have an account?</p>
+    <button on:click={toggleForm}>Sign up here</button>
     <form class="form-signin" on:submit={handleSubmit}>
       <label>
         Email:
@@ -151,7 +133,7 @@
 
 <style>
   p {
-    color:#f0ebd2
+    color: #f0ebd2;
   }
 
   form {
@@ -164,7 +146,7 @@
     height: fit-content;
     background-color: #7b5ea7;
     border-radius: 10px;
-    box-shadow: -8px 8px #F5BECC
+    box-shadow: -8px 8px #f5becc;
   }
 
   label {
@@ -190,8 +172,7 @@
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    box-shadow: -4px 4px 0px 1px 
-    #F5BECC;
+    box-shadow: -4px 4px 0px 1px #f5becc;
   }
 
   /* img {

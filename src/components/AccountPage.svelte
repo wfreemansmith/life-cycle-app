@@ -57,6 +57,7 @@
       await signOut(auth);
       console.log("Signed out successfully");
       userStore.set(null);
+      navigate("/");
     } catch (error) {
       console.error("Error signing out:", error);
     }
