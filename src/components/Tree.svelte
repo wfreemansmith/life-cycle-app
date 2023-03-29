@@ -1,9 +1,27 @@
 <script>
   import Poi from "./Poi.svelte";
-  export let tree = [];
-  export let loggedInUser = null;
+  import userStore from "../utils/userStore";
 
+  // Brings in currently logged in user from userStore
+  let loggedInUser;
+  userStore.subscribe((user) => {
+    loggedInUser = user;
+  });
+
+  // Creates the first milestone on a new tree
+  let tree = [
+    {
+      id: 1,
+      name: "Birth",
+      detail: "It all starts here",
+      date: loggedInUser.dob || null,
+      menu: null,
+    },
+  ];
+
+  // Function to create a new milestone at any point on the tree
   const addLifeEvent = (id) => {
+    console.log(tree)
     tree.forEach(event => {
       event.menu = null
     });
@@ -22,6 +40,7 @@
     tree = tree;  
   };
 
+  // Deletes milestone
   const deleteLifeEvent = (id) => {
     if (id === 1) return;
     const position = tree.findIndex((event) => {
@@ -32,6 +51,7 @@
   }
 
 </script>
+
 
 <main class="flex bg-black flex-col items-center w-[99vw] h-full relative">
       <div class="custom-shape-divider-top-1680089435">
