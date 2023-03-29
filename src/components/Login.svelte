@@ -57,7 +57,7 @@
     const email = formData.get("email");
     const password = formData.get("password");
     const confirmPassword = formData.get("confirmPassword");
-    // console.log(formData, "<<<form data");
+    
     if (isSignIn) {
       if (password !== confirmPassword) {
         message = "Passwords do not match";
@@ -66,7 +66,6 @@
       message = "Creating user profile...";
       signUp({ name, dob, email, password });
     } else {
-      const { email, password } = Object.fromEntries(formData.entries());
       message = "Logging in...";
       logIn({ email, password });
     }
@@ -201,7 +200,7 @@
     box-shadow: -4px 4px 0px 1px #f5becc;
   }
 
-  /* img {
+  img {
     width: 200px;
     margin-top: 20px;
 
@@ -253,5 +252,5 @@
 .custom-shape-divider-bottom-1680002532 .shape-fill {
     fill: #0CB2C0;
     z-index: 0
-} */
+}
 </style>
