@@ -17,10 +17,9 @@
     if (event) {
       event.preventDefault();
 
-      set(ref(db, `users/${loggedInUser}/poi-data/${poi.id}`), {id: poi.id, name: poi.name, dob: poi.dob, detail: poi.detail})
+      set(ref(db, `users/${loggedInUser.username}/poi-data/${poi.id}`), {id: poi.id, name: poi.name, date: poi.date, detail: poi.detail})
         .then(() => {
           console.log("Data written successfully!");
-
         })
         .catch((error) => {
           console.error("Error writing data: ", error);
@@ -39,7 +38,7 @@
   <main>
     <h1>{poi.name}</h1>
     <p>{poi.detail}</p>
-    <p>{poi.dob ? poi.dob : ""}</p>
+    <p>{poi.date ? poi.date : ""}</p>
     {#if poi.menu}
       <button type="button" class="minus w-8 h-8" on:click={closeForm}><FaMinus /></button>
     {:else}
