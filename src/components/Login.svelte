@@ -8,8 +8,6 @@
   import { auth, db } from "../utils/firebase";
   import userStore from "../utils/userStore";
 
-  export let appLogin;
-
   let isSignIn = false;
   let message = "";
 
