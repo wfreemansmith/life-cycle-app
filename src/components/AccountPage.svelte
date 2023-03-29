@@ -132,7 +132,6 @@
       />
     </svg>
 </div>
-  <h1>Welcome, {user}!</h1>
 <span class="grid grid-cols-2 grid-rows-1">
 
   
@@ -170,10 +169,10 @@
         {/if}
         
       <label>Username:</label>
-      <input type="text" bind:value="{username}" />
+      <input type="text" bind:value="{user.name}" />
 
       <label>Email:</label>
-      <input type="email" bind:value="{email}" />
+      <input type="email" bind:value="{user.email}" />
 
       <button type="button" on:click="{saveChanges}">Save Changes</button>
 
