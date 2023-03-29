@@ -20,7 +20,7 @@
       const { name, email, password, dob } = formData;
       await createUserWithEmailAndPassword(auth, email, password);
       message = "Account created successfully";
-      userStore.set({ username: email.replace(/[@.]/g, "-"), dob, name });
+      userStore.set({ username: email.replace(/[@.]/g, "-"), email, dob, name });
       navigate("/account");
     } catch (err) {
       message =
@@ -33,7 +33,9 @@
   async function logIn(formData) {
     try {
       const { email, password } = formData;
-      await signInWithEmailAndPassword(auth, email, password);
+      const checkingout = await signInWithEmailAndPassword(auth, email, password);
+      console.log(checkingout)
+      console.log(auth)
       message = "Logged in!";
       userStore.set({ username: email.replace(/[@.]/g, "-") });
       navigate("/account");
