@@ -2,6 +2,10 @@
   import { fade } from "svelte/transition";
   import { ref, set } from "firebase/database";
   import { db } from "../utils/firebase";
+  import FaPlus from 'svelte-icons/fa/FaPlus.svelte'
+  import FaMinus from 'svelte-icons/fa/FaMinus.svelte'
+  import MdSend from 'svelte-icons/md/MdSend.svelte'
+  import { gsap } from "gsap";
 
   export let poi = {};
   export let addLifeEvent;
@@ -36,18 +40,18 @@
     <p>{poi.detail}</p>
     <p>{poi.date ? poi.date : ""}</p>
     {#if poi.menu}
-      <button type="button" on:click={closeForm}>-</button>
+      <button type="button" class="minus w-8 h-8" on:click={closeForm}><FaMinus /></button>
     {:else}
-      <button type="button" on:click={menuToggle}>+</button>
+      <button type="button" class="plus w-8 h-8" on:click={menuToggle}><FaPlus /></button>
     {/if}
   </main>
   {#if poi.menu === "menu"}
-    <div transition:fade>
+    <div transition:fade class="add-event-div">
       <button
-        type="button"
-        on:click={() => {
-          addLifeEvent(poi.id);
-        }}>Add life event</button
+      type="button" class="add-event" id="add-event"
+      on:click={() => {
+        addLifeEvent(poi.id);
+      }}>Add life event</button
       >
       {#if poi.name !== "Birth"}
         <button
@@ -57,7 +61,7 @@
           }}>Edit</button
         >
         <button
-          type="button"
+          type="button" class="delete-event"
           on:click={() => {
             deleteLifeEvent(poi.id);
           }}>Delete</button
@@ -66,7 +70,7 @@
     </div>
   {/if}
   {#if poi.menu === "form"}
-    <form
+    <form class="new-form mt-2 bg-white rounded-md"
       transition:fade
       on:submit={() => {
         closeForm(event);
@@ -76,14 +80,21 @@
       <input id="name" autofucus bind:value={poi.name} type="text" required />
       <label for="detail">Tell us more</label>
       <input id="detail" bind:value={poi.detail} type="text" required />
-      <label for="date">Date</label>
-      <input id="date" bind:value={poi.date} type="date" required />
-      <button type="submit">Ok</button>
+      <label for="dob">Date</label>
+      <input id="dob" bind:value={poi.dob} type="date" required />
+      <button type="submit" class="send w-8 h-8"><MdSend /></button>
     </form>
   {/if}
 </div>
 
 <style>
+  div {
+    z-index: 1;
+  }
+
+  form {
+    z-index: 1;
+  }
   h1 {
     color: #eff3f4;
     text-transform: uppercase;
@@ -94,9 +105,39 @@
     border-width: 2px;
     border-style: solid;
     border-color: #66686b;
+    border-radius: 10px;
     width: fit-content;
     padding: 20px 50px;
     background-color: #f1ae56;
     margin: 0px 50px;
+    box-shadow: -4px 4px 0px 0px #f0c996
+  }
+
+  button {
+    background-color: #ed203d;
+    margin: auto;
+    min-width: 15px;
+    min-height: 15px;
+  }
+
+  .add-event {
+    margin-top: 10px;
+  }
+  @keyframes append-animate {
+	from {
+		transform: scale(0);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1.2);
+		opacity: 1;	
+	}
+  to {
+    transform: scale(1);
+    opacity:1;
+  }
+}
+  .new-form {
+    animation: append-animate .3s linear;
   }
 </style>
