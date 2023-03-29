@@ -14,7 +14,7 @@
       id: 1,
       name: "Birth",
       detail: "It all starts here",
-      date: loggedInUser.dob || null,
+      date: null,
       menu: null,
     },
   ];
