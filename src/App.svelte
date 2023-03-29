@@ -5,6 +5,7 @@
   import AccountPage from "./components/AccountPage.svelte";
   import userStore from "./utils/userStore";
   import Nav from "./components/Nav.svelte";
+  import OpenStreetMap from "./components/OpenStreetMap.svelte";
 
   let loggedInUser = null;
 
@@ -26,7 +27,6 @@
   $: loggedInUser = $userStore;
 </script>
 
-
 <Router>
   <div class="page">
     <Nav />
@@ -39,6 +39,7 @@
       <Route path="/account" component={AccountPage} />
       <Route path="/create">
         <Tree {tree} {loggedInUser} />
+        <OpenStreetMap {latitude} {longitude} />
       </Route>
     </main>
   </div>
@@ -48,7 +49,7 @@
   @tailwind base;
   @tailwind components;
   @tailwind utilities;
-  @import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
+  @import url("https://fonts.googleapis.com/css2?family=Arvo&display=swap");
   body {
     height: fit-content;
     width: 100%;
