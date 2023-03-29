@@ -167,7 +167,6 @@
 
   h1 {
     z-index: 1;
-    color: #7b5ea7
   }
 
   form {
@@ -190,7 +189,7 @@
     margin-bottom: 2px;
     margin-top: 8px;
     z-index: 1;
-    color: #272122;
+    color: #f0ebd2;
     font-size: large;
   }
 

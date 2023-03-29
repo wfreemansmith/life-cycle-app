@@ -99,29 +99,27 @@ async function saveChanges(event) {
     </svg>
 </div>
   <h1>Welcome, {user}!</h1>
+<span class="grid grid-cols-2 grid-rows-1">
 
-  {#if avatarURL}
-    <img src="{avatarURL}" alt="Avatar" width="200" />
-  {/if}
-
+  
   <div class="form-wrapper bg-[#7b5ea7] mt-12">
     <form class="flex flex-col items-center mx-3 w-[100%] mb-8">
       <label>Name:</label>
       <input type="text" value="{user}" />
 
-      <label>
+      <label class="w-50 h-25">
         Upload Avatar:
         <input
           type="file"
           on:change="{handleFileInputChange}"
-          accept="image/*"
+          accept="image/*" class="[w-50%]"
         />
       </label>
 
       <button class="button-create" type="button" on:click="{togglePresets}">Select Preset</button>
 
       {#if showPresets}
-        <div>
+        <div class="grid grid-cols-3 grid-rows-1 w-[80%]">
           {#each $presetURLsStore as presetURL, index}
             <img
               src="{presetURL}"
@@ -132,8 +130,8 @@ async function saveChanges(event) {
             />
           {/each}
         </div>
-      {/if}
-
+        {/if}
+        
       <label>Username:</label>
       <input type="text" bind:value="{username}" />
 
@@ -144,6 +142,10 @@ async function saveChanges(event) {
 
     </form>
   </div>
+  {#if avatarURL}
+    <img src="{avatarURL}" alt="Avatar" width="200" class="m-auto justify-center items-center" />
+  {/if}
+</span>
 
   <button on:click="{() => createLifeCycle()}">Create Life Cycle</button>
   <div class="custom-shape-divider-bottom-1680013680">
@@ -179,6 +181,11 @@ async function saveChanges(event) {
   .button-create {
     margin-bottom: 30px;
   }
+  label input {
+    font-size:xx-small;
+    opacity: 1;
+  }
+
   button {
     display: flex;
     flex-direction: column;
