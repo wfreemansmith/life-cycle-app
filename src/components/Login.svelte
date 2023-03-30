@@ -38,7 +38,7 @@
       console.log(auth)
       message = "Logged in!";
       userStore.set({ username: email.replace(/[@.]/g, "-") });
-      navigate("/account");
+      navigate("/create");
     } catch (err) {
       message =
         err.code === "auth/user-not-found"
