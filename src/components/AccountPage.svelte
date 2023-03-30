@@ -9,6 +9,7 @@
   import { onMount } from "svelte";
   import { getDatabase, ref as dbRef, set } from "firebase/database";
   import { app } from "../utils/firebase";
+  import { getData } from "../utils/getdata";
 
   export const db = getDatabase(app);
 
@@ -79,16 +80,18 @@
     presetURLsStore.set([]);
   }
 
-  onMount(() => {
-    userStore.subscribe((userData) => {
-      console.log(userData, "<<<<user data in on mount");
-      if (userData) {
-        user = userData;
-        Setting the user's name and email here to the user store
-        document.getElementById("name").value = user.name;
-        document.getElementById("email").value = user.email;
-      }
-    });
+  onMount(async () => {
+    if (user.username) {
+      await getData(user.username);
+      userStore.subscribe((userData) => {
+        console.log(userData);
+        if (userData) {
+          user = userData;
+          document.getElementById("name").value = user.name;
+          document.getElementById("email").value = user.email;
+        }
+      });
+    }
   });
 
   //save changes function
@@ -116,6 +119,7 @@
   class="relative h-full w-full justify-center items-center m-auto bg-black"
 >
   <h1>Welcome, {user.name}!</h1>
+  console.log(user)
   <div class="custom-shape-divider-top-1680013806">
     <svg
       data-name="Layer 1"

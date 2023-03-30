@@ -7,6 +7,7 @@
   } from "firebase/auth";
   import { auth, db } from "../utils/firebase";
   import userStore from "../utils/userStore";
+  import { getData } from "../utils/getdata";
 
   let isSignIn = false;
   let message = "";
@@ -20,7 +21,12 @@
       const { name, email, password, dob } = formData;
       await createUserWithEmailAndPassword(auth, email, password);
       message = "Account created successfully";
-      userStore.set({ username: email.replace(/[@.]/g, "-"), dob, name });
+      userStore.set({
+        username: email.replace(/[@.]/g, "-"),
+        email,
+        dob,
+        name,
+      });
       navigate("/account");
     } catch (err) {
       message =
@@ -34,7 +40,10 @@
       const { email, password } = formData;
       await signInWithEmailAndPassword(auth, email, password);
       message = "Logged in!";
-      userStore.set({ username: email.replace(/[@.]/g, "-") });
+
+      const username = email.replace(/[@.]/g, "-");
+      userStore.set({ username });
+
       navigate("/account");
     } catch (err) {
       message =
@@ -45,6 +54,7 @@
           : "Could not connect to LifeCycle";
     }
   }
+
   // async function logIn(formData) {
   //   try {
   //     const { email, password } = formData;
