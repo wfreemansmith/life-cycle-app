@@ -2,86 +2,102 @@
   import { fade } from "svelte/transition";
   import { ref, set } from "firebase/database";
   import { db } from "../utils/firebase";
-  import FaPlus from 'svelte-icons/fa/FaPlus.svelte'
-  import FaMinus from 'svelte-icons/fa/FaMinus.svelte'
-  import MdSend from 'svelte-icons/md/MdSend.svelte'
+  import FaPlus from "svelte-icons/fa/FaPlus.svelte";
+  import FaMinus from "svelte-icons/fa/FaMinus.svelte";
+  import MdSend from "svelte-icons/md/MdSend.svelte";
   import { gsap } from "gsap";
 
-  export let poi = {};
+  export let milestone = {};
   export let addLifeEvent;
   export let deleteLifeEvent;
-  export let loggedInUser = null
+  export let orderByDate;
+  export let loggedInUser = null;
 
+  // Closes form... if user closes form without filling in any details, the Milestone is deleted
   const closeForm = (event) => {
-    if (poi.menu === "form" && !poi.name & !poi.detail) deleteLifeEvent(poi.id);
+    if (milestone.menu === "form" && !milestone.name & !milestone.detail) deleteLifeEvent(milestone.id);
     if (event) {
       event.preventDefault();
+      orderByDate()
 
-      set(ref(db, `users/${loggedInUser.username}/poi-data/${poi.id}`), {id: poi.id, name: poi.name, date: poi.date, detail: poi.detail})
+      set(ref(db, `users/${loggedInUser.username}/milestone-data/${milestone.id}`), {
+        id: milestone.id,
+        name: milestone.name,
+        date: milestone.date,
+        detail: milestone.detail,
+      })
         .then(() => {
           console.log("Data written successfully!");
         })
         .catch((error) => {
           console.error("Error writing data: ", error);
         });
-
     }
-    poi.menu = null;
+    milestone.menu = null;
   };
 
+  // Closes menu
   const menuToggle = () => {
-    poi.menu = "menu";
+    milestone.menu = "menu";
   };
 </script>
 
 <div transition:fade>
   <main>
-    <h1>{poi.name}</h1>
-    <p>{poi.detail}</p>
-    <p>{poi.date ? poi.date : ""}</p>
-    {#if poi.menu}
-      <button type="button" class="minus w-8 h-8" on:click={closeForm}><FaMinus /></button>
+    <h1>{milestone.name}</h1>
+    <p>{milestone.detail}</p>
+    <p>{milestone.date ? milestone.date : ""}</p>
+    {#if milestone.menu}
+      <button transition:fade type="button" class="minus w-8 h-8" on:click={closeForm}
+        ><FaMinus /></button
+      >
     {:else}
-      <button type="button" class="plus w-8 h-8" on:click={menuToggle}><FaPlus /></button>
+      <button transition:fade type="button" class="plus w-8 h-8" on:click={menuToggle}
+        ><FaPlus /></button
+      >
     {/if}
   </main>
-  {#if poi.menu === "menu"}
+  {#if milestone.menu === "menu"}
     <div transition:fade class="add-event-div">
       <button
-      type="button" class="add-event" id="add-event"
-      on:click={() => {
-        addLifeEvent(poi.id);
-      }}>Add life event</button
+        type="button"
+        class="add-event"
+        id="add-event"
+        on:click={() => {
+          addLifeEvent(milestone.id);
+        }}>Add life event</button
       >
-      {#if poi.name !== "Birth"}
+      {#if milestone.name !== "Birth"}
         <button
           type="button"
           on:click={() => {
-            poi.menu = "form";
+            milestone.menu = "form";
           }}>Edit</button
         >
         <button
-          type="button" class="delete-event"
+          type="button"
+          class="delete-event"
           on:click={() => {
-            deleteLifeEvent(poi.id);
+            deleteLifeEvent(milestone.id);
           }}>Delete</button
         >
       {/if}
     </div>
   {/if}
-  {#if poi.menu === "form"}
-    <form class="new-form mt-2 bg-white rounded-md"
+  {#if milestone.menu === "form"}
+    <form
+      class="new-form mt-2 bg-white rounded-md"
       transition:fade
       on:submit={() => {
         closeForm(event);
       }}
     >
       <label for="name">Life event</label>
-      <input id="name" autofucus bind:value={poi.name} type="text" required />
+      <input id="name" autofucus bind:value={milestone.name} type="text" required />
       <label for="detail">Tell us more</label>
-      <input id="detail" bind:value={poi.detail} type="text" required />
-      <label for="dob">Date</label>
-      <input id="dob" bind:value={poi.dob} type="date" required />
+      <input id="detail" bind:value={milestone.detail} type="text" required />
+      <label for="date">Date</label>
+      <input id="date" bind:value={milestone.date} type="date" required />
       <button type="submit" class="send w-8 h-8"><MdSend /></button>
     </form>
   {/if}
@@ -110,7 +126,7 @@
     padding: 20px 50px;
     background-color: #f1ae56;
     margin: 0px 50px;
-    box-shadow: -4px 4px 0px 0px #f0c996
+    box-shadow: -4px 4px 0px 0px #f0c996;
   }
 
   button {
@@ -124,20 +140,20 @@
     margin-top: 10px;
   }
   @keyframes append-animate {
-	from {
-		transform: scale(0);
-		opacity: 0;
-	}
-	to {
-		transform: scale(1.2);
-		opacity: 1;	
-	}
-  to {
-    transform: scale(1);
-    opacity:1;
+    from {
+      transform: scale(0);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
   }
-}
   .new-form {
-    animation: append-animate .3s linear;
+    animation: append-animate 0.3s linear;
   }
 </style>
