@@ -17,7 +17,7 @@
   let user = null;
   let isLoading = true;
   let file;
-  let avatarURL;
+  let localAvatarURL;
   let showPresets = false;
   const presetImages = [
     "preset1.png",
@@ -29,7 +29,7 @@
   ];
 
   $: {
-    user = $userStore;
+    user = { ...$userStore };
     isLoading = !user;
     console.log("User data:", user);
   }
@@ -41,7 +41,7 @@
   function handleFileInputChange(event) {
     file = event.target.files[0];
     if (file) {
-      user.avatarURL = URL.createObjectURL(file);
+      localAvatarURL = URL.createObjectURL(file);
       showPresets = false;
     }
   }
@@ -50,7 +50,7 @@
   function selectPreset(preset) {
     const storageRef = ref(storage, `images/Avatars/${preset}`);
     getDownloadURL(storageRef).then((url) => {
-      user.avatarURL = url;
+      localAvatarURL = url;
       showPresets = false;
     });
   }
@@ -83,27 +83,32 @@
     console.log("user.username in SaveChanges", user.username);
     event.preventDefault();
 
-    set(dbRef(db, `users/${user.username}`), {
+    const userData = {
       name: user.name,
       email: user.email,
-      avatarURL,
       uid: user.uid,
-    }).catch(() => {
+    };
+
+    if (localAvatarURL) {
+      userData.avatarURL = localAvatarURL;
+    }
+
+    set(dbRef(db, `users/${user.username}`), userData).catch(() => {
       message = "There was a problem connecting to LifeCycle";
     });
-
-    // try {
-    //   await db.collection("users").doc(user.id).update({
-    //     name: user.name,
-    //     email: user.email,
-    //     username: user.username,
-    //     // ...
-    //   });
-    //   console.log("User data saved successfully");
-    // } catch (error) {
-    //   console.error("Error saving user data:", error);
-    // }
   }
+
+  // try {
+  //   await db.collection("users").doc(user.id).update({
+  //     name: user.name,
+  //     email: user.email,
+  //     username: user.username,
+  //     // ...
+  //   });
+  //   console.log("User data saved successfully");
+  // } catch (error) {
+  //   console.error("Error saving user data:", error);
+  // }
 </script>
 
 <main
@@ -140,8 +145,8 @@
       </svg>
     </div>
     <span class="grid grid-cols-2 grid-rows-1">
-      {#if user.avatarURL}
-        <img src={user.avatarURL} alt="Avatar" width="200" />
+      {#if localAvatarURL || user.avatarURL}
+        <img src={localAvatarURL || user.avatarURL} alt="Avatar" width="200" />
       {/if}
 
       <div class="form-wrapper bg-[#7b5ea7] mt-12">

@@ -15,10 +15,10 @@ export const getData = async (uid) => {
 
       const userKey = Object.keys(usersData).find((key) => {
         const userData = usersData[key];
-        console.log("Current user data:", userData);
-        console.log("Current key:", key);
+        // console.log("Current user data:", userData);
+        // console.log("Current key:", key);
         const uidMatch = userData.uid === uid;
-        console.log("uid match:", uidMatch);
+        // console.log("uid match:", uidMatch);
         return uidMatch;
       });
 
@@ -30,9 +30,9 @@ export const getData = async (uid) => {
       const userData = usersData[userKey];
       userData.username = userKey;
       userData.uid = uid;
-      console.log("User data before setting to store:", userData);
-      console.log("Searching for uid:", uid);
-      console.log("User keys in usersData:", Object.keys(usersData));
+      // console.log("User data before setting to store:", userData);
+      // console.log("Searching for uid:", uid);
+      // console.log("User keys in usersData:", Object.keys(usersData));
 
       userStore.set(userData);
       console.log("Found user data:", userData);
