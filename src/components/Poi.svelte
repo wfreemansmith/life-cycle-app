@@ -13,6 +13,7 @@
   export let orderByDate;
   export let loggedInUser = null;
 
+  // Closes form... if user closes form without filling in any details, the Milestone is deleted
   const closeForm = (event) => {
     if (milestone.menu === "form" && !milestone.name & !milestone.detail) deleteLifeEvent(milestone.id);
     if (event) {
@@ -35,6 +36,7 @@
     milestone.menu = null;
   };
 
+  // Closes menu
   const menuToggle = () => {
     milestone.menu = "menu";
   };

@@ -2,10 +2,11 @@
   import Poi from "./Poi.svelte";
   import userStore from "../utils/userStore";
 
-  // Brings in currently logged in user from userStore
+  // Brings in currently logged in user from userStore -- issue with this, as I believe it's asyncronous?
   let loggedInUser;
   userStore.subscribe((user) => {
     loggedInUser = user;
+    console.log(user)
   });
 
   // Creates the first milestone on a new tree
@@ -40,7 +41,7 @@
     tree = tree;
   };
 
-  // Orders array of Milestones by date
+  // Orders tree array of Milestones by date
   const orderByDate = () => {
     tree.sort((a, b) => {
       const nameA = a.date;
