@@ -5,28 +5,23 @@
   import FaAlignJustify from "svelte-icons/fa/FaAlignJustify.svelte";
   import { onMount } from "svelte";
   import userStore from "../utils/userStore";
-
   let loggedInUser;
-
   $: userStore.subscribe((user) => {
     loggedInUser = user;
   });
-
   onMount(() => {
     let toggleBtn = document.querySelector("#navbar-toggle");
     let collapse = document.querySelector("#navbar-collapse");
-
     toggleBtn.onclick = () => {
       collapse.classList.toggle("hidden");
       collapse.classList.toggle("flex");
     };
   });
-
   async function handleSignOut() {
     try {
       await signOut(auth);
-      userStore.set(null);
       navigate("/");
+      userStore.set(null);
       console.log("Signed out successfully");
     } catch (error) {
       console.error("Error signing out:", error);
@@ -49,26 +44,27 @@
       class="hidden md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0"
       id="navbar-collapse"
     >
-      <!-- Nav bar notes: "Account" and "Trees" should only be visible if there is a user signed in (user store) -->
-      <Link
+      <!-- <Link
         class="a-button hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-black rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300 justify-items-center"
         to="/">Home</Link
-      >
-      <Link
-        class="a-button hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-black rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300"
-        to="/account">Account</Link
-      >
-      <Link
-        class="a-button hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-black rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300"
-        to="/create">Trees</Link
-      >
+      > -->
+      {#if !!loggedInUser}
+        <Link
+          class="a-button hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-black rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300"
+          to="/create">Tree</Link
+        >{/if}
+      {#if !!loggedInUser}<Link
+          class="a-button hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-black rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300"
+          to="/account">Account</Link
+        >{/if}
       <Link
         class="a-button hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-black rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300"
         to="/about">About</Link
       >
       <button
         class="a-button hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-black rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300"
-        on:click={handleSignOut}>{!loggedInUser ? "Sign in" : "Sign out"}</button
+        on:click={handleSignOut}
+        >{!loggedInUser ? "Sign in" : "Sign out"}</button
       >
     </div>
   </div>
@@ -78,8 +74,8 @@
   nav {
     z-index: 5;
   }
-
-  a, .a-button {
+  a,
+  .a-button {
     color: black;
   }
 </style>
