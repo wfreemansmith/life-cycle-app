@@ -1,15 +1,31 @@
 <script>
-  import { storage, imagesRef, uploadImage } from "../utils/firebase";
+  import { onMount } from 'svelte';
+  import { storage } from '../utils/firebase';
+  import { imagesRef } from '../utils/firestore';
 
   async function uploadFile() {
-    const fileInput = document.querySelector('input[type="file"]');
     const file = fileInput.files[0];
-    const storageRef = storage.ref('path/to/file');
-    const snapshot = await storageRef.put(file);
-    console.log('File uploaded:', snapshot);
+    const storageRef = storage.ref(`images/${Date.now()}_${file.name}`);
+
+    try {
+      const snapshot = await storageRef.put(file);
+      console.log('File uploaded:', snapshot);
+
+      const downloadURL = await snapshot.ref.getDownloadURL();
+      console.log('Download URL:', downloadURL);
+
+      const docRef = await imagesRef.add({ downloadURL });
+      console.log('Image stored in Firestore with ID:', docRef.id);
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
   }
+
+  let fileInput;
+
+  onMount(() => {
+    fileInput = document.querySelector('input[type="file"]');
+  });
 </script>
 
-<input type="file" onchange={uploadFile}>
-
-//  it's not necessary to include Firebase Storage code in App.svelte. You can import it in the components where you need it with adding a path as well i.e. images path.
+<input type="file" onchange={uploadFile} bind:this={fileInput}>
