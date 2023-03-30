@@ -6,15 +6,15 @@
   import userStore from "./utils/userStore";
   import Nav from "./components/Nav.svelte";
 
-  let loggedInUser = null;
+  // let loggedInUser = null;
 
-  $: userStore.subscribe((user) => {
-    if (user) {
-      loggedInUser = user;
-    } else {
-      loggedInUser = null;
-    }
-  });
+  // $: userStore.subscribe((user) => {
+  //   if (user) {
+  //     loggedInUser = user;
+  //   } else {
+  //     loggedInUser = null;
+  //   }
+  // });
 </script>
 
 <Router>
@@ -23,14 +23,14 @@
     <main
       class="main text-center flex flex-col items-start justify-center flex-wrap w-auto h-screen bg-[black]"
     >
-      <Route path="/">
-        <Login />
+      <Route path="/" component={Login} />
+        <!-- <Login />
 
-      </Route>
+      </Route> -->
       <Route path="/account" component={AccountPage} />
-      <Route path="/create">
-        <Tree {loggedInUser} />
-      </Route>
+      <Route path="/create" component={Tree} />
+        <!-- <Tree {loggedInUser} />
+      </Route> -->
     </main>
   </div>
 </Router>

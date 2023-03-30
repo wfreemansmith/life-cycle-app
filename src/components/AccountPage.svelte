@@ -70,10 +70,14 @@
 
   //save changes function
   async function saveChanges(event) {
-    console.log("user.username in SaveChanges", user.username)
+    console.log("user.username in SaveChanges", user.username);
     event.preventDefault();
 
-    set(dbRef(db, `users/${user.username}`), { name: user.name, email: user.email, avatarURL }).catch(() => {
+    set(dbRef(db, `users/${user.username}`), {
+      name: user.name,
+      email: user.email,
+      avatarURL,
+    }).catch(() => {
       message = "There was a problem connecting to LifeCycle";
     });
 
