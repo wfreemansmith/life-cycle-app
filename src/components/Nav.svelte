@@ -49,19 +49,19 @@
       class="hidden md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0"
       id="navbar-collapse"
     >
-      <!-- Nav bar notes: "Account" and "Trees" should only be visible if there is a user signed in (user store) -->
-      <Link
+      <!-- <Link
         class="a-button hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-black rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300 justify-items-center"
         to="/">Home</Link
-      >
-      <Link
+      > -->
+      {#if !!loggedInUser} <Link
+        class="a-button hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-black rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300"
+        to="/create">Tree</Link
+      >{/if}
+      {#if !!loggedInUser}<Link
         class="a-button hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-black rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300"
         to="/account">Account</Link
-      >
-      <Link
-        class="a-button hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-black rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300"
-        to="/create">Trees</Link
-      >
+      >{/if}
+      
       <Link
         class="a-button hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-black rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300"
         to="/about">About</Link
