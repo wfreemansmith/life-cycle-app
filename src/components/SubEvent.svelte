@@ -1,0 +1,102 @@
+<script>
+  let eventType = "blank"
+
+  const toggleType = (event) => {
+    eventType=event.target.value
+  }
+
+</script>
+
+<div>
+  <article >
+    {#if eventType === "blank"}
+    <label for="select">What do you want to add to this milestone?</label>
+    <select id="select" on:change={toggleType}>
+      <option value="blank">blank</option>
+      <option value="location">Location</option>
+      <option value="text">Text</option>
+      <option value="photos">Photos</option>
+    </select>
+    {:else if eventType === "location"}
+    <h1>Location</h1>
+    <button value="blank" on:click={toggleType}>back</button>
+    {:else if eventType === "photos"}
+    <h1>Photos</h1>
+    <button value="blank" on:click={toggleType}>back</button>
+    {:else if eventType === "text"}
+    <h1>Text</h1>
+    <button value="blank" on:click={toggleType}>back</button>
+    {/if}
+  </article>
+</div>
+
+<style>
+  div {
+    z-index: 1;
+  }
+
+  form {
+    z-index: 1;
+  }
+  h1 {
+    color: #eff3f4;
+    text-transform: uppercase;
+    font-size: 2em;
+    font-weight: 100;
+  }
+
+  article {
+    border-width: 2px;
+    border-style: solid;
+    border-color: #66686b;
+    border-radius: 10px;
+    width: fit-content;
+    padding: 20px 50px;
+    background-color: #7b5ea7;
+    margin: 0px 50px;
+    box-shadow: -4px 4px 0px 0px #f0c996;
+  }
+
+  select {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    background-color: #f38ba3;
+    box-shadow: -10px 6px 2px black;
+    border: none;
+    border-bottom: 2px solid black;
+    justify-self: auto;
+    z-index: 1;
+  }
+
+  button {
+    background-color: #ed203d;
+    margin: auto;
+    min-width: 15px;
+    min-height: 15px;
+  }
+
+  .add-event {
+    margin-top: 10px;
+  }
+  @keyframes append-animate {
+    from {
+      transform: scale(0);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  .new-form {
+    animation: append-animate 0.3s linear;
+  }
+</style>
