@@ -6,18 +6,9 @@
   import TestingPage from "./components/TestingPage.svelte";
   import Nav from "./components/Nav.svelte";
 
-  // let loggedInUser = null;
-
-  // $: userStore.subscribe((user) => {
-  //   if (user) {
-  //     loggedInUser = user;
-  //   } else {
-  //     loggedInUser = null;
-  //   }
-  // });
 </script>
 
-<Router>
+<Router primary={false}>
   <div class="page">
     <Nav />
     <main
@@ -27,6 +18,8 @@
       <Route path="/account" component={AccountPage} />
       <Route path="/create" component={Tree} />
       <Route path="/about" component={TestingPage} />
+      <Route path="/*">
+      <h1>Sorry that page does not exist!</h1></Route>
     </main>
   </div>
 </Router>

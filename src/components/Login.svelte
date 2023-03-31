@@ -1,6 +1,6 @@
 <script>
   import { ref, set } from "firebase/database";
-  import { navigate } from "svelte-navigator";
+  import { useNavigate } from "svelte-navigator";
   import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -9,6 +9,7 @@
   import userStore from "../utils/userStore";
   import { getData } from "../utils/getdata";
 
+  const navigate = useNavigate()
   let isSignIn = false;
   let message = "";
 
