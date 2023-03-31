@@ -68,7 +68,7 @@
 </script>
 
 <main class="flex bg-black flex-col items-center w-[99vw] h-full relative">
-  <div class="custom-shape-divider-top-1680089435">
+  <div class="head custom-shape-divider-top-1680089435">
     <svg
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +91,7 @@
       />
     </svg>
   </div>
-  <div class="custom-shape-divider-bottom-1680089599">
+  <div class="foot custom-shape-divider-bottom-1680089599">
     <svg
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
@@ -126,8 +126,14 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    min-width: 100%;
+    width: fit-content;
     align-content: flex-start;
     justify-content: flex-start;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   .custom-shape-divider-top-1680089435 {
@@ -137,6 +143,10 @@
     width: 100%;
     overflow: hidden;
     line-height: 0;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   .custom-shape-divider-top-1680089435 svg {
@@ -145,6 +155,10 @@
     width: calc(100% + 1.3px);
     height: 254px;
     transform: rotateY(180deg);
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   .custom-shape-divider-top-1680089435 .shape-fill {
@@ -159,6 +173,10 @@
     overflow: hidden;
     line-height: 0;
     transform: rotate(180deg);
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   .custom-shape-divider-bottom-1680089599 svg {
@@ -166,6 +184,10 @@
     display: block;
     width: calc(143% + 1.3px);
     height: 254px;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   .custom-shape-divider-bottom-1680089599 .shape-fill {

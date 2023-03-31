@@ -10,7 +10,9 @@
 
 <Router primary={false}>
   <div class="page">
-    <Nav />
+    <div class="nav-wrapper">
+      <Nav />
+    </div>
     <main
       class="main text-center flex flex-col items-start justify-center flex-wrap w-auto h-screen bg-[black]"
     >
@@ -30,12 +32,18 @@
   @tailwind utilities;
   @import url("https://fonts.googleapis.com/css2?family=Arvo&display=swap");
   body {
+    display: inline-block;
     height: fit-content;
-    width: 100%;
-    overflow-x: hidden;
   }
 
-  .main {
-    z-index: -1;
+  .page {
+    display: inline-block;
+    height: fit-content;
+  }
+  main {
+    height: fit-content;
+  }
+  .nav-wrapper {
+    width: 100%
   }
 </style>

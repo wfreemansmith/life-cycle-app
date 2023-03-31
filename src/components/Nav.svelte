@@ -77,6 +77,9 @@
 <style>
   nav {
     z-index: 5;
+    position: sticky;
+    left: 0;
+    right: 0;
   }
 
   a,
