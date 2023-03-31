@@ -2,7 +2,10 @@
   import { ref, set } from "firebase/database";
   import { db } from "../utils/firebase";
   import Gallery from "./Gallery.svelte";
-
+  import QualificationsList from "./QualificationsList.svelte";
+  import OpenStreetMap from "./OpenStreetMap.svelte";
+  import TextInfo from "./TextInfo.svelte";
+  import SkillList from "./skills-subEvent/SkillList.svelte";
   let eventType = "blank";
 
   // currently hardcoded.... These would be passed down from POI component
@@ -39,9 +42,12 @@
         <option value="location">Location</option>
         <option value="text">Text</option>
         <option value="photos">Photos</option>
+        <option value="qualifications">Qualifications</option>
+        <option value="skills">Skills</option>
       </select>
     {:else if eventType === "location"}
       <h1>Location</h1>
+      <OpenStreetMap />
       <button value="blank" on:click={toggleType}>back</button>
     {:else if eventType === "photos"}
       <h1>Photos</h1>
@@ -52,15 +58,27 @@
       <button value="blank" on:click={toggleType}>back</button>
     {:else if eventType === "text"}
       <h1>Text</h1>
+      <TextInfo />
       <button value="test-text" type="button" on:click={saveData}
         >save data test</button
       >
+      <button value="blank" type="button" on:click={toggleType}>back</button>
+    {:else if eventType === "qualifications"}
+      <h1>Qualifications</h1>
+      <QualificationsList />
+      <button value="blank" type="button" on:click={toggleType}>back</button>
+    {:else if eventType === "skills"}
+      <h1>Skills</h1>
+      <SkillList />
       <button value="blank" type="button" on:click={toggleType}>back</button>
     {/if}
   </article>
 </div>
 
 <style>
+  * {
+    color: blue;
+  }
   div {
     z-index: 1;
   }
