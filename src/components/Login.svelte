@@ -58,8 +58,6 @@
         email,
         password
       );
-      console.log(userCredential);
-      console.log(auth);
       message = "Logged in!";
 
       const uid = userCredential.user.uid;

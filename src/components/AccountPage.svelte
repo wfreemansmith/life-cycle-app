@@ -22,7 +22,6 @@
   $: {
     user = $userStore;
     isLoading = !user;
-    console.log("User data:", user);
   }
   const presetURLsStore = writable([]);
   const togglePresets = () => {
@@ -60,7 +59,6 @@
 
   //save changes function
   async function saveChanges(event) {
-    console.log("user.username in SaveChanges", user.username);
     event.preventDefault();
 
     const updates = {
@@ -73,7 +71,7 @@
     if (localAvatarURL) {
       updates.avatarURL = localAvatarURL;
     }
-    console.log(user.username);
+    
     const userRef = dbRef(db, `users/${user.username}`);
     update(userRef, updates)
       .then(() => {
