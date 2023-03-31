@@ -1,15 +1,22 @@
 <script>
     import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
     import { storage } from "../utils/firebase";
+    import userStore from "../utils/userStore";
   
     let file;
     let images = [];
     let currentIndex = 0;
+
+    let user = null;
+  $: {
+    user = $userStore;
+  }
   
     function handleFileInputChange(event) {
       file = event.target.files[0];
       if (file && images.length < 10) {
-        const storageRef = ref(storage, `gallery/${Date.now()}_${file.name}`);
+        const storageRef = ref(storage, `users/${user.username}/gallery/${Date.now()}_${file.name}`);
+        
         uploadBytes(storageRef, file).then((snapshot) => {
           getDownloadURL(snapshot.ref).then((url) => {
             images = [...images, url];
