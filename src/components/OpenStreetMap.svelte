@@ -66,8 +66,8 @@
   
   <style>
     #map {
-      height: 30%;
-      width: 30%;
+      height: 100%;
+      width: 100%;
     }
   </style>
   
