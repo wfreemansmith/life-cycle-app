@@ -29,7 +29,7 @@
   ];
 
   $: {
-    user = { ...$userStore };
+    user = $userStore ;
     isLoading = !user;
     console.log("User data:", user);
   }
@@ -87,6 +87,7 @@
       name: user.name,
       email: user.email,
       uid: user.uid,
+      ...user
     };
 
     if (localAvatarURL) {

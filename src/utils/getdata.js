@@ -11,11 +11,11 @@ export const getData = async (uid) => {
 
     if (snapshot.exists()) {
       const usersData = snapshot.val();
-      console.log("All users data:", usersData);
+      // console.log("All users data:", usersData);
 
       const userKey = Object.keys(usersData).find((key) => {
         const userData = usersData[key];
-        // console.log("Current user data:", userData);
+        console.log("Current user data:", userData);
         // console.log("Current key:", key);
         const uidMatch = userData.uid === uid;
         // console.log("uid match:", uidMatch);
