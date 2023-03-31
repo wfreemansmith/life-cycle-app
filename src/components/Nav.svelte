@@ -5,23 +5,18 @@
   import FaAlignJustify from "svelte-icons/fa/FaAlignJustify.svelte";
   import { onMount } from "svelte";
   import userStore from "../utils/userStore";
-
   let loggedInUser;
-
   $: userStore.subscribe((user) => {
     loggedInUser = user;
   });
-
   onMount(() => {
     let toggleBtn = document.querySelector("#navbar-toggle");
     let collapse = document.querySelector("#navbar-collapse");
-
     toggleBtn.onclick = () => {
       collapse.classList.toggle("hidden");
       collapse.classList.toggle("flex");
     };
   });
-
   async function handleSignOut() {
     try {
       await signOut(auth);
