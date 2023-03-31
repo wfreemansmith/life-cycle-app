@@ -43,7 +43,7 @@
 </script>
 
 <div transition:fade>
-  <main>
+  <main class="new-main">
     <h1>{milestone.name}</h1>
     <p>{milestone.detail}</p>
     <p>{milestone.date ? milestone.date : ""}</p>
@@ -106,16 +106,20 @@
 <style>
   div {
     z-index: 1;
+    padding-left: 5px;
+    padding-right: 5px;
   }
-
+  p {
+    font-size: small;
+  }
   form {
     z-index: 1;
   }
   h1 {
     color: #eff3f4;
     text-transform: uppercase;
-    font-size: 4em;
-    font-weight: 100;
+    font-size: 2em;
+    font-weight: 80;
   }
   main {
     border-width: 2px;
@@ -123,10 +127,12 @@
     border-color: #66686b;
     border-radius: 10px;
     width: fit-content;
-    padding: 20px 50px;
+    padding: 20px 20px;
     background-color: #f1ae56;
-    margin: 0px 50px;
+    margin: 10px 50px;
     box-shadow: -4px 4px 0px 0px #f0c996;
+    height: fit-content;
+    
   }
 
   button {
@@ -153,7 +159,25 @@
       opacity: 1;
     }
   }
+
   .new-form {
     animation: append-animate 0.3s linear;
+  }
+
+  @keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+  .new-main {
+    animation: slidein 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-fill-mode: forwards;
   }
 </style>
