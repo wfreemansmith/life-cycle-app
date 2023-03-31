@@ -12,6 +12,7 @@
   $: userStore.subscribe((user) => {
     loggedInUser = user;
   });
+  
   onMount(() => {
     let toggleBtn = document.querySelector("#navbar-toggle");
     let collapse = document.querySelector("#navbar-collapse");

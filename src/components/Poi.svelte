@@ -5,28 +5,32 @@
   import FaPlus from "svelte-icons/fa/FaPlus.svelte";
   import FaMinus from "svelte-icons/fa/FaMinus.svelte";
   import MdSend from "svelte-icons/md/MdSend.svelte";
+  import { getData } from "../utils/getdata";
   import { gsap } from "gsap";
 
   export let milestone = {};
   export let addLifeEvent;
   export let deleteLifeEvent;
   export let orderByDate;
-  export let loggedInUser = null;
+  export let user = null;
 
   // Closes form... if user closes form without filling in any details, the Milestone is deleted
   const closeForm = (event) => {
-    if (milestone.menu === "form" && !milestone.name & !milestone.detail) deleteLifeEvent(milestone.id);
+    if (milestone.menu === "form" && !milestone.name & !milestone.detail) deleteLifeEvent(milestone.name);
     if (event) {
+      console.log("user dob", user.dob)
       event.preventDefault();
       orderByDate()
 
-      set(ref(db, `users/${loggedInUser.username}/milestone-data/${milestone.id}`), {
+      set(ref(db, `users/${user.username}/milestones/${milestone.name}`), {
         id: milestone.id,
         name: milestone.name,
         date: milestone.date,
         detail: milestone.detail,
+        menu: null,
       })
         .then(() => {
+          getData(user.uid);
           console.log("Data written successfully!");
         })
         .catch((error) => {
@@ -64,7 +68,7 @@
         class="add-event"
         id="add-event"
         on:click={() => {
-          addLifeEvent(milestone.id);
+          addLifeEvent(milestone.name);
         }}>Add life event</button
       >
       {#if milestone.name !== "Birth"}
@@ -78,7 +82,7 @@
           type="button"
           class="delete-event"
           on:click={() => {
-            deleteLifeEvent(milestone.id);
+            deleteLifeEvent(milestone.name);
           }}>Delete</button
         >
       {/if}
@@ -97,7 +101,8 @@
       <label for="detail">Tell us more</label>
       <input id="detail" bind:value={milestone.detail} type="text" required />
       <label for="date">Date</label>
-      <input id="date" bind:value={milestone.date} type="date" required />
+      <input id="date" bind:value={milestone.date} type="date" min={user.dob} required />
+      <!-- DATE: minimum dob -->
       <button type="submit" class="send w-8 h-8"><MdSend /></button>
     </form>
   {/if}

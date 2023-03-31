@@ -1,33 +1,22 @@
 <script>
   import Poi from "./Poi.svelte";
   import userStore from "../utils/userStore";
+  import {remove, ref} from "firebase/database";
+  import {db} from "../utils/firebase"
+  import { getData } from "../utils/getdata";
 
   // Brings in currently logged in user from userStore -- issue with this, as I believe it's asyncronous?
-  let loggedInUser;
-  userStore.subscribe((user) => {
-    loggedInUser = user;
-    console.log(user)
-  });
-
-  // Creates the first milestone on a new tree
-  let tree = [
-    {
-      id: 1,
-      name: "Birth",
-      detail: "It all starts here",
-      date: "0000-00-00",
-      menu: null,
-    },
-  ];
+  let user = $userStore;
+  console.log("user Milestones: ", user.milestones);
 
   // Function to create a new milestone at any point on the tree
-  const addLifeEvent = (id) => {
+  const addLifeEvent = (name) => {
     tree.forEach((milestone) => {
       milestone.menu = null;
-      if (!milestone.name & !milestone.detail) deleteLifeEvent(milestone.id);
+      if (!milestone.name & !milestone.detail) deleteLifeEvent(milestone.name);
     });
     const position = tree.findIndex((milestone) => {
-      return milestone.id === id;
+      return milestone.name === name;
     });
 
     const newEvent = {
@@ -53,18 +42,45 @@
         return 1;
       }
     });
-    tree = tree
+    tree = tree;
   };
 
   // Deletes milestone
-  const deleteLifeEvent = (id) => {
-    if (id === 1) return;
+  const deleteLifeEvent = (name) => {
+    if (name === "Birth") return;
     const position = tree.findIndex((milestone) => {
-      return milestone.id === id;
+      return milestone.name === name;
     });
     tree.splice(position, 1);
+
+    remove(ref(db, `users/${user.username}/milestones/${name}`))
+        .then(() => {
+          getData(user.uid);
+          console.log("Data written successfully!");
+        })
+        .catch((error) => {
+          console.error("Error writing data: ", error);
+        });
+
     tree = tree;
   };
+
+  // Creates the first milestone on a new tree
+  let tree = [
+    {
+      id: 1,
+      name: "Birth",
+      detail: "It all starts here",
+      date: user ? user.dob : "0000-00-00",
+      menu: null,
+    },
+  ];
+
+  if (user.hasOwnProperty("milestones")) {
+    tree = [...tree, ...Object.values(user.milestones)]
+    orderByDate()
+  }
+
 </script>
 
 <main class="flex bg-black flex-col items-center w-[99vw] h-full relative">
@@ -115,7 +131,7 @@
     </svg>
   </div>
   {#each tree as milestone}
-    <Poi {milestone} {addLifeEvent} {deleteLifeEvent} {loggedInUser} {orderByDate} />
+    <Poi {milestone} {addLifeEvent} {deleteLifeEvent} {user} {orderByDate} />
   {/each}
 </main>
 
