@@ -6,5 +6,4 @@
 <main>
   <h1>Page for testing components!</h1>
   <SubEvent />
-  <Gallery />
 </main>

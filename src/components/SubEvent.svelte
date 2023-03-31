@@ -1,52 +1,61 @@
 <script>
-  import {ref, set} from "firebase/database"
-  import {db } from "../utils/firebase"
-  let eventType = "blank"
+  import { ref, set } from "firebase/database";
+  import { db } from "../utils/firebase";
+  import Gallery from "./Gallery.svelte";
+
+  let eventType = "blank";
 
   // currently hardcoded.... These would be passed down from POI component
-  export let milestoneId = "2"
-  export let username = "aaaaaaargh"
+  export let milestoneId = "2";
+  export let username = "aaaaaaargh";
 
   const toggleType = (event) => {
-    eventType=event.target.value
-  }
+    eventType = event.target.value;
+  };
 
   // Temp save function for inputted data - may be used as part of another component
   const saveData = (event) => {
-    set(ref(db, `users/${username}/milestone-data/${milestoneId}/${eventType}`), {
-        insertDataHere: event.target.value
+    set(
+      ref(db, `users/${username}/milestone-data/${milestoneId}/${eventType}`),
+      {
+        insertDataHere: event.target.value,
+      }
+    )
+      .then(() => {
+        console.log("Data written successfully!");
       })
-        .then(() => {
-          console.log("Data written successfully!");
-        })
-        .catch((error) => {
-          console.error("Error writing data: ", error);
-        });
-  }
-
+      .catch((error) => {
+        console.error("Error writing data: ", error);
+      });
+  };
 </script>
 
 <div>
-  <article >
+  <article>
     {#if eventType === "blank"}
-    <label for="select">What do you want to add to this milestone?</label>
-    <select id="select" on:change={toggleType}>
-      <option value="blank">blank</option>
-      <option value="location">Location</option>
-      <option value="text">Text</option>
-      <option value="photos">Photos</option>
-    </select>
+      <label for="select">What do you want to add to this milestone?</label>
+      <select id="select" on:change={toggleType}>
+        <option value="blank">blank</option>
+        <option value="location">Location</option>
+        <option value="text">Text</option>
+        <option value="photos">Photos</option>
+      </select>
     {:else if eventType === "location"}
-    <h1>Location</h1>
-    <button value="blank" on:click={toggleType}>back</button>
+      <h1>Location</h1>
+      <button value="blank" on:click={toggleType}>back</button>
     {:else if eventType === "photos"}
-    <h1>Photos</h1>
-    <button value="insert image URL" type="button" on:click={saveData}>save data test</button>
-    <button value="blank" on:click={toggleType}>back</button>
+      <h1>Photos</h1>
+      <Gallery />
+      <button value="insert image URL" type="button" on:click={saveData}
+        >save data test</button
+      >
+      <button value="blank" on:click={toggleType}>back</button>
     {:else if eventType === "text"}
-    <h1>Text</h1>
-    <button value="test-text" type="button" on:click={saveData}>save data test</button>
-    <button value="blank" type="button" on:click={toggleType}>back</button>
+      <h1>Text</h1>
+      <button value="test-text" type="button" on:click={saveData}
+        >save data test</button
+      >
+      <button value="blank" type="button" on:click={toggleType}>back</button>
     {/if}
   </article>
 </div>
