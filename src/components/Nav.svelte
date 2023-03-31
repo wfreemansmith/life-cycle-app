@@ -1,10 +1,13 @@
 <script>
-  import { Link, navigate } from "svelte-navigator";
+  import { Link, useNavigate } from "svelte-navigator";
   import { signOut } from "firebase/auth";
   import { auth } from "../utils/firebase";
   import FaAlignJustify from "svelte-icons/fa/FaAlignJustify.svelte";
   import { onMount } from "svelte";
   import userStore from "../utils/userStore";
+
+  const navigate = useNavigate()
+
   let loggedInUser;
   $: userStore.subscribe((user) => {
     loggedInUser = user;
