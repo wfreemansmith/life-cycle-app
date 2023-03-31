@@ -1,19 +1,10 @@
 <script>
   import { ref, getDownloadURL } from "firebase/storage";
-  import { ref as dbRef, set } from "firebase/database";
+  import { ref as dbRef, set, update } from "firebase/database";
   import { writable } from "svelte/store";
   import { auth, db, storage } from "../utils/firebase";
   import userStore from "../utils/userStore";
-  // import { onMount } from "svelte";
 
-  // let username = "";
-  // let email = "";
-  // export let loggedInUser;
-  // let user = "";
-  // userStore.subscribe(($user) => {
-  //   user = $user;
-  //   console.log("userStore updated:", user);
-  // });
   let user = null;
   let isLoading = true;
   let file;
@@ -29,7 +20,7 @@
   ];
 
   $: {
-    user = $userStore ;
+    user = $userStore;
     isLoading = !user;
     console.log("User data:", user);
   }
@@ -66,50 +57,33 @@
   } else {
     presetURLsStore.set([]);
   }
-  // $: userStore.subscribe((userData) => {
-  //     console.log(userData, "<<<<user data in reactive statement");
-  //     user = userData;
-  //   });
-
-  // onMount(() => {
-  //   userStore.subscribe((userData) => {
-  //     console.log(userData, "<<<<user data in on mount");
-  //     user = userData;
-  //   });
-  // });
 
   //save changes function
   async function saveChanges(event) {
     console.log("user.username in SaveChanges", user.username);
     event.preventDefault();
 
-    const userData = {
+    const updates = {
       name: user.name,
       email: user.email,
       uid: user.uid,
-      ...user
+      dob: user.dob,
     };
 
     if (localAvatarURL) {
-      userData.avatarURL = localAvatarURL;
+      updates.avatarURL = localAvatarURL;
     }
-
-    set(dbRef(db, `users/${user.username}`), userData).catch(() => {
-      message = "There was a problem connecting to LifeCycle";
-    });
+    console.log(user.username);
+    const userRef = dbRef(db, `users/${user.username}`);
+    update(userRef, updates)
+      .then(() => {
+        console.log("User data updated successfully");
+      })
+      .catch((error) => {
+        console.error("Error updating user data:", error);
+        message = "There was a problem connecting to LifeCycle";
+      });
   }
-
-  // try {
-  //   await db.collection("users").doc(user.id).update({
-  //     name: user.name,
-  //     email: user.email,
-  //     username: user.username,
-  //     // ...
-  //   });
-  //   console.log("User data saved successfully");
-  // } catch (error) {
-  //   console.error("Error saving user data:", error);
-  // }
 </script>
 
 <main
@@ -224,12 +198,6 @@
   {/if}
 </main>
 
-<!-- // Add the createLifeCycle() function here -->
-
-<!-- function createLifeCycle() {
-    // navigate to Poi.svelte component
-  } -->
-
 <style>
   h1 {
     z-index: 1;
@@ -287,19 +255,6 @@
     margin: auto;
     color: #272122;
   }
-
-  /* input[type="text"],
-  input[type="email"],
-  input[type="file"],
-  button[type="submit"] {
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    padding: 0.5rem;
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    width: 100%;
-    box-sizing: border-box;
-  } */
 
   input[type="file"] {
     padding: 0;

@@ -5,16 +5,6 @@
   import AccountPage from "./components/AccountPage.svelte";
   import TestingPage from "./components/TestingPage.svelte";
   import Nav from "./components/Nav.svelte";
-
-  // let loggedInUser = null;
-
-  // $: userStore.subscribe((user) => {
-  //   if (user) {
-  //     loggedInUser = user;
-  //   } else {
-  //     loggedInUser = null;
-  //   }
-  // });
 </script>
 
 <Router>
@@ -35,16 +25,14 @@
   @tailwind base;
   @tailwind components;
   @tailwind utilities;
-  @import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
+  @import url("https://fonts.googleapis.com/css2?family=Arvo&display=swap");
   body {
     height: fit-content;
     width: 100%;
     overflow-x: hidden;
   }
 
-
   .main {
     z-index: -1;
   }
-
 </style>
