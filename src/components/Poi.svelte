@@ -21,8 +21,9 @@
       console.log("user dob", user.dob)
       event.preventDefault();
       orderByDate()
+      const pathname = milestone.name.replace(/\W/g, "-")
 
-      set(ref(db, `users/${user.username}/milestones/${milestone.name}`), {
+      set(ref(db, `users/${user.username}/milestones/${pathname}`), {
         id: milestone.id,
         name: milestone.name,
         date: milestone.date,

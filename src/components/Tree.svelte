@@ -1,13 +1,11 @@
 <script>
   import Poi from "./Poi.svelte";
   import userStore from "../utils/userStore";
-  import {remove, ref} from "firebase/database";
-  import {db} from "../utils/firebase"
+  import { remove, ref } from "firebase/database";
+  import { db } from "../utils/firebase";
   import { getData } from "../utils/getdata";
 
-  // Brings in currently logged in user from userStore -- issue with this, as I believe it's asyncronous?
   let user = $userStore;
-  console.log("user Milestones: ", user.milestones);
 
   // Function to create a new milestone at any point on the tree
   const addLifeEvent = (name) => {
@@ -53,14 +51,16 @@
     });
     tree.splice(position, 1);
 
-    remove(ref(db, `users/${user.username}/milestones/${name}`))
-        .then(() => {
-          getData(user.uid);
-          console.log("Data written successfully!");
-        })
-        .catch((error) => {
-          console.error("Error writing data: ", error);
-        });
+    const pathname = name.replace(/\W/g, "-");
+
+    remove(ref(db, `users/${user.username}/milestones/${pathname}`))
+      .then(() => {
+        getData(user.uid);
+        console.log("Data removed successfully");
+      })
+      .catch((error) => {
+        console.error("Error removing data: ", error);
+      });
 
     tree = tree;
   };
@@ -77,10 +77,9 @@
   ];
 
   if (user.hasOwnProperty("milestones")) {
-    tree = [...tree, ...Object.values(user.milestones)]
-    orderByDate()
+    tree = [...tree, ...Object.values(user.milestones)];
+    orderByDate();
   }
-
 </script>
 
 <main class="flex bg-black flex-col items-center w-[99vw] h-full relative">
