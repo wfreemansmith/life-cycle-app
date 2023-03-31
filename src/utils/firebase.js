@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
-import { firebaseConfig } from "./firebase-config"
+import { firebaseConfig } from "./firebase-config";
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -12,7 +12,7 @@ export const auth = getAuth(app);
 export const db = getDatabase(app);
 
 // Export storage products
-export const storage = getStorage();
+export const storage = getStorage(app);
 const imagesRef = ref(storage, "images");
 export { imagesRef };
 

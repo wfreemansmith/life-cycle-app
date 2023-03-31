@@ -1,7 +1,6 @@
 <script>
   import SubEvent from "./SubEvent.svelte";
-
-
+  import Gallery from "./Gallery.svelte";
 </script>
 
 <main>
