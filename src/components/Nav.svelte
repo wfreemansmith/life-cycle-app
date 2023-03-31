@@ -57,6 +57,7 @@
           class="a-button hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-black rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300"
           to="/account">Account</Link
         >{/if}
+
       <Link
         class="a-button hover:bg-gradient-to-r hover:from-[#F2B39D] hover:via-[#97C9E8] hover:to-[#CD87E8] p-2 lg:px-4 md:mx-2 text-black rounded hover:bg-[#CD87E8] hover:text-gray-700 transition-colors duration-300"
         to="/about">About</Link
@@ -74,6 +75,7 @@
   nav {
     z-index: 5;
   }
+
   a,
   .a-button {
     color: black;

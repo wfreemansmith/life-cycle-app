@@ -3,18 +3,18 @@
   import Login from "./components/Login.svelte";
   import Tree from "./components/Tree.svelte";
   import AccountPage from "./components/AccountPage.svelte";
-  import userStore from "./utils/userStore";
+  import TestingPage from "./components/TestingPage.svelte";
   import Nav from "./components/Nav.svelte";
 
-  let loggedInUser = null;
+  // let loggedInUser = null;
 
-  $: userStore.subscribe((user) => {
-    if (user) {
-      loggedInUser = user;
-    } else {
-      loggedInUser = null;
-    }
-  });
+  // $: userStore.subscribe((user) => {
+  //   if (user) {
+  //     loggedInUser = user;
+  //   } else {
+  //     loggedInUser = null;
+  //   }
+  // });
 </script>
 
 <Router>
@@ -23,14 +23,10 @@
     <main
       class="main text-center flex flex-col items-start justify-center flex-wrap w-auto h-screen bg-[black]"
     >
-      <Route path="/">
-        <Login />
-
-      </Route>
+      <Route path="/" component={Login} />
       <Route path="/account" component={AccountPage} />
-      <Route path="/create">
-        <Tree {loggedInUser} />
-      </Route>
+      <Route path="/create" component={Tree} />
+      <Route path="/about" component={TestingPage} />
     </main>
   </div>
 </Router>

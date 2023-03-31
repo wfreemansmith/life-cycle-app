@@ -84,10 +84,12 @@
       console.log(userCredential);
       console.log(auth);
       message = "Logged in!";
+      
       const uid = userCredential.user.uid;
       getData(uid); // Use uid instead of email
 
       navigate("/account");
+
     } catch (err) {
       message =
         err.code === "auth/user-not-found"
