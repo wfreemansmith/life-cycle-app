@@ -50,30 +50,6 @@
     }
   }
 
-  // async function logIn(formData) {
-  //   try {
-  //     const { email, password } = formData;
-  //     const checkingout = await signInWithEmailAndPassword(
-  //       auth,
-  //       email,
-  //       password
-  //     );
-  //     console.log(checkingout);
-  //     console.log(auth);
-  //     message = "Logged in!";
-  //     const username = email.replace(/[@.]/g, "-");
-  //     getData(checkingout.user.uid);
-
-  //     navigate("/account");
-  //   } catch (err) {
-  //     message =
-  //       err.code === "auth/user-not-found"
-  //         ? "User not found"
-  //         : err.code === "auth/wrong-password"
-  //         ? "Password is incorrect"
-  //         : "Could not connect to LifeCycle";
-  //   }
-  // }
   async function logIn(formData) {
     try {
       const { email, password } = formData;
@@ -85,12 +61,11 @@
       console.log(userCredential);
       console.log(auth);
       message = "Logged in!";
-      
+
       const uid = userCredential.user.uid;
       getData(uid); // Use uid instead of email
 
       navigate("/account");
-
     } catch (err) {
       message =
         err.code === "auth/user-not-found"
@@ -121,11 +96,6 @@
       message = "Logging in...";
       logIn({ email, password });
     }
-
-    // const username = email.replace(/[@.]/g, "-");
-    // set(ref(db, `users/${username}`), { name, dob }).catch(() => {
-    //   message = "There was a problem connecting to LifeCycle";
-    // });
   };
 </script>
 
@@ -143,7 +113,6 @@
       />
     </svg>
   </div>
-  <!-- <img src={logo} alt="life-cycle-logo" /> -->
 
   <h1 class="px-3 my-14 py-1 text-6xl text-[#f0ebd2] z-1">
     Welcome to Life Cycle!

@@ -28,16 +28,14 @@
   @tailwind base;
   @tailwind components;
   @tailwind utilities;
-  @import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
+  @import url("https://fonts.googleapis.com/css2?family=Arvo&display=swap");
   body {
     height: fit-content;
     width: 100%;
     overflow-x: hidden;
   }
 
-
   .main {
     z-index: -1;
   }
-
 </style>
