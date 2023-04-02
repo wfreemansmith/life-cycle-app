@@ -1,5 +1,5 @@
 <script>
-  import { ref, set } from "firebase/database";
+  import { ref, update } from "firebase/database";
   import { db } from "../utils/firebase";
   import Gallery from "./Gallery.svelte";
   import QualificationsList from "./QualificationsList.svelte";
@@ -8,9 +8,8 @@
   import SkillList from "./skills-subEvent/SkillList.svelte";
   let eventType = "blank";
 
-  // currently hardcoded.... These would be passed down from POI component
-  export let milestoneId = "2";
-  export let username = "aaaaaaargh";
+  export let pathname = "testing";
+  export let username = "test-user";
 
   const toggleType = (event) => {
     eventType = event.target.value;
@@ -18,12 +17,9 @@
 
   // Temp save function for inputted data - may be used as part of another component
   const saveData = (event) => {
-    set(
-      ref(db, `users/${username}/milestone-data/${milestoneId}/${eventType}`),
-      {
-        insertDataHere: event.target.value,
-      }
-    )
+    update(ref(db, `users/${username}/milestone-data/${pathname}/${eventType}`), {
+      insertDataHere: event.target.value,
+    })
       .then(() => {
         console.log("Data written successfully!");
       })
