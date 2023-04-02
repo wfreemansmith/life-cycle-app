@@ -1,11 +1,22 @@
 <script>
-  import { update, ref } from "firebase/database";
+  import { update, ref, get } from "firebase/database";
   import { db } from "../utils/firebase";
+  import {onMount} from "svelte"
 
   export let pathname;
   export let username;
 
   let additionalInfo = "";
+
+  onMount(() => {
+    get(ref(db, `users/${username}/milestones/${pathname}/text`))
+      .then((snapshot) => {
+        additionalInfo = snapshot.val() ? snapshot.val().input : ""
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  })
 
   const saveData = () => {
     event.preventDefault()
