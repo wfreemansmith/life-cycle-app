@@ -8,7 +8,7 @@
   let user = $userStore;
 
   // Function to create a new milestone at any point on the tree
-  const addLifeEvent = (name) => {
+  const addMilestone = (name) => {
     tree.forEach((milestone) => {
       milestone.menu = null;
       if (!milestone.name & !milestone.detail) deleteLifeEvent(milestone.name);
@@ -130,7 +130,7 @@
     </svg>
   </div>
   {#each tree as milestone}
-    <Poi {milestone} {addLifeEvent} {deleteLifeEvent} {user} {orderByDate} />
+    <Poi {milestone} {addMilestone} {deleteLifeEvent} {user} {orderByDate} />
   {/each}
 </main>
 
