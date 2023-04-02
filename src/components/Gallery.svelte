@@ -1,13 +1,16 @@
 <script>
   import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-  import { storage } from "../utils/firebase";
+  import {ref as dbRef, update} from "firebase/database"
+  import { storage, db } from "../utils/firebase";
   import userStore from "../utils/userStore";
+
+  export let pathname;
 
   let file;
   let images = [];
   let currentIndex = 0;
   let showModal = false;
-  let modalImageSrc = '';
+  let modalImageSrc = "";
 
   let user = null;
   $: {
@@ -17,13 +20,30 @@
   function handleFileInputChange(event) {
     file = event.target.files[0];
     if (file && images.length < 10) {
-      const storageRef = ref(storage, `users/${user.username}/gallery/${Date.now()}_${file.name}`);
+      const storageRef = ref(
+        storage,
+        `users/${user.username}/gallery/${Date.now()}_${file.name}`
+      );
 
-      uploadBytes(storageRef, file).then((snapshot) => {
-        getDownloadURL(snapshot.ref).then((url) => {
+      uploadBytes(storageRef, file)
+        .then((snapshot) => {
+          console.log(snapshot)
+          return getDownloadURL(snapshot.ref);
+        })
+        .then((url) => {
           images = [...images, url];
+          return update(
+            dbRef(db, `users/${user.username}/milestones/${pathname}/photos`),
+            {
+              images,
+            }
+          );
+        }).then(() => {
+          console.log("Image uploaded successfully!")
+        })
+        .catch((error) => {
+          console.error("Error writing data: ", error);
         });
-      });
     }
   }
 

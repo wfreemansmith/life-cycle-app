@@ -6,18 +6,19 @@
   import OpenStreetMap from "./OpenStreetMap.svelte";
   import TextInfo from "./TextInfo.svelte";
   import SkillList from "./skills-subEvent/SkillList.svelte";
+  
   let eventType = "blank";
 
   export let pathname = "testing";
   export let username = "test-user";
-
+  
   const toggleType = (event) => {
     eventType = event.target.value;
   };
 
   // Temp save function for inputted data - may be used as part of another component
   const saveData = (event) => {
-    update(ref(db, `users/${username}/milestone-data/${pathname}/${eventType}`), {
+    update(ref(db, `users/${username}/milestones/${pathname}/${eventType}`), {
       insertDataHere: event.target.value,
     })
       .then(() => {
@@ -43,29 +44,29 @@
       </select>
     {:else if eventType === "location"}
       <h1>Location</h1>
-      <OpenStreetMap />
+      <OpenStreetMap {pathname}/>
       <button value="blank" on:click={toggleType}>back</button>
     {:else if eventType === "photos"}
       <h1>Photos</h1>
-      <Gallery />
+      <Gallery {pathname}/>
       <button value="insert image URL" type="button" on:click={saveData}
         >save data test</button
       >
       <button value="blank" on:click={toggleType}>back</button>
     {:else if eventType === "text"}
       <h1>Text</h1>
-      <TextInfo />
+      <TextInfo {pathname}/>
       <button value="test-text" type="button" on:click={saveData}
         >save data test</button
       >
       <button value="blank" type="button" on:click={toggleType}>back</button>
     {:else if eventType === "qualifications"}
       <h1>Qualifications</h1>
-      <QualificationsList />
+      <QualificationsList {pathname}/>
       <button value="blank" type="button" on:click={toggleType}>back</button>
     {:else if eventType === "skills"}
       <h1>Skills</h1>
-      <SkillList />
+      <SkillList {pathname}/>
       <button value="blank" type="button" on:click={toggleType}>back</button>
     {/if}
   </article>
