@@ -22,19 +22,23 @@
   // else if form has details, update record with any changes
   // if ID has changed, delete old record and make new one
   const closeForm = (event) => {
+    console.log("closeForm invoked")
     if (milestone.menu === "form" && milestone.date === "") {
+      console.log(`no milestone data so deleteLifeEvent invoked with ${milestone.name}`)
       deleteLifeEvent(milestone.name);
     } else if (milestone.name !== "Birth") {
       event.preventDefault();
       orderByDate();
 
-      console.log("Milestone when closing form: ", milestone);
-
+      // console.log("Is currentName !== Milestone.name?", currName !== milestone.name)
       // if (currName !== milestone.name) deleteLifeEvent(currName);
       // currName === milestone.name;
-
+      
       const pathname = milestone.name.replace(/\W/g, "-");
-      set(ref(db, `users/${user.username}/milestones/${pathname}`), {
+      
+      console.log(`Update milestone in database at pathname /${pathname}`);
+      
+      update(ref(db, `users/${user.username}/milestones/${pathname}`), {
         id: milestone.id,
         name: milestone.name,
         date: milestone.date,

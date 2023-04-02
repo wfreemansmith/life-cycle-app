@@ -49,11 +49,15 @@
     const position = tree.findIndex((milestone) => {
       return milestone.name === name;
     });
+    
     tree.splice(position, 1);
 
-    const pathname = name.replace(/\W/g, "-");
-
-    remove(ref(db, `users/${user.username}/milestones/${pathname}`))
+    console.log("is there a name?", !!name)
+    
+    if (name) {
+      const pathname = name.replace(/\W/g, "-");
+      console.log(`delete item from tree at pathway /${pathname}`)
+      remove(ref(db, `users/${user.username}/milestones/${pathname}`))
       .then(() => {
         getData(user.uid);
         console.log("Data removed successfully");
@@ -61,6 +65,7 @@
       .catch((error) => {
         console.error("Error removing data: ", error);
       });
+    }
 
     tree = tree;
   };
