@@ -2,21 +2,18 @@
   import L from "leaflet";
   import "leaflet/dist/leaflet.css";
   import { onMount } from "svelte";
-  import { update, ref } from "firebase/database";
+  import { update, ref, get } from "firebase/database";
   import { db } from "../utils/firebase";
 
-  export let latitude = 53.4808;
-  export let longitude = -2.2426;
   export let pathname;
   export let username;
 
-  console.log(latitude, longitude)
-
   let map;
   let marker;
+  let latitude;
+  let longitude;
 
   const saveData = () => {
-    console.log(latitude, longitude)
     update(ref(db, `users/${username}/milestones/${pathname}/location`), {
       latitude,
       longitude,
@@ -43,12 +40,29 @@
         marker = L.marker(e.latlng).addTo(map);
       } else {
         marker.setLatLng(e.latlng);
-        
       }
-      latitude = e.latlng.lat
-      longitude = e.latlng.lng
+      latitude = e.latlng.lat;
+      longitude = e.latlng.lng;
     });
   }
+
+  onMount(() => {
+    get(ref(db, `users/${username}/milestones/${pathname}/locations`))
+      .then((snapshot) => {
+        if (snapshot.val()) {
+          latitude = snapshot.val().latitude;
+          longitude = snapshot.val().longitude;
+        } else {
+          latitude = 53.4808;
+          longitude = -2.2426;
+        }
+
+        initMap();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 
   async function searchLocation(query) {
     const url = `https://nominatim.openstreetmap.org/search?q=${query}&format=json&addressdetails=1&limit=1`;
@@ -74,10 +88,6 @@
       }
     }
   }
-
-  onMount(() => {
-    initMap();
-  });
 </script>
 
 <div id="map" style="height: 500px;" />
