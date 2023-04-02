@@ -3,6 +3,8 @@
   import AddSkill from "./AddSkill.svelte";
 
   export let skills = [];
+  export let pathname;
+  export let username;
 
   let showAddSkill = false;
   let skillToEdit = null;

@@ -133,7 +133,7 @@
     </form>
   {/if}
   {#if milestone.menu === "subevent"}
-    <SubEvent username={user.username} pathway={milestone.name.replace(/\W/g, "-")} />{/if}
+    <SubEvent username={user.username} pathname={milestone.name.replace(/\W/g, "-")} />{/if}
 </div>
 
 <style>
