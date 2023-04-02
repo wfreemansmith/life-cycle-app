@@ -1,13 +1,12 @@
 <script>
   import { fade } from "svelte/transition";
-  import { ref, set, update } from "firebase/database";
+  import { ref, update } from "firebase/database";
   import { db } from "../utils/firebase";
   import FaPlus from "svelte-icons/fa/FaPlus.svelte";
   import FaMinus from "svelte-icons/fa/FaMinus.svelte";
   import MdSend from "svelte-icons/md/MdSend.svelte";
   import { getData } from "../utils/getdata";
   import SubEvent from "./SubEvent.svelte";
-  import { gsap } from "gsap";
 
   export let milestone = {};
   export let addMilestone;
@@ -15,28 +14,17 @@
   export let orderByDate;
   export let user = null;
 
-  let currName = milestone.name
-
   // Closes form...
   // if user closes form without filling in any details, the Milestone is deleted
   // else if form has details, update record with any changes
-  // if ID has changed, delete old record and make new one
   const closeForm = (event) => {
-    console.log("closeForm invoked")
     if (milestone.menu === "form" && milestone.date === "") {
-      console.log(`no milestone data so deleteLifeEvent invoked with ${milestone.name}`)
       deleteLifeEvent(milestone.name);
     } else if (milestone.name !== "Birth") {
       event.preventDefault();
       orderByDate();
-
-      // console.log("Is currentName !== Milestone.name?", currName !== milestone.name)
-      // if (currName !== milestone.name) deleteLifeEvent(currName);
-      // currName === milestone.name;
       
       const pathname = milestone.name.replace(/\W/g, "-");
-      
-      console.log(`Update milestone in database at pathname /${pathname}`);
       
       update(ref(db, `users/${user.username}/milestones/${pathname}`), {
         id: milestone.id,

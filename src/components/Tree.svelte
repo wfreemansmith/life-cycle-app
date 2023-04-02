@@ -51,12 +51,9 @@
     });
     
     tree.splice(position, 1);
-
-    console.log("is there a name?", !!name)
     
     if (name) {
       const pathname = name.replace(/\W/g, "-");
-      console.log(`delete item from tree at pathway /${pathname}`)
       remove(ref(db, `users/${user.username}/milestones/${pathname}`))
       .then(() => {
         getData(user.uid);
