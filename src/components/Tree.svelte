@@ -6,6 +6,7 @@
   import { getData } from "../utils/getdata";
 
   let user = $userStore;
+  console.log("mounting Tree")
 
   // Function to create a new milestone at any point on the tree
   const addMilestone = (name) => {

@@ -44,29 +44,23 @@
       </select>
     {:else if eventType === "location"}
       <h1>Location</h1>
-      <OpenStreetMap {pathname}/>
+      <OpenStreetMap {pathname} {username}/>
       <button value="blank" on:click={toggleType}>back</button>
     {:else if eventType === "photos"}
       <h1>Photos</h1>
-      <Gallery {pathname}/>
-      <button value="insert image URL" type="button" on:click={saveData}
-        >save data test</button
-      >
+      <Gallery {pathname} {username}/>
       <button value="blank" on:click={toggleType}>back</button>
     {:else if eventType === "text"}
       <h1>Text</h1>
-      <TextInfo {pathname}/>
-      <button value="test-text" type="button" on:click={saveData}
-        >save data test</button
-      >
+      <TextInfo {pathname} {username}/>
       <button value="blank" type="button" on:click={toggleType}>back</button>
     {:else if eventType === "qualifications"}
       <h1>Qualifications</h1>
-      <QualificationsList {pathname}/>
+      <QualificationsList {pathname} {username}/>
       <button value="blank" type="button" on:click={toggleType}>back</button>
     {:else if eventType === "skills"}
       <h1>Skills</h1>
-      <SkillList {pathname}/>
+      <SkillList {pathname} {username}/>
       <button value="blank" type="button" on:click={toggleType}>back</button>
     {/if}
   </article>

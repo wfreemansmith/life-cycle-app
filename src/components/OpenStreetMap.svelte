@@ -5,6 +5,8 @@
   
     export let latitude = 53.4808;
     export let longitude = -2.2426 ;
+    export let pathname;
+  export let username;
   
     let map;
     let marker;

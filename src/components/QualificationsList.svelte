@@ -3,6 +3,8 @@
   import AddQualification from "./addQualifications.svelte";
 
   export let qualifications = [];
+  export let pathname;
+  export let username;
 
   let showAddQualification = false;
   let qualificationToEdit = null;
