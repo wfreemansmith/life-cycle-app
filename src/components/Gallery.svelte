@@ -22,15 +22,14 @@
 
       uploadBytes(storageRef, file)
         .then((snapshot) => {
-          console.log(snapshot);
           return getDownloadURL(snapshot.ref);
         })
         .then((url) => {
           images = [...images, url];
           return update(
-            dbRef(db, `users/${username}/milestones/${pathname}/photos`),
+            dbRef(db, `users/${username}/milestones/${pathname}`),
             {
-              images,
+              images
             }
           );
         })
