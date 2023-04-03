@@ -1,6 +1,6 @@
 <script>
   import { ref, getDownloadURL } from "firebase/storage";
-  import { ref as dbRef, set, update } from "firebase/database";
+  import { ref as dbRef, update } from "firebase/database";
   import { writable } from "svelte/store";
   import { auth, db, storage } from "../utils/firebase";
   import userStore from "../utils/userStore";

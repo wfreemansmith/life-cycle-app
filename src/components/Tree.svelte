@@ -8,7 +8,7 @@
   let user = $userStore;
 
   // Function to create a new milestone at any point on the tree
-  const addLifeEvent = (name) => {
+  const addMilestone = (name) => {
     tree.forEach((milestone) => {
       milestone.menu = null;
       if (!milestone.name & !milestone.detail) deleteLifeEvent(milestone.name);
@@ -49,11 +49,12 @@
     const position = tree.findIndex((milestone) => {
       return milestone.name === name;
     });
+    
     tree.splice(position, 1);
-
-    const pathname = name.replace(/\W/g, "-");
-
-    remove(ref(db, `users/${user.username}/milestones/${pathname}`))
+    
+    if (name) {
+      const pathname = name.replace(/\W/g, "-");
+      remove(ref(db, `users/${user.username}/milestones/${pathname}`))
       .then(() => {
         getData(user.uid);
         console.log("Data removed successfully");
@@ -61,6 +62,7 @@
       .catch((error) => {
         console.error("Error removing data: ", error);
       });
+    }
 
     tree = tree;
   };
@@ -130,7 +132,7 @@
     </svg>
   </div>
   {#each tree as milestone}
-    <Poi {milestone} {addLifeEvent} {deleteLifeEvent} {user} {orderByDate} />
+    <Poi {milestone} {addMilestone} {deleteLifeEvent} {user} {orderByDate} />
   {/each}
 </main>
 

@@ -30,7 +30,6 @@ export const getData = async (uid) => {
       userData.uid = uid;
 
       userStore.set(userData);
-      console.log("Found user data:", userData);
     } else {
       console.log("No data available.");
     }
