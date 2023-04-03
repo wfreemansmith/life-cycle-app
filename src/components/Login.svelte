@@ -97,7 +97,7 @@
   };
 </script>
 
-<main class="flex bg-black flex-col items-center w-[99vw] h-auto relative">
+<main class="flex bg-black flex-col items-center w-screen h-full min-h-screen relative">
   <div class="custom-shape-divider-top-1680002298">
     <svg
       data-name="Layer 1"

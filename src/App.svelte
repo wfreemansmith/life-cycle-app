@@ -14,7 +14,7 @@
       <Nav />
     </div>
     <main
-      class="main text-center flex flex-col items-start justify-center flex-wrap w-auto h-auto bg-[black]"
+      class="main text-center flex flex-col items-start justify-center flex-wrap w-auto h-full bg-[black]"
     >
       <Route path="/" component={Login} />
       <Route path="/account" component={AccountPage} />
@@ -38,7 +38,8 @@
 
   .page {
     display: inline-block;
-    height: fit-content;
+    height: 100%;
+    min-height: screen;
   }
   main {
     height: fit-content;

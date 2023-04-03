@@ -33,7 +33,7 @@
   }
 </script>
 
-<nav class="nav py-2 h-fit w-[99vw] md:py-4 bg-[#FCBA28] z-1">
+<nav class="nav py-2 h-fit w-[100vw] md:py-4 bg-[#FCBA28] z-1">
   <div class="container px-4 mx-auto md:flex md:items-center">
     <div class="flex justify-between items-center">
       <a href="/" class="font-bold text-xl text-gray-800">LOGO GOES HERE</a>

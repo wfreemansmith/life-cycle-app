@@ -87,7 +87,7 @@
 </script>
 
 <main
-  class="relative h-auto w-full justify-center items-center m-auto bg-black"
+  class="relative h-full min-h-screen w-full justify-center items-center m-auto bg-black"
 >
   {#if isLoading}
     <h1 class="px-3 my-14 py-1 text-6xl text-[#f0ebd2] z-1">Loading...</h1>
