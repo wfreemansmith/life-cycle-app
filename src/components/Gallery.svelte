@@ -1,7 +1,8 @@
 <script>
   import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-  import { ref as dbRef, update } from "firebase/database";
+  import { ref as dbRef, update, get } from "firebase/database";
   import { storage, db } from "../utils/firebase";
+  import { onMount } from "svelte";
 
   export let pathname;
   export let username;
@@ -11,6 +12,16 @@
   let currentIndex = 0;
   let showModal = false;
   let modalImageSrc = "";
+
+  onMount(() => {
+    get(dbRef(db, `users/${username}/milestones/${pathname}/images`))
+      .then((snapshot) => {
+        images = snapshot.val() ? snapshot.val() : [];
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 
   function handleFileInputChange(event) {
     file = event.target.files[0];

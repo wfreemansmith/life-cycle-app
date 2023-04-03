@@ -1,6 +1,9 @@
 <script>
   import Skill from "./Skill.svelte";
   import AddSkill from "./AddSkill.svelte";
+  import { ref, update, get } from "firebase/database";
+  import { db } from "../../utils/firebase";
+  import { onMount } from "svelte";
 
   export let skills = [];
   export let pathname;
@@ -8,6 +11,28 @@
 
   let showAddSkill = false;
   let skillToEdit = null;
+
+  onMount(() => {
+    get(ref(db, `users/${username}/milestones/${pathname}/skills`))
+      .then((snapshot) => {
+        skills = snapshot.val() ? snapshot.val() : [];
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+
+  const saveData = (func) => {
+    update(ref(db, `users/${username}/milestones/${pathname}`), {
+      skills,
+    })
+      .then(() => {
+        console.log(`Skill ${func} successfully`);
+      })
+      .catch((error) => {
+        console.error("Error writing data: ", error);
+      });
+  };
 
   const toggleAddSkill = () => {
     showAddSkill = !showAddSkill;
@@ -22,10 +47,12 @@
       skills = [...skills, event.detail];
     }
     showAddSkill = false;
+    saveData("added");
   };
 
   const deleteSkill = (index) => {
     skills = skills.filter((_, i) => i !== index);
+    saveData("added");
   };
 
   const editSkill = (index) => {

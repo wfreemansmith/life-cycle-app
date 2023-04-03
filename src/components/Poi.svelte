@@ -12,6 +12,7 @@
   export let addMilestone;
   export let deleteLifeEvent;
   export let orderByDate;
+  export let closeAllPopOuts;
   export let user = null;
 
   // Closes form...
@@ -44,10 +45,16 @@
     milestone.menu = null;
   };
 
-  // Closes menu
+  // Opens menu
   const menuToggle = () => {
+    closeAllPopOuts();
     milestone.menu = "menu";
   };
+
+  const openSubEventMenu =() => {
+    closeAllPopOuts();
+    milestone.menu = "subevent";
+  }
 </script>
 
 <div transition:fade>
@@ -76,9 +83,7 @@
       {#if milestone.name !== "Birth"}
         <button
           type="button"
-          on:click={() => {
-            milestone.menu = "subevent";
-          }}>Branch out</button
+          on:click={openSubEventMenu}>Branch out</button
         >
         <button
           type="button"

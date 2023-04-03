@@ -1,6 +1,9 @@
 <script>
   import Qualification from "./Qualification.svelte";
   import AddQualification from "./addQualifications.svelte";
+  import { ref, update, get } from "firebase/database";
+  import { db } from "../utils/firebase";
+  import { onMount } from "svelte";
 
   export let qualifications = [];
   export let pathname;
@@ -8,6 +11,28 @@
 
   let showAddQualification = false;
   let qualificationToEdit = null;
+
+  onMount(() => {
+    get(ref(db, `users/${username}/milestones/${pathname}/qualifications`))
+      .then((snapshot) => {
+        qualifications = snapshot.val() ? snapshot.val() : []
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  })
+
+  const saveData = (func) => {
+    update(ref(db, `users/${username}/milestones/${pathname}`), {
+      qualifications,
+    })
+      .then(() => {
+        console.log(`Qualification ${func} successfully`);
+      })
+      .catch((error) => {
+        console.error("Error writing data: ", error);
+      });
+  };
 
   const toggleAddQualification = () => {
     showAddQualification = !showAddQualification;
@@ -22,10 +47,12 @@
       qualifications = [...qualifications, event.detail];
     }
     showAddQualification = false;
+    saveData("added");
   };
 
   const deleteQualification = (index) => {
     qualifications = qualifications.filter((_, i) => i !== index);
+    saveData("deleted");
   };
 
   const editQualification = (index) => {
