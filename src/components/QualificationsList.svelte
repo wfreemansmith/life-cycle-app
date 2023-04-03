@@ -35,6 +35,7 @@
     } else {
       qualifications = [...qualifications, event.detail];
     }
+    showAddQualification = false;
     saveData("added");
   };
 
