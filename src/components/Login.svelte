@@ -162,7 +162,7 @@
       <button class="button" type="submit">Log In</button>
     </form>
   {/if}
-  <p>{message ? message : ""}</p>
+  <p class="mt-2">{message ? message : ""}</p>
   <div class="custom-shape-divider-bottom-1680002532">
     <svg
       data-name="Layer 1"
@@ -231,6 +231,7 @@
     font-size: 16px;
     cursor: pointer;
     box-shadow: -4px 4px 0px 1px #f5becc;
+    margin-top: 8px;
   }
 
   img {

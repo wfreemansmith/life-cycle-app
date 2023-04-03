@@ -6,7 +6,8 @@
   import OpenStreetMap from "./OpenStreetMap.svelte";
   import TextInfo from "./TextInfo.svelte";
   import SkillList from "./skills-subEvent/SkillList.svelte";
-  
+  import {fly} from "svelte/transition"
+
   let eventType = "blank";
 
   export let pathname = "testing";
@@ -30,7 +31,7 @@
   };
 </script>
 
-<div>
+<div transition:fly="{{y: 1000, duration: 1500}}">
   <article>
     {#if eventType === "blank"}
       <label for="select">What do you want to add to this milestone?</label>
@@ -68,10 +69,11 @@
 
 <style>
   * {
-    color: blue;
+    color: white;
   }
   div {
     z-index: 1;
+    margin-top: 10px;
   }
 
   form {
