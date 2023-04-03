@@ -1,107 +1,42 @@
-# This repo is no longer maintained. Consider using `npm init vite` and selecting the `svelte` option or — if you want a full-fledged app framework — use [SvelteKit](https://kit.svelte.dev), the official application framework for Svelte.
+# LifeCycle
+LifeCycle is a web application that allows users to track and document their life milestones and events. Users can create an account, log in, add milestones, edit them, and attach different types of information to each milestone, such as text, photos, qualifications, skills, and location.
 
----
+This project uses Svelte as the frontend framework, Firebase for authentication and real-time database, and various components for additional features.
 
-# svelte app
+## Features
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
+- User authentication (Sign up and Log in)
+- Create, edit, and delete life milestones
+- Add sub-events to each milestone
+- Location
+- Text
+- Photos
+- Qualifications
+- Skills
 
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
+## prerequisites 
 
-```bash
-npx degit sveltejs/template svelte-app
-cd svelte-app
-```
+Before you can run this project locally, you must have node version 19.5.0 or higher installed on your machine. To check your Node version, run node --version in your terminal.
 
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
+## Installation
 
-
-## Get started
-
-Install the dependencies...
-
-```bash
-cd svelte-app
-npm install
-```
-
-...then start [Rollup](https://rollupjs.org):
-
-```bash
-npm run dev
-```
-
-Navigate to [localhost:8080](http://localhost:8080). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
-
-By default, the server will only respond to requests from localhost. To allow connections from other computers, edit the `sirv` commands in package.json to include the option `--host 0.0.0.0`.
-
-If you're using [Visual Studio Code](https://code.visualstudio.com/) we recommend installing the official extension [Svelte for VS Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode). If you are using other editors you may need to install a plugin in order to get syntax highlighting and intellisense.
-
-## Building and running in production mode
-
-To create an optimised version of the app:
-
-```bash
-npm run build
-```
-
-You can run the newly built app with `npm run start`. This uses [sirv](https://github.com/lukeed/sirv), which is included in your package.json's `dependencies` so that the app will work when you deploy to platforms like [Heroku](https://heroku.com).
+1. Clone the repository:
+git clone https://github.com/wfreemansmith/life-cycle-app.git
 
 
-## Single-page app mode
+2. Install dependencies:
+    - cd LifeCycle
+    - npm install
 
-By default, sirv will only respond to requests that match files in `public`. This is to maximise compatibility with static fileservers, allowing you to deploy your app anywhere.
+#
 
-If you're building a single-page app (SPA) with multiple routes, sirv needs to be able to respond to requests for *any* path. You can make it so by editing the `"start"` command in package.json:
+3. Set up Firebase:
+   - Create a new Firebase project
+   - Enable authentication and real-time database
+   - Replace the Firebase configuration in the `src/firebase.js` file with your project's configuration
 
-```js
-"start": "sirv public --single"
-```
+#
+4. Run locally:
+    - npm run dev
+    - npm run build
 
-## Using TypeScript
-
-This template comes with a script to set up a TypeScript development environment, you can run it immediately after cloning the template with:
-
-```bash
-node scripts/setupTypeScript.js
-```
-
-Or remove the script via:
-
-```bash
-rm scripts/setupTypeScript.js
-```
-
-If you want to use `baseUrl` or `path` aliases within your `tsconfig`, you need to set up `@rollup/plugin-alias` to tell Rollup to resolve the aliases. For more info, see [this StackOverflow question](https://stackoverflow.com/questions/63427935/setup-tsconfig-path-in-svelte).
-
-## Deploying to the web
-
-### With [Vercel](https://vercel.com)
-
-Install `vercel` if you haven't already:
-
-```bash
-npm install -g vercel
-```
-
-Then, from within your project folder:
-
-```bash
-cd public
-vercel deploy --name my-project
-```
-
-### With [surge](https://surge.sh/)
-
-Install `surge` if you haven't already:
-
-```bash
-npm install -g surge
-```
-
-Then, from within your project folder:
-
-```bash
-npm run build
-surge public my-project.surge.sh
-```
