@@ -1,6 +1,8 @@
 <script>
   import Qualification from "./Qualification.svelte";
   import AddQualification from "./addQualifications.svelte";
+  import { ref, update } from "firebase/database"
+  import { db } from "../utils/firebase"
 
   export let qualifications = [];
   export let pathname;
@@ -8,6 +10,18 @@
 
   let showAddQualification = false;
   let qualificationToEdit = null;
+
+  const saveData = (func) => {
+    update(ref(db, `users/${username}/milestones/${pathname}`), {
+      qualifications,
+    })
+      .then(() => {
+        console.log(`Qualification ${func} successfully`);
+      })
+      .catch((error) => {
+        console.error("Error writing data: ", error);
+      });
+  };
 
   const toggleAddQualification = () => {
     showAddQualification = !showAddQualification;
@@ -21,11 +35,12 @@
     } else {
       qualifications = [...qualifications, event.detail];
     }
-    showAddQualification = false;
+    saveData("added")
   };
 
   const deleteQualification = (index) => {
     qualifications = qualifications.filter((_, i) => i !== index);
+    saveData("deleted")
   };
 
   const editQualification = (index) => {
@@ -42,6 +57,7 @@
         grade={qualification.grade}
         date={qualification.date}
         additionalInfo={qualification.additionalInfo}
+        {qualifications}
         on:deleteQualification={() => deleteQualification(index)}
         on:editQualification={() => editQualification(index)}
       />

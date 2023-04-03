@@ -21,11 +21,11 @@
 <div>
   <div class="input-field">
     <label for="subject">Subject:</label>
-    <input type="text" id="subject" bind:value={subject} />
+    <input type="text" id="subject" bind:value={subject} required/>
   </div>
   <div class="input-field">
     <label for="grade">Grade Achieved:</label>
-    <input type="text" id="grade" bind:value={grade} />
+    <input type="text" id="grade" bind:value={grade} required/>
   </div>
   <div class="input-field">
     <label for="date">Date:</label>

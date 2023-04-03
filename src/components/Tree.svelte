@@ -4,8 +4,12 @@
   import { remove, ref } from "firebase/database";
   import { db } from "../utils/firebase";
   import { getData } from "../utils/getdata";
+  import { useNavigate } from "svelte-navigator";
+
+  const navigate = useNavigate()
 
   let user = $userStore;
+  if (!user) navigate("/");
 
   // Function to create a new milestone at any point on the tree
   const addMilestone = (name) => {

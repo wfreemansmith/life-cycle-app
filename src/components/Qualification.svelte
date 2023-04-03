@@ -4,6 +4,7 @@
   export let grade = "";
   export let date = "";
   export let additionalInfo = "";
+  export let qualifications
 
   const dispatch = createEventDispatcher();
 
