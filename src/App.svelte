@@ -14,7 +14,7 @@
       <Nav />
     </div>
     <main
-      class="main text-center flex flex-col items-start justify-center flex-wrap w-auto h-screen bg-[black]"
+      class="main text-center flex flex-col items-start justify-center flex-wrap w-auto h-auto bg-[black]"
     >
       <Route path="/" component={Login} />
       <Route path="/account" component={AccountPage} />

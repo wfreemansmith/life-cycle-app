@@ -22,6 +22,7 @@
   $: {
     user = $userStore;
     isLoading = !user;
+    console.log("User data:", user);
   }
   const presetURLsStore = writable([]);
   const togglePresets = () => {
@@ -59,6 +60,7 @@
 
   //save changes function
   async function saveChanges(event) {
+    console.log("user.username in SaveChanges", user.username);
     event.preventDefault();
 
     const updates = {
@@ -71,7 +73,7 @@
     if (localAvatarURL) {
       updates.avatarURL = localAvatarURL;
     }
-    
+    console.log(user.username);
     const userRef = dbRef(db, `users/${user.username}`);
     update(userRef, updates)
       .then(() => {
@@ -85,7 +87,7 @@
 </script>
 
 <main
-  class="relative h-full w-full justify-center items-center m-auto bg-black"
+  class="relative h-auto w-full justify-center items-center m-auto bg-black"
 >
   {#if isLoading}
     <h1 class="px-3 my-14 py-1 text-6xl text-[#f0ebd2] z-1">Loading...</h1>
@@ -168,8 +170,8 @@
         </form>
       </div>
 
-      <button on:click={() => createLifeCycle()}>Create Life Cycle</button>
-      <div class="custom-shape-divider-bottom-1680013680">
+      <!-- <button on:click={() => createLifeCycle()}>Create Life Cycle</button> -->
+      <div class="foot custom-shape-divider-bottom-1680013680">
         <svg
           data-name="Layer 1"
           xmlns="http://www.w3.org/2000/svg"
