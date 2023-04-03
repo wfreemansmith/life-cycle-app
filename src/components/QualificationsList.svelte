@@ -15,7 +15,7 @@
   onMount(() => {
     get(ref(db, `users/${username}/milestones/${pathname}/qualifications`))
       .then((snapshot) => {
-        qualifications = snapshot.val() ? snapshot.val().input : []
+        qualifications = snapshot.val() ? snapshot.val() : []
       })
       .catch((err) => {
         console.log(err);
