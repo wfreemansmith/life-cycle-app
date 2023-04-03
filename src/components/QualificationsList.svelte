@@ -1,8 +1,8 @@
 <script>
   import Qualification from "./Qualification.svelte";
   import AddQualification from "./addQualifications.svelte";
-  import { ref, update } from "firebase/database"
-  import { db } from "../utils/firebase"
+  import { ref, update } from "firebase/database";
+  import { db } from "../utils/firebase";
 
   export let qualifications = [];
   export let pathname;
@@ -35,12 +35,12 @@
     } else {
       qualifications = [...qualifications, event.detail];
     }
-    saveData("added")
+    saveData("added");
   };
 
   const deleteQualification = (index) => {
     qualifications = qualifications.filter((_, i) => i !== index);
-    saveData("deleted")
+    saveData("deleted");
   };
 
   const editQualification = (index) => {
