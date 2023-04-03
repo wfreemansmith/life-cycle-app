@@ -4,7 +4,9 @@
   import { writable } from "svelte/store";
   import { auth, db, storage } from "../utils/firebase";
   import userStore from "../utils/userStore";
-
+  import { useNavigate } from "svelte-navigator";
+  import Tree from "./Tree.svelte";
+  const navigate = useNavigate();
   let user = null;
   let isLoading = true;
   let file;
@@ -196,6 +198,18 @@
       </div>
     </span>
   {/if}
+  <section class="p-6">
+    <h2 style="color:white">Get started here!</h2>
+    <p style="color:white">
+      To create your life cycle, click the button below.
+    </p>
+    <button
+      class="py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg"
+      on:click={() => navigate("/create")}
+    >
+      Create Life Cycle
+    </button>
+  </section>
 </main>
 
 <style>

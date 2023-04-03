@@ -5,15 +5,17 @@
   import { db } from "../utils/firebase";
   import { getData } from "../utils/getdata";
   import { useNavigate } from "svelte-navigator";
+  import PoiView from "./PoiView.svelte";
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
+  let view = false;
   let user = $userStore;
   if (!user) navigate("/");
 
   // Function to create a new milestone at any point on the tree
   const addMilestone = (name) => {
-    closeAllPopOuts()
+    closeAllPopOuts();
     const position = tree.findIndex((milestone) => {
       return milestone.name === name;
     });
@@ -31,13 +33,13 @@
 
   // closes all sub event menus
   const closeAllPopOuts = () => {
-    console.log("hello")
+    console.log("hello");
     tree.forEach((milestone) => {
       milestone.menu = null;
       if (!milestone.name & !milestone.detail) deleteLifeEvent(milestone.name);
     });
     tree = tree;
-  }
+  };
 
   // Orders tree array of Milestones by date
   const orderByDate = () => {
@@ -60,19 +62,19 @@
     const position = tree.findIndex((milestone) => {
       return milestone.name === name;
     });
-    
+
     tree.splice(position, 1);
-    
+
     if (name) {
       const pathname = name.replace(/\W/g, "-");
       remove(ref(db, `users/${user.username}/milestones/${pathname}`))
-      .then(() => {
-        getData(user.uid);
-        console.log("Data removed successfully");
-      })
-      .catch((error) => {
-        console.error("Error removing data: ", error);
-      });
+        .then(() => {
+          getData(user.uid);
+          console.log("Data removed successfully");
+        })
+        .catch((error) => {
+          console.error("Error removing data: ", error);
+        });
     }
 
     tree = tree;
@@ -94,10 +96,16 @@
     orderByDate();
   }
 
-  closeAllPopOuts()
+  const toggleViewMode = () => {
+    view = !view;
+  };
+
+  closeAllPopOuts();
 </script>
 
-<main class="flex bg-black flex-col items-center w-[100vw] h-full min-h-screen relative">
+<main
+  class="flex bg-black flex-col items-center w-[100vw] h-full min-h-screen relative"
+>
   <div class="head custom-shape-divider-top-1680089435">
     <svg
       data-name="Layer 1"
@@ -144,8 +152,29 @@
       />
     </svg>
   </div>
+  <button
+    class="absolute top-0 right-0 m-4 py-2 px-4 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600"
+    on:click={() => (view = !view)}
+  >
+    {#if view}
+      Switch to Create Mode
+    {:else}
+      Switch to View Mode
+    {/if}
+  </button>
   {#each tree as milestone}
-    <Poi {milestone} {addMilestone} {deleteLifeEvent} {user} {orderByDate} {closeAllPopOuts}/>
+    {#if view}
+      <PoiView {milestone} {user} />
+    {:else}
+      <Poi
+        {milestone}
+        {addMilestone}
+        {deleteLifeEvent}
+        {user}
+        {orderByDate}
+        {closeAllPopOuts}
+      />
+    {/if}
   {/each}
 </main>
 
