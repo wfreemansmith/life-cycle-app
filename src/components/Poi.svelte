@@ -57,7 +57,7 @@
   }
 </script>
 
-<div transition:fade>
+<div class="card-wrapper" transition:fade>
   <main class="new-main">
     <h1>{milestone.name}</h1>
     <p>{milestone.detail}</p>
@@ -146,6 +146,11 @@
     z-index: 1;
     padding-left: 5px;
     padding-right: 5px;
+    margin-right: 20px;
+    height: 90vh;
+  }
+  .card-wrapper {
+    transition: width 4s;
   }
   p {
     font-size: small;
@@ -159,24 +164,49 @@
     font-size: 2em;
     font-weight: 80;
   }
-  main {
-    border-width: 2px;
-    border-style: solid;
-    border-color: #66686b;
-    border-radius: 10px;
-    width: fit-content;
-    padding: 20px 20px;
-    background-color: #f1ae56;
-    margin: 10px 50px;
-    box-shadow: -4px 4px 0px 0px #f0c996;
-    height: fit-content;
+
+  .card-wrapper {
+    justify-content: start;
+    width: 385px;
   }
+
+  main {
+	position: relative;
+	background: #f1ae56;
+	border: 4px solid #66686b;
+  margin-right: 100px;
+}
+main:after, main:before {
+	left: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: "";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+main:after {
+	border-color: rgba(241, 174, 86, 0);
+	border-left-color: #f1ae56;
+	border-width: 30px;
+	margin-top: -30px;
+}
+main:before {
+	border-color: rgba(102, 104, 107, 0);
+	border-left-color: #66686b;
+	border-width: 36px;
+	margin-top: -36px;
+}
 
   button {
     background-color: #ed203d;
     margin: auto;
     min-width: 15px;
     min-height: 15px;
+    border: none;
+    padding: 2px;
   }
 
   .add-event {

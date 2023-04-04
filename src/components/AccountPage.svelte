@@ -122,10 +122,7 @@
       </svg>
     </div>
     <span class="grid grid-cols-2 grid-rows-1">
-      {#if localAvatarURL || user.avatarURL}
-        <img src={localAvatarURL || user.avatarURL} alt="Avatar" width="200" />
-      {/if}
-
+      
       <div class="form-wrapper bg-[#7b5ea7] mt-12">
         <form
           class="flex flex-col items-center mx-3 w-[100%] mb-8"
@@ -140,21 +137,21 @@
           <label for="email">Email:</label>
           <input id="email" type="email" bind:value={user.email} />
 
-          <label for="avatar">
+          <label for="avatar" class="avatar-label">
             Upload Avatar:
-            <input
+            <input class="avatar-input"
               id="avatar"
               type="file"
               on:change={handleFileInputChange}
               accept="image/*"
-            />
-          </label>
-
-          <button class="button-create" type="button" on:click={togglePresets}
+              />
+            </label>
+            
+            <button class="button-create" type="button" on:click={togglePresets}
             >Select Preset</button
-          >
-
-          {#if showPresets}
+            >
+            
+            {#if showPresets}
             <div>
               {#each $presetURLsStore as presetURL, index}
                 <img
@@ -163,13 +160,16 @@
                   width="100"
                   height="100"
                   on:click={() => selectPreset(presetImages[index])}
-                />
-              {/each}
-            </div>
-          {/if}
-
-          <button type="button" on:click={saveChanges}>Save Changes</button>
-        </form>
+                  />
+                  {/each}
+                </div>
+                {/if}
+                
+                <button type="button" on:click={saveChanges}>Save Changes</button>
+              </form>
+              {#if localAvatarURL || user.avatarURL}
+                <img src={localAvatarURL || user.avatarURL} alt="Avatar" width="200" />
+              {/if}
       </div>
 
       <!-- <button on:click={() => createLifeCycle()}>Create Life Cycle</button> -->
@@ -235,6 +235,11 @@
     color: white;
     border: none;
     border-radius: 5px;
+  }
+  img {
+    justify-content: center;
+    align-items: center;
+    margin: auto;
   }
   main {
     display: flex;
@@ -317,5 +322,13 @@
   .custom-shape-divider-top-1680013806 .shape-fill {
     fill: #fcba28;
     z-index: 0;
+  }
+
+  .avatar-input {
+    font-size: small;
+  }
+
+  .avatar-label {
+    font-size: small;
   }
 </style>
