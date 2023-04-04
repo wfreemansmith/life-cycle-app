@@ -12,18 +12,25 @@
     TiImageOutline,
     TiLocationOutline,
   } from "svelte-icons/ti";
-
+  
   export let milestone = {};
   export let user = {};
   let fetchedData = {};
   let subEvents = {};
+  
+  const pathname = milestone.name.replace(/\W/g, "-");
 
   const toggleMenu = (value) => {
-    milestone.menu = value;
-    console.log(value);
-    fetchData(value);
+    milestone.menu = milestone.menu === value ? null : value;
+    if (!value) return;
+    console.log({value})
+    fetchedData = subEvents[value];
+    console.log({fetchedData})
+    if (milestone.menu === "location" && !!subEvents.location) fetchData("location")
+
   };
-  const pathname = milestone.name.replace(/\W/g, "-");
+
+
   const fetchData = async (menu) => {
     let refPath = `users/${user.username}/milestones/${pathname}/${menu}`;
     const dataRef = ref(db, refPath);
@@ -53,16 +60,15 @@
     }
   };
 
+  console.log(fetchedData)
+
   onMount(() => {
+    milestone.menu = null;
     get(ref(db, `users/${user.username}/milestones/${pathname}`))
       .then((snapshot) => {
         if (snapshot.exists()) {
           subEvents = snapshot.val();
-          console.log(subEvents);
-          console.log("qualifications" + !!subEvents.qualifications);
-          console.log("images" + !!subEvents.images);
-          console.log("skills" + !!subEvents.skills);
-          console.log("location" + !!subEvents.location);
+          console.log({subEvents})
         }
       })
       .catch((err) => {
@@ -78,13 +84,13 @@
     <p>{milestone.date ? milestone.date : ""}</p>
 
     {#if !!subEvents.qualifications}
-    <button
-      transition:fade
-      type="button"
-      class="minus w-8 h-8"
-      value="qualifications"
-      on:click={() => toggleMenu("qualifications")}><TiMortarBoard /></button
-    >
+      <button
+        transition:fade
+        type="button"
+        class="minus w-8 h-8"
+        value="qualifications"
+        on:click={() => toggleMenu("qualifications")}><TiMortarBoard /></button
+      >
     {/if}
 
     {#if !!subEvents.skill}
@@ -113,7 +119,7 @@
         type="button"
         class="minus w-8 h-8 py-5 px-5"
         value="images"
-        on:click={() => toggleMenu("photos")}><TiImageOutline /></button
+        on:click={() => toggleMenu("images")}><TiImageOutline /></button
       >
     {/if}
 
@@ -128,6 +134,7 @@
     {/if}
   </main>
 </div>
+{#if milestone.menu}
 <div>
   <article>
     {#if milestone.menu === "location"}
@@ -137,10 +144,10 @@
         <p>Latitude: {fetchedData.latitude}</p>
         <p>Longitude: {fetchedData.longitude}</p>
       {/if}
-    {:else if milestone.menu === "photos"}
+    {:else if milestone.menu === "images"}
       <h1>Photos</h1>
-      {#each Object.entries(fetchedData) as [key, photo]}
-        <img src={photo} alt="Photo" />
+      {#each fetchedData as image}
+        <img src={image} alt="Photo" />
       {/each}
     {:else if milestone.menu === "qualifications"}
       <h1>Qualifications</h1>
@@ -172,6 +179,7 @@
     {/if}
   </article>
 </div>
+{/if}
 
 <style>
   #map {

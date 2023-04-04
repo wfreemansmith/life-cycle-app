@@ -6,7 +6,7 @@
   import userStore from "../utils/userStore";
   import { useNavigate } from "svelte-navigator";
   const navigate = useNavigate();
-  let user = null;
+  let user = {}
   let isLoading = true;
   let file;
   let localAvatarURL;
@@ -25,6 +25,7 @@
     isLoading = !user;
     console.log("User data:", user);
   }
+
   const presetURLsStore = writable([]);
   const togglePresets = () => {
     showPresets = !showPresets;
