@@ -45,6 +45,13 @@
     color: white;
   }
   input {
+    font-family: 'Open Sans', serif;
+    font-size: 14px;
+    color: black;
+  }
+  textarea {
+    font-family: 'Open Sans', serif;
+    font-size: 14px;
     color: black;
   }
 

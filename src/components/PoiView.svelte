@@ -1,8 +1,8 @@
 <script>
   import { fade } from "svelte/transition";
-  import { ref, update } from "firebase/database";
+  import { ref, get } from "firebase/database";
   import { db } from "../utils/firebase";
-  import { get } from "firebase/database";
+  import { onMount } from "svelte";
   import L from "leaflet";
 
   import {
@@ -12,22 +12,27 @@
     TiImageOutline,
     TiLocationOutline,
   } from "svelte-icons/ti";
-
+  
   export let milestone = {};
   export let user = {};
   let fetchedData = {};
+  let subEvents = {};
+  
+  const pathname = milestone.name.replace(/\W/g, "-");
 
   const toggleMenu = (value) => {
-    milestone.menu = value;
-    console.log(value);
-    fetchData(value);
+    milestone.menu = milestone.menu === value ? null : value;
+    if (!value) return;
+    console.log({value})
+    fetchedData = subEvents[value];
+    console.log({fetchedData})
+    if (milestone.menu === "location" && !!subEvents.location) fetchData("location")
+
   };
-  const pathname = milestone.name.replace(/\W/g, "-");
+
+
   const fetchData = async (menu) => {
     let refPath = `users/${user.username}/milestones/${pathname}/${menu}`;
-    if (menu === "photos") {
-      refPath = `users/${user.username}/milestones/${pathname}/images`;
-    }
     const dataRef = ref(db, refPath);
     const snapshot = await get(dataRef);
     if (snapshot.exists()) {
@@ -54,6 +59,22 @@
       console.log("No data available");
     }
   };
+
+  console.log(fetchedData)
+
+  onMount(() => {
+    milestone.menu = null;
+    get(ref(db, `users/${user.username}/milestones/${pathname}`))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          subEvents = snapshot.val();
+          console.log({subEvents})
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 </script>
 
 <div transition:fade>
@@ -62,47 +83,58 @@
     <p>{milestone.detail}</p>
     <p>{milestone.date ? milestone.date : ""}</p>
 
-    <button
-      transition:fade
-      type="button"
-      class="minus w-8 h-8"
-      value="qualifications"
-      on:click={() => toggleMenu("qualifications")}><TiMortarBoard /></button
-    >
+    {#if !!subEvents.qualifications}
+      <button
+        transition:fade
+        type="button"
+        class="minus w-8 h-8"
+        value="qualifications"
+        on:click={() => toggleMenu("qualifications")}><TiMortarBoard /></button
+      >
+    {/if}
 
-    <button
-      transition:fade
-      type="button"
-      class="plus w-8 h-8"
-      value="skills"
-      on:click={() => toggleMenu("skills")}><TiStarOutline /></button
-    >
+    {#if !!subEvents.skill}
+      <button
+        transition:fade
+        type="button"
+        class="plus w-8 h-8"
+        value="skills"
+        on:click={() => toggleMenu("skills")}><TiStarOutline /></button
+      >
+    {/if}
 
-    <button
-      transition:fade
-      type="button"
-      class="minus w-8 h-8"
-      value="text"
-      on:click={() => toggleMenu("text")}><TiPencil /></button
-    >
+    {#if !!subEvents.text}
+      <button
+        transition:fade
+        type="button"
+        class="minus w-8 h-8"
+        value="text"
+        on:click={() => toggleMenu("text")}><TiPencil /></button
+      >
+    {/if}
 
-    <button
-      transition:fade
-      type="button"
-      class="minus w-8 h-8"
-      value="photos"
-      on:click={() => toggleMenu("photos")}><TiImageOutline /></button
-    >
+    {#if !!subEvents.images}
+      <button
+        transition:fade
+        type="button"
+        class="minus w-8 h-8 py-5 px-5"
+        value="images"
+        on:click={() => toggleMenu("images")}><TiImageOutline /></button
+      >
+    {/if}
 
-    <button
-      transition:fade
-      type="button"
-      class="minus w-8 h-8"
-      value="location"
-      on:click={() => toggleMenu("location")}><TiLocationOutline /></button
-    >
+    {#if !!subEvents.location}
+      <button
+        transition:fade
+        type="button"
+        class="minus w-8 h-8"
+        value="location"
+        on:click={() => toggleMenu("location")}><TiLocationOutline /></button
+      >
+    {/if}
   </main>
 </div>
+{#if milestone.menu}
 <div>
   <article>
     {#if milestone.menu === "location"}
@@ -112,10 +144,10 @@
         <p>Latitude: {fetchedData.latitude}</p>
         <p>Longitude: {fetchedData.longitude}</p>
       {/if}
-    {:else if milestone.menu === "photos"}
+    {:else if milestone.menu === "images"}
       <h1>Photos</h1>
-      {#each Object.entries(fetchedData) as [key, photo]}
-        <img src={photo} alt="Photo" />
+      {#each fetchedData as image}
+        <img src={image} alt="Photo" />
       {/each}
     {:else if milestone.menu === "qualifications"}
       <h1>Qualifications</h1>
@@ -147,6 +179,7 @@
     {/if}
   </article>
 </div>
+{/if}
 
 <style>
   #map {
@@ -173,9 +206,7 @@
   p {
     font-size: small;
   }
-  form {
-    z-index: 1;
-  }
+
   h1 {
     color: #eff3f4;
     text-transform: uppercase;
@@ -198,8 +229,9 @@
   button {
     background-color: #ed203d;
     margin: auto;
-    min-width: 15px;
-    min-height: 15px;
+    min-width: 37px;
+    min-height: 37px;
+    padding: 4px;
   }
 
   .add-event {
