@@ -3,7 +3,7 @@
   import Login from "./components/Login.svelte";
   import Tree from "./components/Tree.svelte";
   import AccountPage from "./components/AccountPage.svelte";
-  import TestingPage from "./components/TestingPage.svelte";
+  import AboutPage from "./components/AboutPage.svelte";
   import Nav from "./components/Nav.svelte";
   import ShareLink from "./components/ShareLink.svelte";
 
@@ -23,7 +23,8 @@
       <Route path="/about" component={TestingPage} />
       <Route path="/view/:username" component={ShareLink} />
       <Route path="/*">
-      <h1>Sorry that page does not exist!</h1></Route>
+        <h1>Sorry that page does not exist!</h1></Route
+      >
     </main>
   </div>
 </Router>
@@ -47,6 +48,6 @@
     height: fit-content;
   }
   .nav-wrapper {
-    width: 100%
+    width: 100%;
   }
 </style>
