@@ -3,9 +3,8 @@
   import Login from "./components/Login.svelte";
   import Tree from "./components/Tree.svelte";
   import AccountPage from "./components/AccountPage.svelte";
-  import TestingPage from "./components/TestingPage.svelte";
+  import AboutPage from "./components/AboutPage.svelte";
   import Nav from "./components/Nav.svelte";
-
 </script>
 
 <Router primary={false}>
@@ -19,9 +18,10 @@
       <Route path="/" component={Login} />
       <Route path="/account" component={AccountPage} />
       <Route path="/create" component={Tree} />
-      <Route path="/about" component={TestingPage} />
+      <Route path="/about" component={AboutPage} />
       <Route path="/*">
-      <h1>Sorry that page does not exist!</h1></Route>
+        <h1>Sorry that page does not exist!</h1></Route
+      >
     </main>
   </div>
 </Router>
@@ -45,6 +45,6 @@
     height: fit-content;
   }
   .nav-wrapper {
-    width: 100%
+    width: 100%;
   }
 </style>
