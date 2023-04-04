@@ -35,7 +35,7 @@
 
 <div>
   <form class="input-field" on:submit={saveData}>
-    <label for="additionalInfo">:</label>
+    <label for="additionalInfo"></label>
     <textarea id="additionalInfo" bind:value={additionalInfo} rows="10" />
     <button type="submit">Save</button>
   </form>
