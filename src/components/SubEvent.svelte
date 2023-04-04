@@ -96,6 +96,23 @@
     box-shadow: 3px 3px 3px #888;
     overflow-y: auto;
   }
+  article::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  article::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+  }
+
+  article::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+  }
+
+  article::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
 
   select {
     display: flex;
