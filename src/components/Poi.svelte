@@ -61,7 +61,7 @@
   <main class="new-main">
     <h1>{milestone.name}</h1>
     <p>{milestone.detail}</p>
-    <p>{milestone.date ? milestone.date : ""}</p>
+    <p>{milestone.date ? milestone.date.split("-").reverse().join("-") : ""}</p>
     {#if milestone.menu}
       <button
         type="button"
