@@ -239,13 +239,14 @@
     justify-content: center;
     align-items: center;
     margin: auto;
-    padding: 2rem;
+    padding: 1.5rem;
   }
   main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
+    padding: 1.5rem;
+    overflow-y: scroll;
   }
 
   input {
@@ -339,12 +340,13 @@
   }
 
   section {
-    z-index: 1;
+    z-index: 0;
   }
 
   .form-wrapper {
+    position: relative;
     width: 624px;
-    height: 500px;
+    height: 600px;
     margin: 0 auto;
     box-shadow: -8px 8px #f5becc;
     border-radius: 10px;
@@ -377,5 +379,6 @@
   span {
     justify-content: center;
   }
+  
 
 </style>
