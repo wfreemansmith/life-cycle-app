@@ -35,9 +35,9 @@
 
 <div>
   <form class="input-field" on:submit={saveData}>
-    <h2 for="additonalInfo">
+    <p for="additonalInfo">
       Here you can write some additional information about your milestone...
-    </h2>
+    </p>
 
     <textarea id="additionalInfo" bind:value={additionalInfo} rows="10" />
     <button type="submit">Save</button>
@@ -49,6 +49,8 @@
 
 <style>
   textarea {
+    font-family: 'Open Sans', serif;
+    font-size: 14px;
     width: 100%;
     height: 200px;
   }

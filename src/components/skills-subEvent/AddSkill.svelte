@@ -31,12 +31,17 @@
   label {
     color: white;
   }
+
   input {
-    font-family: 'Open Sans', sans-serif;
-	font-size: 14px;
+    font-family: 'Open Sans', serif;
+    font-size: 14px;
     color: black;
   }
-
+  textarea {
+    font-family: 'Open Sans', serif;
+    font-size: 14px;
+    color: black;
+  }
   button {
     color: black;
     background-color: #ed203d;

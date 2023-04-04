@@ -82,7 +82,7 @@
       {#each images.slice(currentIndex, currentIndex + 4) as image (image)}
         <img
           src={image}
-          alt="Gallery Image"
+          alt="Gallery"
           width="100"
           on:click={() => showImageInModal(image)}
         />
@@ -98,7 +98,7 @@
 
   {#if showModal}
     <div class="modal" on:click={closeModal}>
-      <img src={modalImageSrc} alt="Gallery Image" class="modal-image" />
+      <img src={modalImageSrc} alt="Gallery" class="modal-image" />
     </div>
   {/if}
 </div>
