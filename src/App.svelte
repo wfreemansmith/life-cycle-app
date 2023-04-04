@@ -5,6 +5,8 @@
   import AccountPage from "./components/AccountPage.svelte";
   import AboutPage from "./components/AboutPage.svelte";
   import Nav from "./components/Nav.svelte";
+  import ShareLink from "./components/ShareLink.svelte";
+
 </script>
 
 <Router primary={false}>
@@ -18,7 +20,8 @@
       <Route path="/" component={Login} />
       <Route path="/account" component={AccountPage} />
       <Route path="/create" component={Tree} />
-      <Route path="/about" component={AboutPage} />
+      <Route path="/about" component={TestingPage} />
+      <Route path="/view/:username" component={ShareLink} />
       <Route path="/*">
         <h1>Sorry that page does not exist!</h1></Route
       >

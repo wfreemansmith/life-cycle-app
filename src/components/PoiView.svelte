@@ -15,6 +15,7 @@
 
   export let milestone = {};
   export let user = {};
+  export let closeAllPopOuts;
   let fetchedData = {};
   let subEvents = {};
 
@@ -22,6 +23,7 @@
 
   const toggleMenu = (value) => {
     milestone.menu = milestone.menu === value ? null : value;
+    closeAllPopOuts()
     if (!value) return;
     fetchedData = subEvents[value];
     if (milestone.menu === "location" && !!subEvents.location)
@@ -228,6 +230,10 @@
     text-transform: uppercase;
     font-size: 2em;
     font-weight: 80;
+  }
+
+  p {
+    color: white
   }
   main {
     border-width: 2px;

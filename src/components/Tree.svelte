@@ -9,8 +9,12 @@
 
   const navigate = useNavigate();
 
-  let view = false;
-  let user = $userStore;
+  export let view = false;
+  export let viewerData = null;
+
+  console.log("userStore?", $userStore);
+  let user = !$userStore ? viewerData : $userStore;
+  console.log({ user });
   if (!user) navigate("/");
 
   // Function to create a new milestone at any point on the tree
@@ -33,7 +37,6 @@
 
   // closes all sub event menus
   const closeAllPopOuts = () => {
-    console.log("hello");
     tree.forEach((milestone) => {
       milestone.menu = null;
       if (!milestone.name & !milestone.detail) deleteLifeEvent(milestone.name);
@@ -96,10 +99,6 @@
     orderByDate();
   }
 
-  const toggleViewMode = () => {
-    view = !view;
-  };
-
   closeAllPopOuts();
 </script>
 
@@ -152,19 +151,21 @@
       />
     </svg>
   </div>
-  <button
-    class="absolute top-0 right-0 m-4 py-2 px-4 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600"
-    on:click={() => (view = !view)}
-  >
-    {#if view}
-      Switch to Create Mode
-    {:else}
-      Switch to View Mode
-    {/if}
-  </button>
+  {#if !viewerData}
+    <button
+      class="absolute top-0 right-0 m-4 py-2 px-4 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600"
+      on:click={() => (view = !view)}
+    >
+      {#if view}
+        Switch to Create Mode
+      {:else}
+        Switch to View Mode
+      {/if}
+    </button>
+  {/if}
   {#each tree as milestone}
     {#if view}
-      <PoiView {milestone} {user} />
+      <PoiView {milestone} {user} {closeAllPopOuts} />
     {:else}
       <Poi
         {milestone}
