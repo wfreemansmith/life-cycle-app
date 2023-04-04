@@ -4,6 +4,7 @@ html, body {
 	position: relative;
 	width: 100%;
 	height: fit-content;
+	background-size: contain;
 }
 
 body {
