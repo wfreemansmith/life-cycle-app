@@ -36,7 +36,7 @@
     {#if eventType === "blank"}
       <label for="select">What do you want to add to this milestone?</label>
       <select id="select" on:change={toggleType}>
-        <option value="blank">blank</option>
+        <option value="blank"></option>
         <option value="location">Location</option>
         <option value="text">Text</option>
         <option value="photos">Photos</option>
@@ -91,10 +91,10 @@
     border-style: solid;
     border-color: #66686b;
     border-radius: 10px;
-    width: fit-content;
+    width: 100%;
+    height: 400px;
     padding: 20px 50px;
     background-color: #7b5ea7;
-    margin: 0px 50px;
     box-shadow: -4px 4px 0px 0px #f0c996;
   }
 
@@ -114,10 +114,14 @@
   }
 
   button {
+    color: black;
     background-color: #ed203d;
     margin: auto;
     min-width: 15px;
     min-height: 15px;
+    border: none;
+    padding: 4px;
+    margin-top: 4px;
   }
 
   .add-event {

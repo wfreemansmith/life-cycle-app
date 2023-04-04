@@ -64,14 +64,12 @@
     <p>{milestone.date ? milestone.date : ""}</p>
     {#if milestone.menu}
       <button
-        transition:fade
         type="button"
         class="minus w-8 h-8"
         on:click={closeForm}><FaMinus /></button
       >
     {:else}
       <button
-        transition:fade
         type="button"
         class="plus w-8 h-8"
         on:click={menuToggle}><FaPlus /></button
@@ -168,6 +166,7 @@
   .card-wrapper {
     justify-content: start;
     width: 385px;
+    height: 180px;
   }
 
   main {
@@ -175,6 +174,7 @@
 	background: #f1ae56;
 	border: 4px solid #66686b;
   margin-right: 100px;
+  height: 180px;
 }
 main:after, main:before {
 	left: 100%;
