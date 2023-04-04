@@ -6,7 +6,7 @@
   import userStore from "../utils/userStore";
   import { useNavigate } from "svelte-navigator";
   const navigate = useNavigate();
-  let user = {}
+  let user = {};
   let isLoading = true;
   let file;
   let localAvatarURL;
@@ -15,9 +15,11 @@
     "preset1.png",
     "preset2.png",
     "preset3.png",
-    // "preset4.png",
-    // "preset5.png",
-    // "preset6.png",
+    "preset4.png",
+    "preset5.png",
+    "preset6.png",
+    "preset7.png",
+    "preset8.png",
   ];
 
   $: {
@@ -75,7 +77,7 @@
     if (localAvatarURL) {
       updates.avatarURL = localAvatarURL;
     }
-  
+
     const userRef = dbRef(db, `users/${user.username}`);
     update(userRef, updates)
       .then(() => {
@@ -122,10 +124,9 @@
       </svg>
     </div>
     <span class="grid grid-cols-1 grid-rows-1">
-      
       <div class="form-wrapper bg-[#7b5ea7] mt-12">
         <form
-          class="flex flex-col items-center mx-3 w-[100%] mb-8"
+          class="account-page-form flex flex-col items-center mx-3 w-[100%] mb-8"
           on:submit={saveChanges}
         >
           <label for="name">Name:</label>
@@ -136,38 +137,44 @@
 
           <label for="avatar" class="avatar-label">
             Upload Avatar:
-            <input class="avatar-input"
+            <input
+              class="avatar-input"
               id="avatar"
               type="file"
               on:change={handleFileInputChange}
               accept="image/*"
-              />
-            </label>
-            
-            <button class="button-create" type="button" on:click={togglePresets}
+            />
+          </label>
+
+          <button class="button-create" type="button" on:click={togglePresets}
             >Select Preset</button
-            >
-            
+          >
+          <div class="preset-images-container">
             {#if showPresets}
-            <div class="inline-flex">
-              {#each $presetURLsStore as presetURL, index}
+              <div>
+                {#each $presetURLsStore as presetURL, index}
                   <img
+                    class="preset-image"
                     src={presetURL}
                     alt="Preset {presetImages[index]}"
                     width="100"
                     height="100"
                     on:click={() => selectPreset(presetImages[index])}
-                    />
-                    {/each}
-                
-                </div>
-                {/if}
-                
-                <button type="button" on:click={saveChanges}>Save Changes</button>
-              </form>
-              {#if localAvatarURL || user.avatarURL}
-                <img src={localAvatarURL || user.avatarURL} alt="Avatar" width="200" />
-              {/if}
+                  />
+                {/each}
+              </div>
+            {/if}
+          </div>
+          {#if localAvatarURL || user.avatarURL}
+            <img
+              src={localAvatarURL || user.avatarURL}
+              alt="Avatar"
+              width="200"
+            />
+          {/if}
+
+          <button type="button" on:click={saveChanges}>Save Changes</button>
+        </form>
       </div>
 
       <!-- <button on:click={() => createLifeCycle()}>Create Life Cycle</button> -->
@@ -211,6 +218,30 @@
 </main>
 
 <style>
+  .account-page-form {
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 16px;
+  }
+
+  .account-page-form::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .account-page-form::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+  }
+
+  .account-page-form::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+  }
+
+  .account-page-form::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
   h1 {
     z-index: 1;
   }
@@ -250,8 +281,8 @@
   }
 
   input {
-    font-family: 'Open Sans', sans-serif;
-	font-size: 14px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -331,8 +362,9 @@
   }
 
   .avatar-input {
-    font-family: 'Open Sans', sans-serif;
-	font-size: 14px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    width: 100%;
   }
 
   .avatar-label {
@@ -357,8 +389,21 @@
   .preset-images-container {
     display: flex;
     flex-wrap: wrap;
+
     justify-content: center;
     gap: 10px;
+    border: 2px solid black;
+    box-shadow: 0 0 10px 5px rgba(221, 209, 44, 0.1);
+    background-color: #f38ba3;
+  }
+
+  .preset-image {
+    width: 120px;
+    height: 120px;
+    box-sizing: border-box;
+    margin: 5px;
+    border: 1px solid white;
+    box-shadow: 0 0 10px 5px rgba(221, 209, 44, 0.1);
   }
 
   form {
@@ -379,6 +424,4 @@
   span {
     justify-content: center;
   }
-  
-
 </style>
