@@ -26,7 +26,6 @@
       await signOut(auth);
       navigate("/");
       userStore.set(null);
-      console.log("Signed out successfully");
     } catch (error) {
       console.error("Error signing out:", error);
     }
