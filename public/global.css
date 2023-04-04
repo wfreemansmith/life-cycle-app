@@ -1,9 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arvo&family=Open+Sans&display=swap');
 
 html, body {
 	position: relative;
 	width: 100%;
 	height: fit-content;
+
+}
+
+p {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
+}
+
+h1, h2, h3 {
+	font-family: 'Arvo', serif;
 }
 
 body {
@@ -31,8 +41,8 @@ label {
 }
 
 input, button, select, textarea {
-	font-family: inherit;
-	font-size: inherit;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
 	-webkit-padding: 0.4em 0;
 	padding: 0.4em;
 	margin: 0 0 0.5em 0;
@@ -46,9 +56,11 @@ input:disabled {
 }
 
 button {
+	font-family: 'Arvo', serif;
 	color: #333;
 	background-color: #f4f4f4;
 	outline: none;
+	padding: 3px 10px
 }
 
 button:disabled {

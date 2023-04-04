@@ -150,9 +150,7 @@
   .card-wrapper {
     transition: width 4s;
   }
-  p {
-    font-size: small;
-  }
+
   form {
     z-index: 1;
   }
@@ -161,6 +159,11 @@
     text-transform: uppercase;
     font-size: 2em;
     font-weight: 80;
+  }
+
+  input {
+    font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
   }
 
   .card-wrapper {

@@ -213,10 +213,11 @@
   }
 
   input {
+    font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
     padding: 10px;
     border: none;
     border-bottom: 2px solid black;
-    font-size: 16px;
     background-color: #f38ba3;
     box-shadow: -10px 6px 2px black;
     z-index: 1;
