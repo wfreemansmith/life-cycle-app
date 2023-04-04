@@ -148,16 +148,17 @@
             >
             
             {#if showPresets}
-            <div>
+            <div class="inline-flex">
               {#each $presetURLsStore as presetURL, index}
-                <img
-                  src={presetURL}
-                  alt="Preset {presetImages[index]}"
-                  width="100"
-                  height="100"
-                  on:click={() => selectPreset(presetImages[index])}
-                  />
-                  {/each}
+                  <img
+                    src={presetURL}
+                    alt="Preset {presetImages[index]}"
+                    width="100"
+                    height="100"
+                    on:click={() => selectPreset(presetImages[index])}
+                    />
+                    {/each}
+                
                 </div>
                 {/if}
                 

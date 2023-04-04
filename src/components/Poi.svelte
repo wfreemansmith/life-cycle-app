@@ -61,7 +61,7 @@
   <main class="new-main">
     <h1>{milestone.name}</h1>
     <p>{milestone.detail}</p>
-    <p>{milestone.date ? milestone.date : ""}</p>
+    <p>{milestone.date ? milestone.date.split("-").reverse().join("-") : ""}</p>
     {#if milestone.menu}
       <button
         type="button"
@@ -149,6 +149,16 @@
   }
   .card-wrapper {
     transition: width 4s;
+    height: 200px;
+  }
+
+  .new-main {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+    height: 200px;
   }
 
   form {
@@ -205,11 +215,10 @@ main:before {
 
   button {
     background-color: #ed203d;
-    margin: auto;
     min-width: 15px;
-    min-height: 15px;
     border: none;
     padding: 2px;
+    margin-bottom: 20px
   }
 
   .add-event {
