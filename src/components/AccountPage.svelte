@@ -287,6 +287,7 @@
     overflow: hidden;
     line-height: 0;
     transform: rotate(180deg);
+    z-index: 0;
   }
 
   .custom-shape-divider-bottom-1680013680 svg {
@@ -295,10 +296,12 @@
     width: calc(133% + 1.3px);
     height: 160px;
     transform: rotateY(180deg);
+    z-index: 0;
   }
 
   .custom-shape-divider-bottom-1680013680 .shape-fill {
     fill: #0cb2c0;
+    z-index: 0;
   }
 
   .custom-shape-divider-top-1680013806 {
@@ -332,5 +335,9 @@
 
   .avatar-label {
     /* font-size: small; */
+  }
+
+  section {
+    z-index: 1;
   }
 </style>
