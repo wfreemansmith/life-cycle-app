@@ -68,9 +68,7 @@
 </div>
 
 <style>
-  * {
-    color: white;
-  }
+
   div {
     z-index: 1;
     margin-top: 10px;

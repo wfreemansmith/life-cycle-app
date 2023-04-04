@@ -2,10 +2,9 @@
   import { ref, getDownloadURL } from "firebase/storage";
   import { ref as dbRef, update } from "firebase/database";
   import { writable } from "svelte/store";
-  import { auth, db, storage } from "../utils/firebase";
+  import { db, storage } from "../utils/firebase";
   import userStore from "../utils/userStore";
   import { useNavigate } from "svelte-navigator";
-  import Tree from "./Tree.svelte";
   const navigate = useNavigate();
   let user = null;
   let isLoading = true;
@@ -75,7 +74,7 @@
     if (localAvatarURL) {
       updates.avatarURL = localAvatarURL;
     }
-    console.log(user.username);
+  
     const userRef = dbRef(db, `users/${user.username}`);
     update(userRef, updates)
       .then(() => {
@@ -249,6 +248,8 @@
   }
 
   input {
+    font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -325,10 +326,11 @@
   }
 
   .avatar-input {
-    font-size: small;
+    font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
   }
 
   .avatar-label {
-    font-size: small;
+    /* font-size: small; */
   }
 </style>

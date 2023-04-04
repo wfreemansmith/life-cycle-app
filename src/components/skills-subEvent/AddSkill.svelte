@@ -32,6 +32,8 @@
     color: white;
   }
   input {
+    font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
     color: black;
   }
 </style>
