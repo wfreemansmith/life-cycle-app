@@ -151,14 +151,15 @@
 <style>
   #map {
     width: 100%;
-    height: 300px;
+    height: 80%;
   }
   article {
     border-width: 2px;
     border-style: solid;
     border-color: #66686b;
     border-radius: 10px;
-    width: fit-content;
+    width: 100%;
+    height: 400px;
     padding: 20px 50px;
     background-color: #7b5ea7;
     margin: 0px 50px;

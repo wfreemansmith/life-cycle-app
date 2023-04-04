@@ -34,4 +34,15 @@
   input {
     color: black;
   }
+
+  button {
+    color: black;
+    background-color: #ed203d;
+    margin: auto;
+    min-width: 15px;
+    min-height: 15px;
+    border: none;
+    padding: 4px;
+    margin-top: 4px;
+  }
 </style>

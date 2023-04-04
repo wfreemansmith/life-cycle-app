@@ -90,7 +90,7 @@
   }
 </script>
 
-<div id="map" style="height: 500px;" />
+<div id="map" style="height: 200px;" />
 
 <label>
   Search location:
@@ -102,5 +102,15 @@
   #map {
     height: 100%;
     width: 100%;
+  }
+  button {
+    color: black;
+    background-color: #ed203d;
+    margin: auto;
+    min-width: 15px;
+    min-height: 15px;
+    border: none;
+    padding: 4px;
+    margin-top: 4px;
   }
 </style>

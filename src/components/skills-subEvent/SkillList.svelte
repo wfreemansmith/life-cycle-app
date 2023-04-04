@@ -79,7 +79,18 @@
     <AddSkill on:addSkill={skillAdded} {...skills[skillToEdit]} />
   {/if}
 </div>
-
+<style>
+  button {
+    color: black;
+    background-color: #ed203d;
+    margin: auto;
+    min-width: 15px;
+    min-height: 15px;
+    border: none;
+    padding: 4px;
+    margin-top: 4px;
+  }
+</style>
 <!-- 
  {#if skills.length > 0}
       <button>Save</button>

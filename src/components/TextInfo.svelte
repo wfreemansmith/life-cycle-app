@@ -34,9 +34,8 @@
 </script>
 
 <div>
-  <h1>Add some additional information about your milestone here...</h1>
   <form class="input-field" on:submit={saveData}>
-    <label for="additionalInfo">Additional Information:</label>
+    <label for="additionalInfo">:</label>
     <textarea id="additionalInfo" bind:value={additionalInfo} rows="10" />
     <button type="submit">Save</button>
   </form>
@@ -48,5 +47,17 @@
 <style>
   textarea {
     width: 100%;
+    height: 200px;
+  }
+
+  button {
+    color: black;
+    background-color: #ed203d;
+    margin: auto;
+    min-width: 15px;
+    min-height: 15px;
+    border: none;
+    padding: 4px;
+    margin-top: 4px;
   }
 </style>
