@@ -6,13 +6,13 @@
   import { onMount } from "svelte";
   import userStore from "../utils/userStore";
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   let loggedInUser;
   $: userStore.subscribe((user) => {
     loggedInUser = user;
   });
-  
+
   onMount(() => {
     let toggleBtn = document.querySelector("#navbar-toggle");
     let collapse = document.querySelector("#navbar-collapse");

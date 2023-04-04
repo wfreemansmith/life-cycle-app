@@ -9,7 +9,7 @@
   import userStore from "../utils/userStore";
   import { getData } from "../utils/getdata";
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   let isSignIn = false;
   let message = "";
 
@@ -61,7 +61,7 @@
       message = "Logged in!";
 
       const uid = userCredential.user.uid;
-      getData(uid); // Use uid instead of email
+      getData(uid);
 
       navigate("/account");
     } catch (err) {
@@ -97,7 +97,9 @@
   };
 </script>
 
-<main class="flex bg-black flex-col items-center w-screen h-full min-h-screen relative">
+<main
+  class="flex bg-black flex-col items-center w-screen h-full min-h-screen relative"
+>
   <div class="custom-shape-divider-top-1680002298">
     <svg
       data-name="Layer 1"
@@ -112,9 +114,10 @@
     </svg>
   </div>
 
-  <h1 class="px-3 my-14 py-1 text-6xl text-[#f0ebd2] z-1">
-    Welcome to Life Cycle!
-  </h1>
+  <h1 class="px-3 my-14 py-1 text-6xl text-[#f0ebd2] z-1">Life Cycle!</h1>
+  <p class="px-3 mt-1 mb-20 py-1 text-2xl z-1">
+    <em>Show the world who you are, &nbsp;not just what you've done!</em>
+  </p>
 
   {#if isSignIn}
     <p>Already created an account?</p>
@@ -162,7 +165,7 @@
       <button class="button" type="submit">Log In</button>
     </form>
   {/if}
-  <p class="mt-2">{message ? message : ""}</p>
+  <p class="message mt-2">{message ? message : ""}</p>
   <div class="custom-shape-divider-bottom-1680002532">
     <svg
       data-name="Layer 1"
@@ -179,6 +182,15 @@
 </main>
 
 <style>
+  .message {
+    font-size: 1.5rem;
+    color: white;
+    margin-top: 1rem;
+    padding: 0.5rem;
+
+    border-radius: 0.25rem;
+  }
+
   p {
     color: #f0ebd2;
   }
@@ -193,10 +205,11 @@
     align-items: center;
     border: 2px solid #7b5ea7;
     padding: 20px;
-    margin-top: 20px;
+    margin-top: 25px;
     height: fit-content;
     background-color: #7b5ea7;
     border-radius: 10px;
+    width: 65%;
 
     box-shadow: -8px 8px #f5becc;
     z-index: 1;
@@ -232,7 +245,7 @@
     font-size: 16px;
     cursor: pointer;
     box-shadow: -4px 4px 0px 1px #f5becc;
-    margin-top: 8px;
+    margin-top: 25px;
   }
 
   img {
