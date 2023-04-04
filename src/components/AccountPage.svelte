@@ -94,7 +94,7 @@
     <h1 class="px-3 my-14 py-1 text-6xl text-[#f0ebd2] z-1">Loading...</h1>
   {:else}
     <h1 class="px-3 my-14 py-1 text-6xl text-[#f0ebd2] z-1">
-      Welcome, {user.name} !
+      Welcome, {user.name}!
     </h1>
 
     <div class="custom-shape-divider-top-1680013806">
@@ -120,7 +120,7 @@
         />
       </svg>
     </div>
-    <span class="grid grid-cols-2 grid-rows-1">
+    <span class="grid grid-cols-1 grid-rows-1">
       
       <div class="form-wrapper bg-[#7b5ea7] mt-12">
         <form
@@ -129,9 +129,6 @@
         >
           <label for="name">Name:</label>
           <input id="name" type="text" bind:value={user.name} />
-
-          <label for="username">Username:</label>
-          <input id="username" type="text" bind:value={user.username} />
 
           <label for="email">Email:</label>
           <input id="email" type="email" bind:value={user.email} />
@@ -219,6 +216,7 @@
     box-shadow: -8px 8px #f5becc;
     border-radius: 10px;
     z-index: 1;
+    align-items: center;
   }
   .button-create {
     margin-bottom: 30px;
@@ -239,6 +237,7 @@
     justify-content: center;
     align-items: center;
     margin: auto;
+    padding: 2rem;
   }
   main {
     display: flex;
@@ -340,4 +339,41 @@
   section {
     z-index: 1;
   }
+
+  .form-wrapper {
+    width: 624px;
+    height: 500px;
+    margin: 0 auto;
+    box-shadow: -8px 8px #f5becc;
+    border-radius: 10px;
+    z-index: 1;
+    align-items: center;
+  }
+
+  .preset-images-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  input {
+    width: 65%;
+  }
+
+  .name.svelte {
+    border-color: red;
+    font-size: 18px;
+  }
+
+  span {
+    justify-content: center;
+  }
+
 </style>
