@@ -12,24 +12,21 @@
     TiImageOutline,
     TiLocationOutline,
   } from "svelte-icons/ti";
-  
+
   export let milestone = {};
   export let user = {};
   let fetchedData = {};
   let subEvents = {};
-  
+
   const pathname = milestone.name.replace(/\W/g, "-");
 
   const toggleMenu = (value) => {
     milestone.menu = milestone.menu === value ? null : value;
     if (!value) return;
-    console.log({value})
     fetchedData = subEvents[value];
-    console.log({fetchedData})
-    if (milestone.menu === "location" && !!subEvents.location) fetchData("location")
-
+    if (milestone.menu === "location" && !!subEvents.location)
+      fetchData("location");
   };
-
 
   const fetchData = async (menu) => {
     let refPath = `users/${user.username}/milestones/${pathname}/${menu}`;
@@ -60,15 +57,12 @@
     }
   };
 
-  console.log(fetchedData)
-
   onMount(() => {
     milestone.menu = null;
     get(ref(db, `users/${user.username}/milestones/${pathname}`))
       .then((snapshot) => {
         if (snapshot.exists()) {
           subEvents = snapshot.val();
-          console.log({subEvents})
         }
       })
       .catch((err) => {
@@ -77,13 +71,13 @@
   });
 </script>
 
-<div transition:fade>
+<div class="main-div" transition:fade>
   <main class="new-main">
     <h1>{milestone.name}</h1>
     <p>{milestone.detail}</p>
     <p>{milestone.date ? milestone.date : ""}</p>
 
-    {#if !!subEvents.qualifications}
+    <div class="button-list">{#if !!subEvents.qualifications}
       <button
         transition:fade
         type="button"
@@ -132,79 +126,101 @@
         on:click={() => toggleMenu("location")}><TiLocationOutline /></button
       >
     {/if}
+  </div>
   </main>
 </div>
 {#if milestone.menu}
-<div>
-  <article>
-    {#if milestone.menu === "location"}
-      <h1>Location</h1>
-      <div id="map" />
-      {#if fetchedData.latitude && fetchedData.longitude}
-        <p>Latitude: {fetchedData.latitude}</p>
-        <p>Longitude: {fetchedData.longitude}</p>
+  <div>
+    <article>
+      {#if milestone.menu === "location"}
+        <h1>Location</h1>
+        <div id="map" />
+      {:else if milestone.menu === "images"}
+        <h1>Photos</h1>
+        <div class="gallery">
+        {#each fetchedData as image}
+          <img src={image} alt="Photo" />
+        {/each}
+      </div>
+      {:else if milestone.menu === "qualifications"}
+        <h1>Qualifications</h1>
+        {#each fetchedData as qualification}
+          <div class="qualification">
+            
+              <h2>{qualification.subject}</h2>
+            <p><strong>Grade Achieved: </strong>{qualification.grade}</p>
+            <p><strong>Date: </strong>{qualification.date}</p>
+            {#if qualification.additionalInfo}<p>
+                <strong>Additional Information: </strong>
+                {qualification.additionalInfo}
+              </p>{/if}
+          </div>
+        {/each}
+      {:else if milestone.menu === "skills"}
+        <h1>Skills</h1>
+        {#each Object.entries(fetchedData) as [key, skill]}
+          <div>
+            <h2>{skill.skillName}</h2>
+            <p>Description: {skill.skillDescription}</p>
+          </div>
+        {/each}
+      {:else if milestone.menu === "text"}
+        <h1>Text</h1>
+        {#if typeof fetchedData === "object"}
+          <div>
+            <p>{fetchedData.input}</p>
+          </div>
+        {:else}
+          <p>No data available</p>
+        {/if}
       {/if}
-    {:else if milestone.menu === "images"}
-      <h1>Photos</h1>
-      {#each fetchedData as image}
-        <img src={image} alt="Photo" />
-      {/each}
-    {:else if milestone.menu === "qualifications"}
-      <h1>Qualifications</h1>
-      {#each Object.entries(fetchedData) as [key, qualification]}
-        <div>
-          <h2>{qualification.subject}</h2>
-          <p>Grade: {qualification.grade}</p>
-          <p>Date: {qualification.date}</p>
-          <p>Additional Info: {qualification.additionalInfo}</p>
-        </div>
-      {/each}
-    {:else if milestone.menu === "skills"}
-      <h1>Skills</h1>
-      {#each Object.entries(fetchedData) as [key, skill]}
-        <div>
-          <h2>{skill.skillName}</h2>
-          <p>Description: {skill.skillDescription}</p>
-        </div>
-      {/each}
-    {:else if milestone.menu === "text"}
-      <h1>Text</h1>
-      {#if typeof fetchedData === "object"}
-        <div>
-          <p>{fetchedData.input}</p>
-        </div>
-      {:else}
-        <p>No data available</p>
-      {/if}
-    {/if}
-  </article>
-</div>
+    </article>
+  </div>
 {/if}
 
 <style>
   #map {
     width: 100%;
-    height: 80%;
+    height: 75%;
   }
   article {
     border-width: 2px;
     border-style: solid;
     border-color: #66686b;
     border-radius: 10px;
-    width: 100%;
+    width: 400px;
     height: 400px;
     padding: 20px 50px;
     background-color: #7b5ea7;
-    margin: 0px 50px;
     box-shadow: -4px 4px 0px 0px #f0c996;
+    overflow-y: auto;
   }
+
+  article::-webkit-scrollbar {
+  display: none;
+}
+
   div {
     z-index: 1;
     padding-left: 5px;
     padding-right: 5px;
   }
-  p {
-    font-size: small;
+
+  .main-div {
+    margin: 0px 25px
+  }
+
+  .new-main {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+    height: 200px
+  }
+
+  .button-list {
+    margin: 10px 0px 0px 0px 
   }
 
   h1 {
@@ -234,9 +250,30 @@
     padding: 4px;
   }
 
-  .add-event {
-    margin-top: 10px;
+  .qualification strong {
+    font-weight: bold;
   }
+
+  .qualification {
+    border: solid black 5px;
+    box-shadow: 3px 3px 3px #888;
+    padding: 16px;
+    margin: 16px;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    align-content: center;
+  }
+
+
+  img {
+    width: 100%;
+    margin: 0px 0px 20px 0px;
+  }
+
   @keyframes append-animate {
     from {
       transform: scale(0);

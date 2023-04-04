@@ -30,18 +30,11 @@
 </div>
 
 <style>
-  label {
-    color: white;
-  }
-  input {
-    color: black;
-  }
+
   .qualification strong {
     font-weight: bold;
   }
-  /* .qualification .qualification-header {
-    font-weight: bold;
-  } */
+
   .qualification {
     border: solid black 5px;
     box-shadow: 3px 3px 3px #888;
