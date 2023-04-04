@@ -24,9 +24,9 @@
     } else if (milestone.name !== "Birth") {
       event.preventDefault();
       orderByDate();
-      
+
       const pathname = milestone.name.replace(/\W/g, "-");
-      
+
       update(ref(db, `users/${user.username}/milestones/${pathname}`), {
         id: milestone.id,
         name: milestone.name,
@@ -51,10 +51,10 @@
     milestone.menu = "menu";
   };
 
-  const openSubEventMenu =() => {
+  const openSubEventMenu = () => {
     closeAllPopOuts();
     milestone.menu = "subevent";
-  }
+  };
 </script>
 
 <div class="card-wrapper" transition:fade>
@@ -63,26 +63,19 @@
     <p>{milestone.detail}</p>
     <p>{milestone.date ? milestone.date : ""}</p>
     {#if milestone.menu}
-      <button
-        type="button"
-        class="minus w-8 h-8"
-        on:click={closeForm}><FaMinus /></button
+      <button type="button" class="minus w-8 h-8" on:click={closeForm}
+        ><FaMinus /></button
       >
     {:else}
-      <button
-        type="button"
-        class="plus w-8 h-8"
-        on:click={menuToggle}><FaPlus /></button
+      <button type="button" class="plus w-8 h-8" on:click={menuToggle}
+        ><FaPlus /></button
       >
     {/if}
   </main>
   {#if milestone.menu === "menu"}
     <div transition:fade class="add-event-div">
       {#if milestone.name !== "Birth"}
-        <button
-          type="button"
-          on:click={openSubEventMenu}>Branch out</button
-        >
+        <button type="button" on:click={openSubEventMenu}>Branch out</button>
         <button
           type="button"
           on:click={() => {
@@ -116,12 +109,7 @@
       }}
     >
       <label for="name">Life event</label>
-      <input
-        id="name"
-        bind:value={milestone.name}
-        type="text"
-        required
-      />
+      <input id="name" bind:value={milestone.name} type="text" required />
       <label for="detail">Tell us more</label>
       <input id="detail" bind:value={milestone.detail} type="text" required />
       <label for="date">Date</label>
@@ -136,7 +124,10 @@
     </form>
   {/if}
   {#if milestone.menu === "subevent"}
-    <SubEvent username={user.username} pathname={milestone.name.replace(/\W/g, "-")} />{/if}
+    <SubEvent
+      username={user.username}
+      pathname={milestone.name.replace(/\W/g, "-")}
+    />{/if}
 </div>
 
 <style>
@@ -162,8 +153,9 @@
   }
 
   input {
-    font-family: 'Open Sans', sans-serif;
-	font-size: 14px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
   }
 
   .card-wrapper {
@@ -173,35 +165,36 @@
   }
 
   main {
-	position: relative;
-	background: #f1ae56;
-	border: 4px solid #66686b;
-  margin-right: 100px;
-  height: 180px;
-}
-main:after, main:before {
-	left: 100%;
-	top: 50%;
-	border: solid transparent;
-	content: "";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-}
+    position: relative;
+    background: #f1ae56;
+    border: 4px solid #66686b;
+    margin-right: 100px;
+    height: 180px;
+  }
+  main:after,
+  main:before {
+    left: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: "";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+  }
 
-main:after {
-	border-color: rgba(241, 174, 86, 0);
-	border-left-color: #f1ae56;
-	border-width: 30px;
-	margin-top: -30px;
-}
-main:before {
-	border-color: rgba(102, 104, 107, 0);
-	border-left-color: #66686b;
-	border-width: 36px;
-	margin-top: -36px;
-}
+  main:after {
+    border-color: rgba(241, 174, 86, 0);
+    border-left-color: #f1ae56;
+    border-width: 30px;
+    margin-top: -30px;
+  }
+  main:before {
+    border-color: rgba(102, 104, 107, 0);
+    border-left-color: #66686b;
+    border-width: 36px;
+    margin-top: -36px;
+  }
 
   button {
     background-color: #ed203d;
@@ -232,6 +225,9 @@ main:before {
 
   .new-form {
     animation: append-animate 0.3s linear;
+  }
+  .new-form input {
+    font-weight: bold;
   }
 
   @keyframes slidein {

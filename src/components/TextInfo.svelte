@@ -1,7 +1,7 @@
 <script>
   import { update, ref, get } from "firebase/database";
   import { db } from "../utils/firebase";
-  import {onMount} from "svelte"
+  import { onMount } from "svelte";
 
   export let pathname;
   export let username;
@@ -11,15 +11,15 @@
   onMount(() => {
     get(ref(db, `users/${username}/milestones/${pathname}/text`))
       .then((snapshot) => {
-        additionalInfo = snapshot.val() ? snapshot.val().input : ""
+        additionalInfo = snapshot.val() ? snapshot.val().input : "";
       })
       .catch((err) => {
         console.log(err);
       });
-  })
+  });
 
   const saveData = () => {
-    event.preventDefault()
+    event.preventDefault();
 
     update(ref(db, `users/${username}/milestones/${pathname}/text`), {
       input: additionalInfo,
@@ -35,7 +35,10 @@
 
 <div>
   <form class="input-field" on:submit={saveData}>
-    <label for="additionalInfo"></label>
+    <h2 for="additonalInfo">
+      Here you can write some additional information about your milestone...
+    </h2>
+
     <textarea id="additionalInfo" bind:value={additionalInfo} rows="10" />
     <button type="submit">Save</button>
   </form>
