@@ -165,6 +165,10 @@
     font-weight: 80;
   }
 
+  .card-wrapper {
+    justify-content: start;
+    width: 385px;
+  }
 
   main {
 	position: relative;

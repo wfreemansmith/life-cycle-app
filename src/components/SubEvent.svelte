@@ -31,7 +31,7 @@
   };
 </script>
 
-<div transition:fly="{{y: 1000, duration: 1500}}">
+<div transition:fly="{{y: 500, duration: 1000}}">
   <article>
     {#if eventType === "blank"}
       <label for="select">What do you want to add to this milestone?</label>
