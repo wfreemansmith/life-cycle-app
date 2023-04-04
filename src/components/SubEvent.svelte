@@ -6,13 +6,13 @@
   import OpenStreetMap from "./OpenStreetMap.svelte";
   import TextInfo from "./TextInfo.svelte";
   import SkillList from "./skills-subEvent/SkillList.svelte";
-  import {fly} from "svelte/transition"
+  import { fly } from "svelte/transition";
 
   let eventType = "blank";
 
   export let pathname = "testing";
   export let username = "test-user";
-  
+
   const toggleType = (event) => {
     eventType = event.target.value;
   };
@@ -31,12 +31,12 @@
   };
 </script>
 
-<div transition:fly="{{y: 500, duration: 1000}}">
+<div transition:fly={{ y: 500, duration: 1000 }}>
   <article>
     {#if eventType === "blank"}
       <label for="select">What do you want to add to this milestone?</label>
       <select id="select" on:change={toggleType}>
-        <option value="blank"></option>
+        <option value="blank" />
         <option value="location">Location</option>
         <option value="text">Text</option>
         <option value="photos">Photos</option>
@@ -45,30 +45,30 @@
       </select>
     {:else if eventType === "location"}
       <h1>Location</h1>
-      <OpenStreetMap {pathname} {username}/>
+      <OpenStreetMap {pathname} {username} />
       <button value="blank" on:click={toggleType}>back</button>
     {:else if eventType === "photos"}
       <h1>Photos</h1>
-      <Gallery {pathname} {username}/>
+      <Gallery {pathname} {username} />
       <button value="blank" on:click={toggleType}>back</button>
     {:else if eventType === "text"}
       <h1>Text</h1>
-      <TextInfo {pathname} {username}/>
+      <TextInfo {pathname} {username} />
       <button value="blank" type="button" on:click={toggleType}>back</button>
     {:else if eventType === "qualifications"}
       <h1>Qualifications</h1>
-      <QualificationsList {pathname} {username}/>
+      <QualificationsList {pathname} {username} />
       <button value="blank" type="button" on:click={toggleType}>back</button>
     {:else if eventType === "skills"}
       <h1>Skills</h1>
-      <SkillList {pathname} {username}/>
+      <SkillList {pathname} {username} />
       <button value="blank" type="button" on:click={toggleType}>back</button>
     {/if}
   </article>
 </div>
 
 <style>
-
+  /* // height fit content or auto */
   div {
     z-index: 1;
     margin-top: 10px;
@@ -85,15 +85,16 @@
   }
 
   article {
-    border-width: 2px;
+    border-width: 5px;
     border-style: solid;
-    border-color: #66686b;
+    border-color: black;
     border-radius: 10px;
     width: 100%;
     height: 400px;
     padding: 20px 50px;
     background-color: #7b5ea7;
-    box-shadow: -4px 4px 0px 0px #f0c996;
+    box-shadow: 3px 3px 3px #888;
+    overflow-y: auto;
   }
 
   select {

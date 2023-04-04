@@ -17,11 +17,12 @@
 </script>
 
 <div class="qualification">
-  <p><strong>Subject:</strong> {subject}</p>
-  <p><strong>Grade Achieved:</strong> {grade}</p>
-  <p><strong>Date:</strong> {date}</p>
+  <p class="qualification-header"><strong>Subject: </strong>{subject}</p>
+  <p><strong>Grade Achieved: </strong>{grade}</p>
+  <p><strong>Date: </strong>{date}</p>
   {#if additionalInfo}<p>
-      <strong>Additional Information:</strong>
+      <strong>Additional Information: </strong>
+
       {additionalInfo}
     </p>{/if}
   <button on:click={editQualification}>Edit</button>
@@ -29,10 +30,28 @@
 </div>
 
 <style>
+  label {
+    color: white;
+  }
+  input {
+    color: black;
+  }
+  .qualification strong {
+    font-weight: bold;
+  }
+  /* .qualification .qualification-header {
+    font-weight: bold;
+  } */
   .qualification {
     border: solid black 5px;
+    box-shadow: 3px 3px 3px #888;
     padding: 16px;
     margin: 16px;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
   }
 
   button {

@@ -20,19 +20,21 @@
 
 <div>
   <div class="input-field">
-    <label for="subject">Subject:</label>
-    <input type="text" id="subject" bind:value={subject} required/>
+    <label for="subject"><strong>Subject: </strong></label>
+    <input type="text" id="subject" bind:value={subject} required />
   </div>
   <div class="input-field">
-    <label for="grade">Grade Achieved:</label>
-    <input type="text" id="grade" bind:value={grade} required/>
+    <label for="grade"><strong>Grade Achieved: </strong></label>
+    <input type="text" id="grade" bind:value={grade} required />
   </div>
   <div class="input-field">
-    <label for="date">Date:</label>
+    <label for="date"><strong>Date: </strong></label>
     <input type="date" id="date" bind:value={date} />
   </div>
   <div class="input-field">
-    <label for="additionalInfo">Additional Information (optional):</label>
+    <label for="additionalInfo"
+      ><strong>Additional Information (optional): </strong></label
+    >
     <textarea id="additionalInfo" bind:value={additionalInfo} rows="3" />
   </div>
   <button on:click={addQualification}>Add Qualification</button>

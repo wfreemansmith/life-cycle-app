@@ -15,17 +15,27 @@
 </script>
 
 <div class="skill">
-  <h3>{skillName}</h3>
+  <h3><strong>Skill: </strong></h3>
+  <p>{skillName}</p>
+  <p><strong>Description: </strong></p>
   <p>{skillDescription}</p>
   <button on:click={editSkill}>Edit</button>
   <button on:click={deleteSkill}>Delete</button>
 </div>
 
 <style>
+  h3,
+  p {
+    color: white;
+  }
+  input {
+    color: black;
+  }
   .skill {
     border: 2px solid black;
     padding: 10px;
     margin-bottom: 10px;
+    box-shadow: 3px 3px 3px #888;
   }
   button {
     color: black;
