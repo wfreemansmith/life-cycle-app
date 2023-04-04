@@ -12,9 +12,7 @@
   export let view = false;
   export let viewerData = null;
 
-  console.log("userStore?", $userStore);
   let user = !$userStore ? viewerData : $userStore;
-  console.log({ user });
   if (!user) navigate("/");
 
   // Function to create a new milestone at any point on the tree
@@ -152,6 +150,12 @@
     </svg>
   </div>
   {#if !viewerData}
+    <!-- {#if !view}
+      <button
+        class="absolute left-0 top-0 m-4 py-2 px-4 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600"
+        >Share</button
+      >
+    {/if} -->
     <button
       class="absolute top-0 right-0 m-4 py-2 px-4 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600"
       on:click={() => (view = !view)}
