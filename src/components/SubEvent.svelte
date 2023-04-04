@@ -82,7 +82,7 @@
   h1 {
     color: #eff3f4;
     text-transform: uppercase;
-    font-size: 2em;
+    font-size: 1em;
     font-weight: 100;
   }
 
