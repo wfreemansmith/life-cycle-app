@@ -22,8 +22,9 @@
   const pathname = milestone.name.replace(/\W/g, "-");
 
   const toggleMenu = (value) => {
-    milestone.menu = milestone.menu === value ? null : value;
-    closeAllPopOuts()
+    value = milestone.menu === value ? null : value;
+    closeAllPopOuts();
+    milestone.menu = value;
     if (!value) return;
     fetchedData = subEvents[value];
     if (milestone.menu === "location" && !!subEvents.location)
@@ -79,56 +80,58 @@
     <p>{milestone.detail}</p>
     <p>{milestone.date ? milestone.date : ""}</p>
 
-    <div class="button-list">{#if !!subEvents.qualifications}
-      <button
-        transition:fade
-        type="button"
-        class="minus w-8 h-8"
-        value="qualifications"
-        on:click={() => toggleMenu("qualifications")}><TiMortarBoard /></button
-      >
-    {/if}
+    <div class="button-list">
+      {#if !!subEvents.qualifications}
+        <button
+          transition:fade
+          type="button"
+          class="minus w-8 h-8"
+          value="qualifications"
+          on:click={() => toggleMenu("qualifications")}
+          ><TiMortarBoard /></button
+        >
+      {/if}
 
-    {#if !!subEvents.skill}
-      <button
-        transition:fade
-        type="button"
-        class="plus w-8 h-8"
-        value="skills"
-        on:click={() => toggleMenu("skills")}><TiStarOutline /></button
-      >
-    {/if}
+      {#if !!subEvents.skill}
+        <button
+          transition:fade
+          type="button"
+          class="plus w-8 h-8"
+          value="skills"
+          on:click={() => toggleMenu("skills")}><TiStarOutline /></button
+        >
+      {/if}
 
-    {#if !!subEvents.text}
-      <button
-        transition:fade
-        type="button"
-        class="minus w-8 h-8"
-        value="text"
-        on:click={() => toggleMenu("text")}><TiPencil /></button
-      >
-    {/if}
+      {#if !!subEvents.text}
+        <button
+          transition:fade
+          type="button"
+          class="minus w-8 h-8"
+          value="text"
+          on:click={() => toggleMenu("text")}><TiPencil /></button
+        >
+      {/if}
 
-    {#if !!subEvents.images}
-      <button
-        transition:fade
-        type="button"
-        class="minus w-8 h-8 py-5 px-5"
-        value="images"
-        on:click={() => toggleMenu("images")}><TiImageOutline /></button
-      >
-    {/if}
+      {#if !!subEvents.images}
+        <button
+          transition:fade
+          type="button"
+          class="minus w-8 h-8 py-5 px-5"
+          value="images"
+          on:click={() => toggleMenu("images")}><TiImageOutline /></button
+        >
+      {/if}
 
-    {#if !!subEvents.location}
-      <button
-        transition:fade
-        type="button"
-        class="minus w-8 h-8"
-        value="location"
-        on:click={() => toggleMenu("location")}><TiLocationOutline /></button
-      >
-    {/if}
-  </div>
+      {#if !!subEvents.location}
+        <button
+          transition:fade
+          type="button"
+          class="minus w-8 h-8"
+          value="location"
+          on:click={() => toggleMenu("location")}><TiLocationOutline /></button
+        >
+      {/if}
+    </div>
   </main>
 </div>
 {#if milestone.menu}
@@ -140,16 +143,15 @@
       {:else if milestone.menu === "images"}
         <h1>Photos</h1>
         <div class="gallery">
-        {#each fetchedData as image}
-          <img src={image} alt="Photo" />
-        {/each}
-      </div>
+          {#each fetchedData as image}
+            <img src={image} alt="Photo" />
+          {/each}
+        </div>
       {:else if milestone.menu === "qualifications"}
         <h1>Qualifications</h1>
         {#each fetchedData as qualification}
           <div class="qualification">
-            
-              <h2>{qualification.subject}</h2>
+            <h2>{qualification.subject}</h2>
             <p><strong>Grade Achieved: </strong>{qualification.grade}</p>
             <p><strong>Date: </strong>{qualification.date}</p>
             {#if qualification.additionalInfo}<p>
@@ -199,8 +201,8 @@
   }
 
   article::-webkit-scrollbar {
-  display: none;
-}
+    display: none;
+  }
 
   div {
     z-index: 1;
@@ -209,7 +211,7 @@
   }
 
   .main-div {
-    margin: 0px 25px
+    margin: 0px 25px;
   }
 
   .new-main {
@@ -218,11 +220,11 @@
     flex-wrap: nowrap;
     flex-direction: column;
     align-items: center;
-    height: 200px
+    height: 200px;
   }
 
   .button-list {
-    margin: 10px 0px 0px 0px 
+    margin: 10px 0px 0px 0px;
   }
 
   h1 {
@@ -233,7 +235,7 @@
   }
 
   p {
-    color: white
+    color: white;
   }
   main {
     border-width: 2px;
@@ -273,7 +275,6 @@
     flex-direction: column;
     align-content: center;
   }
-
 
   img {
     width: 100%;
