@@ -92,7 +92,7 @@
         >
       {/if}
 
-      {#if !!subEvents.skill}
+      {#if !!subEvents.skills}
         <button
           transition:fade
           type="button"
@@ -163,9 +163,9 @@
       {:else if milestone.menu === "skills"}
         <h1>Skills</h1>
         {#each Object.entries(fetchedData) as [key, skill]}
-          <div>
+          <div class="qualification">
             <h2>{skill.skillName}</h2>
-            <p>Description: {skill.skillDescription}</p>
+            <p><strong>Description:</strong> {skill.skillDescription}</p>
           </div>
         {/each}
       {:else if milestone.menu === "text"}

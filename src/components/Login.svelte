@@ -217,6 +217,7 @@
     margin-top: 1rem;
     padding: 0.5rem;
     border-radius: 0.25rem;
+    z-index: 0;
   }
 
   p {

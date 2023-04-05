@@ -81,6 +81,7 @@
     <div class="image-grid">
       {#each images.slice(currentIndex, currentIndex + 4) as image (image)}
         <img
+        class="img"
           src={image}
           alt="Gallery"
           on:click={() => showImageInModal(image)}
@@ -91,7 +92,7 @@
     <button on:click={previousImage} disabled={currentIndex === 0}>
       Previous
     </button>
-    <button on:click={nextImage} disabled={currentIndex >= images.length - 4}>
+    <button on:click={nextImage} disabled={currentIndex >= images.length - 3}>
       Next
     </button>
   {/if}
@@ -105,7 +106,7 @@
 
 <style>
 
-  img {
+  .img {
     height: 190px;
     max-width: 100vw;
   }
