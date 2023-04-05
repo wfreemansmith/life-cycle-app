@@ -6,6 +6,7 @@
   import { getData } from "../utils/getdata";
   import { useNavigate } from "svelte-navigator";
   import PoiView from "./PoiView.svelte";
+  import { fade } from "svelte/transition";
 
   const navigate = useNavigate();
 
@@ -14,6 +15,8 @@
 
   let user = !$userStore ? viewerData : $userStore;
   if (!user) navigate("/");
+
+  let copied = false
 
   // Function to create a new milestone at any point on the tree
   const addMilestone = (name) => {
@@ -71,7 +74,6 @@
       remove(ref(db, `users/${user.username}/milestones/${pathname}`))
         .then(() => {
           getData(user.uid);
-          console.log("Data removed successfully");
         })
         .catch((error) => {
           console.error("Error removing data: ", error);
@@ -80,6 +82,15 @@
 
     tree = tree;
   };
+
+  // Shares profile
+  const shareProfile = () => {
+    const viewURL = `localhost:8080/view/${user.username}`
+    navigator.clipboard.writeText(viewURL);
+    copied = true
+    setTimeout(() => {copied = false}, 2000)
+
+  }
 
   // Creates the first milestone on a new tree
   let tree = [
@@ -150,12 +161,12 @@
     </svg>
   </div>
   {#if !viewerData}
-    <!-- {#if !view}
-      <button
-        class="absolute left-0 top-0 m-4 py-2 px-4 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600"
-        >Share</button
+    {#if !view}
+      <button 
+      class="absolute top-0 right-0 m-4 py-2 px-4 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600"
+        on:click={shareProfile}>{copied ? "Copied!" : "Share"}</button
       >
-    {/if} -->
+    {/if}
     <button
       class="absolute top-0 right-0 m-4 py-2 px-4 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600"
       on:click={() => (view = !view)}
