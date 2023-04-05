@@ -114,7 +114,7 @@
     </svg>
   </div>
 
-  <h1 class="px-3 my-14 py-1 text-6xl text-[#f0ebd2] z-1">Life Cycle!</h1>
+  <h1 class="px-3 my-14 py-1 text-6xl text-[#f0ebd2] z-1">Life Cycle</h1>
   <p class="px-3 mt-1 mb-20 py-1 text-2xl z-1">
     <em>Show the world who you are, &nbsp;not just what you've done!</em>
   </p>
@@ -125,11 +125,12 @@
     <form class="form-signup" on:submit={handleSubmit}>
       <label>
         Name:
-        <input type="text" name="name" required />
+        <input class="input" type="text" name="name" required />
       </label>
       <label>
         Date of Birth:
         <input
+          class="input"
           type="date"
           name="dob"
           max={new Date().toLocaleDateString("fr-ca")}
@@ -138,15 +139,33 @@
       </label>
       <label>
         Email:
-        <input type="email" name="email" required />
+        <input
+          class={message === "That email is already registered"
+            ? "input-error"
+            : "input"}
+          type="email"
+          name="email"
+          required
+        />
       </label>
       <label>
         Password:
-        <input type="password" name="password" required />
+
+        <input
+          class={message === "Passwords do not match" ? "input-error" : "input"}
+          type="password"
+          name="password"
+          required
+        />
       </label>
       <label>
         Confirm Password:
-        <input type="password" name="confirmPassword" required />
+        <input
+          class={message === "Passwords do not match" ? "input-error" : "input"}
+          type="password"
+          name="confirmPassword"
+          required
+        />
       </label>
       <button type="submit">Sign Up</button>
     </form>
@@ -156,11 +175,21 @@
     <form class="form-signin" on:submit={handleSubmit}>
       <label>
         Email:
-        <input type="email" name="email" required />
+        <input
+          class={message === "User not found" ? "input-error" : "input"}
+          type="email"
+          name="email"
+          required
+        />
       </label>
       <label>
         Password:
-        <input type="password" name="password" required />
+        <input
+          class={message === "Password is incorrect" ? "input-error" : "input"}
+          type="password"
+          name="password"
+          required
+        />
       </label>
       <button class="button" type="submit">Log In</button>
     </form>
@@ -225,13 +254,24 @@
     font-size: large;
   }
 
-  input {
-    font-family: 'Open Sans', sans-serif;
-	font-size: 14px;
+  .input {
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
     padding: 10px;
     border: none;
     border-bottom: 2px solid black;
     background-color: #f38ba3;
+    box-shadow: -10px 6px 2px black;
+    z-index: 1;
+  }
+
+  .input-error {
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid black;
+    background-color: #ed203d;
     box-shadow: -10px 6px 2px black;
     z-index: 1;
   }
