@@ -83,7 +83,6 @@
         <img
           src={image}
           alt="Gallery"
-          width="100"
           on:click={() => showImageInModal(image)}
         />
       {/each}
@@ -104,10 +103,18 @@
 </div>
 
 <style>
+
+  img {
+    height: 190px;
+    max-width: 100vw;
+  }
+
   .image-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 10px;
+    height: 190px;
+    margin: 5px 0px
   }
 
   .modal {
