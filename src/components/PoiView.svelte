@@ -85,7 +85,7 @@
         <button
           transition:fade
           type="button"
-          class="minus w-8 h-8"
+          class={`minus w-8 h-8 ${milestone.menu === "qualifications" ? "button-select" : "button"}`}
           value="qualifications"
           on:click={() => toggleMenu("qualifications")}
           ><TiMortarBoard /></button
@@ -96,7 +96,7 @@
         <button
           transition:fade
           type="button"
-          class="plus w-8 h-8"
+          class={`minus w-8 h-8 ${milestone.menu === "skills" ? "button-select" : "button"}`}
           value="skills"
           on:click={() => toggleMenu("skills")}><TiStarOutline /></button
         >
@@ -106,9 +106,9 @@
         <button
           transition:fade
           type="button"
-          class="minus w-8 h-8"
+          class={`minus w-8 h-8 ${milestone.menu === "text" ? "button-select" : "button"}`}
           value="text"
-          on:click={() => toggleMenu("text")}><TiPencil /></button
+          on:click={() => toggleMenu("text")}><TiPencil/></button
         >
       {/if}
 
@@ -116,7 +116,7 @@
         <button
           transition:fade
           type="button"
-          class="minus w-8 h-8 py-5 px-5"
+          class={`minus w-8 h-8 ${milestone.menu === "images" ? "button-select" : "button"}`}
           value="images"
           on:click={() => toggleMenu("images")}><TiImageOutline /></button
         >
@@ -126,7 +126,7 @@
         <button
           transition:fade
           type="button"
-          class="minus w-8 h-8"
+          class={`minus w-8 h-8 ${milestone.menu === "location" ? "button-select" : "button"}`}
           value="location"
           on:click={() => toggleMenu("location")}><TiLocationOutline /></button
         >
@@ -235,7 +235,7 @@
   }
 
   p {
-    color: white;
+    color: #eff3f4;
   }
   main {
     border-width: 2px;
@@ -250,8 +250,16 @@
     height: fit-content;
   }
 
-  button {
+  .button {
     background-color: #ed203d;
+    margin: auto;
+    min-width: 37px;
+    min-height: 37px;
+    padding: 4px;
+  }
+
+  .button-select {
+    background-color: #eff3f4;
     margin: auto;
     min-width: 37px;
     min-height: 37px;

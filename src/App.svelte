@@ -20,7 +20,7 @@
       <Route path="/" component={Login} />
       <Route path="/account" component={AccountPage} />
       <Route path="/create" component={Tree} />
-      <Route path="/about" component={TestingPage} />
+      <Route path="/about" component={AboutPage} />
       <Route path="/view/:username" component={ShareLink} />
       <Route path="/*">
         <h1>Sorry that page does not exist!</h1></Route

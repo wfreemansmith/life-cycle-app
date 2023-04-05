@@ -63,7 +63,7 @@
     <p>{milestone.detail}</p>
     <p>{milestone.date ? milestone.date.split("-").reverse().join("-") : ""}</p>
     {#if milestone.menu}
-      <button type="button" class="minus w-8 h-8" on:click={closeForm}
+      <button type="button" class="minus w-8 h-8 button-select" on:click={closeForm}
         ><FaMinus /></button
       >
     {:else}
@@ -208,6 +208,14 @@
 
   button {
     background-color: #ed203d;
+    min-width: 15px;
+    border: none;
+    padding: 2px;
+    margin-bottom: 20px
+  }
+
+  .button-select {
+    background-color: #eff3f4;
     min-width: 15px;
     border: none;
     padding: 2px;
