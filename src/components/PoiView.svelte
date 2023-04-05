@@ -78,7 +78,7 @@
   <main class="new-main">
     <h1>{milestone.name}</h1>
     <p>{milestone.detail}</p>
-    <p>{milestone.date ? milestone.date : ""}</p>
+    <p>{milestone.date ? milestone.date.split("-").reverse().join("-") : ""}</p>
 
     <div class="button-list">
       {#if !!subEvents.qualifications}
@@ -153,7 +153,7 @@
           <div class="qualification">
             <h2>{qualification.subject}</h2>
             <p><strong>Grade Achieved: </strong>{qualification.grade}</p>
-            <p><strong>Date: </strong>{qualification.date}</p>
+            <p><strong>Date: </strong>{qualification.date.split("-").reverse().join("-")}</p>
             {#if qualification.additionalInfo}<p>
                 <strong>Additional Information: </strong>
                 {qualification.additionalInfo}
