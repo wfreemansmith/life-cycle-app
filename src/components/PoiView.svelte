@@ -18,6 +18,8 @@
   export let closeAllPopOuts;
   let fetchedData = {};
   let subEvents = {};
+  let showModal = false;
+  let modalImageSrc = "";
 
   const pathname = milestone.name.replace(/\W/g, "-");
 
@@ -60,6 +62,11 @@
     }
   };
 
+  function toggleImageModal(src) {
+    modalImageSrc = src;
+    showModal = !showModal;
+  }
+
   onMount(() => {
     milestone.menu = null;
     get(ref(db, `users/${user.username}/milestones/${pathname}`))
@@ -85,7 +92,9 @@
         <button
           transition:fade
           type="button"
-          class={`minus w-8 h-8 ${milestone.menu === "qualifications" ? "button-select" : "button"}`}
+          class={`minus w-8 h-8 ${
+            milestone.menu === "qualifications" ? "button-select" : "button"
+          }`}
           value="qualifications"
           on:click={() => toggleMenu("qualifications")}
           ><TiMortarBoard /></button
@@ -96,7 +105,9 @@
         <button
           transition:fade
           type="button"
-          class={`minus w-8 h-8 ${milestone.menu === "skills" ? "button-select" : "button"}`}
+          class={`minus w-8 h-8 ${
+            milestone.menu === "skills" ? "button-select" : "button"
+          }`}
           value="skills"
           on:click={() => toggleMenu("skills")}><TiStarOutline /></button
         >
@@ -106,9 +117,11 @@
         <button
           transition:fade
           type="button"
-          class={`minus w-8 h-8 ${milestone.menu === "text" ? "button-select" : "button"}`}
+          class={`minus w-8 h-8 ${
+            milestone.menu === "text" ? "button-select" : "button"
+          }`}
           value="text"
-          on:click={() => toggleMenu("text")}><TiPencil/></button
+          on:click={() => toggleMenu("text")}><TiPencil /></button
         >
       {/if}
 
@@ -116,7 +129,9 @@
         <button
           transition:fade
           type="button"
-          class={`minus w-8 h-8 ${milestone.menu === "images" ? "button-select" : "button"}`}
+          class={`minus w-8 h-8 ${
+            milestone.menu === "images" ? "button-select" : "button"
+          }`}
           value="images"
           on:click={() => toggleMenu("images")}><TiImageOutline /></button
         >
@@ -126,7 +141,9 @@
         <button
           transition:fade
           type="button"
-          class={`minus w-8 h-8 ${milestone.menu === "location" ? "button-select" : "button"}`}
+          class={`minus w-8 h-8 ${
+            milestone.menu === "location" ? "button-select" : "button"
+          }`}
           value="location"
           on:click={() => toggleMenu("location")}><TiLocationOutline /></button
         >
@@ -144,7 +161,13 @@
         <h1>Photos</h1>
         <div class="gallery">
           {#each fetchedData as image}
-            <img src={image} alt="Photo" />
+            <img
+              src={image}
+              alt=""
+              class="img"
+              on:click={() => toggleImageModal(image)}
+              on:keydown
+            />
           {/each}
         </div>
       {:else if milestone.menu === "qualifications"}
@@ -153,7 +176,12 @@
           <div class="qualification">
             <h2>{qualification.subject}</h2>
             <p><strong>Grade Achieved: </strong>{qualification.grade}</p>
-            <p><strong>Date: </strong>{qualification.date.split("-").reverse().join("-")}</p>
+            <p>
+              <strong>Date: </strong>{qualification.date
+                .split("-")
+                .reverse()
+                .join("-")}
+            </p>
             {#if qualification.additionalInfo}<p>
                 <strong>Additional Information: </strong>
                 {qualification.additionalInfo}
@@ -180,6 +208,12 @@
       {/if}
     </article>
   </div>
+{/if}
+
+{#if showModal}
+<div class="modal" on:click={toggleImageModal} on:keydown>
+  <img src={modalImageSrc} alt="Gallery" class="modal-image img" />
+</div>
 {/if}
 
 <style>
@@ -222,6 +256,24 @@
     z-index: 1;
     padding-left: 5px;
     padding-right: 5px;
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
+
+  .modal-image {
+    max-width: 90vh;
+    max-height: 90vh;
   }
 
   .main-div {
@@ -298,7 +350,7 @@
     align-content: center;
   }
 
-  img {
+  .img {
     width: 100%;
     margin: 0px 0px 20px 0px;
   }
