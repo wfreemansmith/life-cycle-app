@@ -15,6 +15,8 @@
   let user = !$userStore ? viewerData : $userStore;
   if (!user) navigate("/");
 
+  let copied = false
+
   // Function to create a new milestone at any point on the tree
   const addMilestone = (name) => {
     closeAllPopOuts();
@@ -80,6 +82,15 @@
 
     tree = tree;
   };
+
+  // Shares profile
+  const shareProfile = () => {
+    const viewURL = `http://www.lifecycle.com/view/${user.username}`
+    navigator.clipboard.writeText(viewURL);
+    copied = true
+    setTimeout(() => {copied = false}, 2000)
+
+  }
 
   // Creates the first milestone on a new tree
   let tree = [
@@ -150,12 +161,12 @@
     </svg>
   </div>
   {#if !viewerData}
-    <!-- {#if !view}
+    {#if !view}
       <button
-        class="absolute left-0 top-0 m-4 py-2 px-4 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600"
-        >Share</button
+      class="m-4 py-2 px-4 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600"
+        on:click={shareProfile}>{copied ? "Copied!" : "Share"}</button
       >
-    {/if} -->
+    {/if}
     <button
       class="absolute top-0 right-0 m-4 py-2 px-4 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600"
       on:click={() => (view = !view)}
