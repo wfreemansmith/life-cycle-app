@@ -201,7 +201,21 @@
   }
 
   article::-webkit-scrollbar {
-    display: none;
+    width: 8px;
+  }
+
+  article::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+  }
+
+  article::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+  }
+
+  article::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.8);
   }
 
   div {
