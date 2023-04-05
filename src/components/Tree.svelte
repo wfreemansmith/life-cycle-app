@@ -163,7 +163,7 @@
   {#if !viewerData}
     {#if !view}
       <button 
-      class="absolute top-[0px] left-[960px] w-[90px] m-4 py-2 px-4 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600"
+      class="absolute top-[0px] right-[220px] w-[90px] m-4 py-2 px-4 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600"
         on:click={shareProfile}>{copied ? "Copied!" : "Share"}</button
       >
     {/if}
