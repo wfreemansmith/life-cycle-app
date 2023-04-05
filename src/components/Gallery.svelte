@@ -120,12 +120,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10;
   }
 
   .modal-image {
     max-width: 90%;
     max-height: 90%;
+    z-index: 10;
   }
 
   button {

@@ -193,8 +193,8 @@
       </label>
       <button class="button" type="submit">Log In</button>
     </form>
-  {/if}
-  <p class="message mt-2">{message ? message : ""}</p>
+    {/if}
+    <p class="message mt-2">{message ? message : ""}</p>
   <div class="custom-shape-divider-bottom-1680002532">
     <svg
       data-name="Layer 1"
@@ -212,12 +212,12 @@
 
 <style>
   .message {
-    font-size: 1.5rem;
+    /* font-size: 1.5rem; */
     color: white;
     margin-top: 1rem;
     padding: 0.5rem;
-
     border-radius: 0.25rem;
+        z-index: 1
   }
 
   p {
