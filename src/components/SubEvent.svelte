@@ -74,9 +74,6 @@
     margin-top: 10px;
   }
 
-  form {
-    z-index: 1;
-  }
   h1 {
     color: #eff3f4;
     text-transform: uppercase;
@@ -140,9 +137,7 @@
     margin-top: 4px;
   }
 
-  .add-event {
-    margin-top: 10px;
-  }
+
   @keyframes append-animate {
     from {
       transform: scale(0);
@@ -157,7 +152,5 @@
       opacity: 1;
     }
   }
-  .new-form {
-    animation: append-animate 0.3s linear;
-  }
+
 </style>

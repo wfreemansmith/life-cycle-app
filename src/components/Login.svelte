@@ -216,7 +216,6 @@
     color: white;
     margin-top: 1rem;
     padding: 0.5rem;
-
     border-radius: 0.25rem;
   }
 
@@ -286,11 +285,6 @@
     cursor: pointer;
     box-shadow: -4px 4px 0px 1px #f5becc;
     margin-top: 25px;
-  }
-
-  img {
-    width: 200px;
-    margin-top: 20px;
   }
 
   .custom-shape-divider-top-1680002298 {

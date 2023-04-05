@@ -227,8 +227,26 @@
   .preset-image-wrap {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 250px;
+  }
+
+  .preset-image-wrap::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .preset-image-wrap::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+  }
+
+  .preset-image-wrap::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+  }
+
+  .preset-image-wrap::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.8);
   }
 
   .account-page-form::-webkit-scrollbar {
@@ -272,6 +290,11 @@
     color: white;
     border: none;
     border-radius: 5px;
+    width: 116px;
+    height: 44px;
+    justify-content: center;
+    margin-bottom: 30px;
+    margin-top: 10px;
   }
   img {
     justify-content: center;
@@ -374,10 +397,6 @@
     width: 100%;
   }
 
-  .avatar-label {
-    /* font-size: small; */
-  }
-
   section {
     z-index: 0;
   }
@@ -385,7 +404,7 @@
   .form-wrapper {
     position: relative;
     width: 624px;
-    height: 600px;
+    height: auto;
     margin: 0 auto;
     box-shadow: -8px 8px #f5becc;
     border-radius: 10px;
@@ -423,12 +442,9 @@
     width: 65%;
   }
 
-  .name.svelte {
-    border-color: red;
-    font-size: 18px;
-  }
 
   span {
     justify-content: center;
+    height: auto;
   }
 </style>
