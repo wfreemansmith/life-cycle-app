@@ -147,11 +147,10 @@
           </label>
 
           <button class="button-create" type="button" on:click={togglePresets}
-            >Select Preset</button
-          >
+            >Select Preset</button>
           <div class="preset-images-container">
             {#if showPresets}
-              <div>
+              <div class="preset-image-wrap">
                 {#each $presetURLsStore as presetURL, index}
                   <img
                     class="preset-image"
@@ -222,6 +221,13 @@
     max-height: 600px;
     overflow-y: auto;
     padding-right: 16px;
+  }
+
+  .preset-image-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow-y: scroll;
+    height: 250px;
   }
 
   .account-page-form::-webkit-scrollbar {
@@ -392,7 +398,7 @@
 
     justify-content: center;
     gap: 10px;
-    border: 2px solid black;
+    border: 0px solid black;
     box-shadow: 0 0 10px 5px rgba(221, 209, 44, 0.1);
     background-color: #f38ba3;
   }
