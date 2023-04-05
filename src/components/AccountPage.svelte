@@ -307,7 +307,6 @@
     flex-direction: column;
     align-items: center;
     padding: 1.5rem;
-    overflow-y: scroll;
   }
 
   input {
