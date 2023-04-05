@@ -159,6 +159,7 @@
                     width="100"
                     height="100"
                     on:click={() => selectPreset(presetImages[index])}
+                    on:keyup
                   />
                 {/each}
               </div>

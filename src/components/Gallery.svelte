@@ -84,6 +84,7 @@
           src={image}
           alt="Gallery"
           on:click={() => showImageInModal(image)}
+          on:keydown
         />
       {/each}
     </div>
@@ -96,7 +97,7 @@
   {/if}
 
   {#if showModal}
-    <div class="modal" on:click={closeModal}>
+    <div class="modal" on:click={closeModal} on:keydown>
       <img src={modalImageSrc} alt="Gallery" class="modal-image" />
     </div>
   {/if}
