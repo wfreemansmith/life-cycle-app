@@ -18,6 +18,8 @@
   export let closeAllPopOuts;
   let fetchedData = {};
   let subEvents = {};
+  let showModal = false;
+  let modalImageSrc = "";
 
   const pathname = milestone.name.replace(/\W/g, "-");
 
@@ -60,6 +62,11 @@
     }
   };
 
+  function toggleImageModal(src) {
+    modalImageSrc = src;
+    showModal = !showModal;
+  }
+
   onMount(() => {
     milestone.menu = null;
     get(ref(db, `users/${user.username}/milestones/${pathname}`))
@@ -78,25 +85,29 @@
   <main class="new-main">
     <h1>{milestone.name}</h1>
     <p>{milestone.detail}</p>
-    <p>{milestone.date ? milestone.date : ""}</p>
+    <p>{milestone.date ? milestone.date.split("-").reverse().join("-") : ""}</p>
 
     <div class="button-list">
       {#if !!subEvents.qualifications}
         <button
           transition:fade
           type="button"
-          class={`minus w-8 h-8 ${milestone.menu === "qualifications" ? "button-select" : "button"}`}
+          class={`minus w-8 h-8 ${
+            milestone.menu === "qualifications" ? "button-select" : "button"
+          }`}
           value="qualifications"
           on:click={() => toggleMenu("qualifications")}
           ><TiMortarBoard /></button
         >
       {/if}
 
-      {#if !!subEvents.skill}
+      {#if !!subEvents.skills}
         <button
           transition:fade
           type="button"
-          class={`minus w-8 h-8 ${milestone.menu === "skills" ? "button-select" : "button"}`}
+          class={`minus w-8 h-8 ${
+            milestone.menu === "skills" ? "button-select" : "button"
+          }`}
           value="skills"
           on:click={() => toggleMenu("skills")}><TiStarOutline /></button
         >
@@ -106,9 +117,11 @@
         <button
           transition:fade
           type="button"
-          class={`minus w-8 h-8 ${milestone.menu === "text" ? "button-select" : "button"}`}
+          class={`minus w-8 h-8 ${
+            milestone.menu === "text" ? "button-select" : "button"
+          }`}
           value="text"
-          on:click={() => toggleMenu("text")}><TiPencil/></button
+          on:click={() => toggleMenu("text")}><TiPencil /></button
         >
       {/if}
 
@@ -116,7 +129,9 @@
         <button
           transition:fade
           type="button"
-          class={`minus w-8 h-8 ${milestone.menu === "images" ? "button-select" : "button"}`}
+          class={`minus w-8 h-8 ${
+            milestone.menu === "images" ? "button-select" : "button"
+          }`}
           value="images"
           on:click={() => toggleMenu("images")}><TiImageOutline /></button
         >
@@ -126,7 +141,9 @@
         <button
           transition:fade
           type="button"
-          class={`minus w-8 h-8 ${milestone.menu === "location" ? "button-select" : "button"}`}
+          class={`minus w-8 h-8 ${
+            milestone.menu === "location" ? "button-select" : "button"
+          }`}
           value="location"
           on:click={() => toggleMenu("location")}><TiLocationOutline /></button
         >
@@ -144,7 +161,13 @@
         <h1>Photos</h1>
         <div class="gallery">
           {#each fetchedData as image}
-            <img src={image} alt="Photo" />
+            <img
+              src={image}
+              alt=""
+              class="img"
+              on:click={() => toggleImageModal(image)}
+              on:keydown
+            />
           {/each}
         </div>
       {:else if milestone.menu === "qualifications"}
@@ -153,7 +176,12 @@
           <div class="qualification">
             <h2>{qualification.subject}</h2>
             <p><strong>Grade Achieved: </strong>{qualification.grade}</p>
-            <p><strong>Date: </strong>{qualification.date}</p>
+            <p>
+              <strong>Date: </strong>{qualification.date
+                .split("-")
+                .reverse()
+                .join("-")}
+            </p>
             {#if qualification.additionalInfo}<p>
                 <strong>Additional Information: </strong>
                 {qualification.additionalInfo}
@@ -163,9 +191,9 @@
       {:else if milestone.menu === "skills"}
         <h1>Skills</h1>
         {#each Object.entries(fetchedData) as [key, skill]}
-          <div>
+          <div class="qualification">
             <h2>{skill.skillName}</h2>
-            <p>Description: {skill.skillDescription}</p>
+            <p><strong>Description:</strong> {skill.skillDescription}</p>
           </div>
         {/each}
       {:else if milestone.menu === "text"}
@@ -180,6 +208,12 @@
       {/if}
     </article>
   </div>
+{/if}
+
+{#if showModal}
+<div class="modal" on:click={toggleImageModal} on:keydown>
+  <img src={modalImageSrc} alt="Gallery" class="modal-image img" />
+</div>
 {/if}
 
 <style>
@@ -201,13 +235,45 @@
   }
 
   article::-webkit-scrollbar {
-    display: none;
+    width: 8px;
+  }
+
+  article::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+  }
+
+  article::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+  }
+
+  article::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.8);
   }
 
   div {
     z-index: 1;
     padding-left: 5px;
     padding-right: 5px;
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
+
+  .modal-image {
+    max-width: 90vh;
+    max-height: 90vh;
   }
 
   .main-div {
@@ -284,7 +350,7 @@
     align-content: center;
   }
 
-  img {
+  .img {
     width: 100%;
     margin: 0px 0px 20px 0px;
   }

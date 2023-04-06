@@ -3,7 +3,7 @@ LifeCycle is an interactive, animated CV builder that allows users to document t
 
 This project uses [Svelte](https://svelte.dev/) as the frontend framework, [Firebase](https://firebase.google.com/) for authentication and real-time database, along with various other libraries such as [Tailwind CSS](https://tailwindcss.com/) for design and [Leaflet](https://leafletjs.com/) for interactive maps.
 
-The project is hosted online here: _______________________________
+The project is hosted online here: [lifecycle-app.netlify.app](https://lifecycle-app.netlify.app/)
 
 ## Features
 
@@ -56,3 +56,10 @@ Before you can run this project locally, you must have node version 19.5.0 or hi
 4. Run locally:
 
    `npm run dev`
+   
+# Credits
+
+- Josh Foster: [LinkedIn](https://www.linkedin.com/in/josh-foster-403b60254/) / [Github](https://github.com/JoshFost)
+- Wesley Freeman-Smith: [LinkedIn](https://www.linkedin.com/in/wfreemansmith) / [Github](https://www.github.com/wfreemansmith)
+- Aaron Kelly: [LinkedIn](https://www.linkedin.com/in/aaron-k-a508a6108/) / [Github](https://github.com/munist1010)
+- Zahed Miah: [LinkedIn](https://www.linkedin.com/in/zahed-miah/) / [Github](https://github.com/zahedmiah)

@@ -81,33 +81,42 @@
     <div class="image-grid">
       {#each images.slice(currentIndex, currentIndex + 4) as image (image)}
         <img
+        class="img"
           src={image}
           alt="Gallery"
-          width="100"
           on:click={() => showImageInModal(image)}
+          on:keydown
         />
       {/each}
     </div>
     <button on:click={previousImage} disabled={currentIndex === 0}>
       Previous
     </button>
-    <button on:click={nextImage} disabled={currentIndex >= images.length - 4}>
+    <button on:click={nextImage} disabled={currentIndex >= images.length - 3}>
       Next
     </button>
   {/if}
 
   {#if showModal}
-    <div class="modal" on:click={closeModal}>
+    <div class="modal" on:click={closeModal} on:keydown>
       <img src={modalImageSrc} alt="Gallery" class="modal-image" />
     </div>
   {/if}
 </div>
 
 <style>
+
+  .img {
+    height: 190px;
+    max-width: 100vw;
+  }
+
   .image-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 10px;
+    height: 190px;
+    margin: 5px 0px
   }
 
   .modal {

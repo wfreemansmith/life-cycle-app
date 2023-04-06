@@ -147,11 +147,10 @@
           </label>
 
           <button class="button-create" type="button" on:click={togglePresets}
-            >Select Preset</button
-          >
+            >Select Preset</button>
           <div class="preset-images-container">
             {#if showPresets}
-              <div>
+              <div class="preset-image-wrap">
                 {#each $presetURLsStore as presetURL, index}
                   <img
                     class="preset-image"
@@ -160,6 +159,7 @@
                     width="100"
                     height="100"
                     on:click={() => selectPreset(presetImages[index])}
+                    on:keyup
                   />
                 {/each}
               </div>
@@ -224,6 +224,31 @@
     padding-right: 16px;
   }
 
+  .preset-image-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow-y: auto;
+    height: 250px;
+  }
+
+  .preset-image-wrap::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .preset-image-wrap::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+  }
+
+  .preset-image-wrap::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+  }
+
+  .preset-image-wrap::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
   .account-page-form::-webkit-scrollbar {
     width: 8px;
   }
@@ -265,6 +290,11 @@
     color: white;
     border: none;
     border-radius: 5px;
+    width: 116px;
+    height: 44px;
+    justify-content: center;
+    margin-bottom: 30px;
+    margin-top: 10px;
   }
   img {
     justify-content: center;
@@ -277,7 +307,6 @@
     flex-direction: column;
     align-items: center;
     padding: 1.5rem;
-    overflow-y: scroll;
   }
 
   input {
@@ -367,10 +396,6 @@
     width: 100%;
   }
 
-  .avatar-label {
-    /* font-size: small; */
-  }
-
   section {
     z-index: 0;
   }
@@ -378,7 +403,7 @@
   .form-wrapper {
     position: relative;
     width: 624px;
-    height: 600px;
+    height: auto;
     margin: 0 auto;
     box-shadow: -8px 8px #f5becc;
     border-radius: 10px;
@@ -392,7 +417,7 @@
 
     justify-content: center;
     gap: 10px;
-    border: 2px solid black;
+    border: 0px solid black;
     box-shadow: 0 0 10px 5px rgba(221, 209, 44, 0.1);
     background-color: #f38ba3;
   }
@@ -416,12 +441,9 @@
     width: 65%;
   }
 
-  .name.svelte {
-    border-color: red;
-    font-size: 18px;
-  }
 
   span {
     justify-content: center;
+    height: auto;
   }
 </style>

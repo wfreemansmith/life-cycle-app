@@ -34,10 +34,6 @@
   @tailwind components;
   @tailwind utilities;
   @import url("https://fonts.googleapis.com/css2?family=Arvo&display=swap");
-  body {
-    display: inline-block;
-    height: fit-content;
-  }
 
   .page {
     display: inline-block;

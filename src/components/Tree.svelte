@@ -85,7 +85,7 @@
 
   // Shares profile
   const shareProfile = () => {
-    const viewURL = `localhost:8080/view/${user.username}`
+    const viewURL = `https://lifecycle-app.netlify.app/view/${user.username}`
     navigator.clipboard.writeText(viewURL);
     copied = true
     setTimeout(() => {copied = false}, 2000)
@@ -163,12 +163,12 @@
   {#if !viewerData}
     {#if !view}
       <button 
-      class="absolute top-0 right-0 m-4 py-2 px-4 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600"
+      class="absolute top-[0px] right-[220px] w-[90px] m-4 py-2 px-4 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600"
         on:click={shareProfile}>{copied ? "Copied!" : "Share"}</button
       >
     {/if}
     <button
-      class="absolute top-0 right-0 m-4 py-2 px-4 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600"
+      class="absolute top-0 right-[4px] m-4 py-2 px-4 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600"
       on:click={() => (view = !view)}
     >
       {#if view}
