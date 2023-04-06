@@ -85,7 +85,7 @@
 
   // Shares profile
   const shareProfile = () => {
-    const viewURL = `localhost:8080/view/${user.username}`
+    const viewURL = `https://lifecycle-app.netlify.app/view/${user.username}`
     navigator.clipboard.writeText(viewURL);
     copied = true
     setTimeout(() => {copied = false}, 2000)
