@@ -60,6 +60,6 @@ Before you can run this project locally, you must have node version 19.5.0 or hi
 # Credits
 
 - Josh Foster: [LinkedIn](https://www.linkedin.com/in/) / [Github](https://github.com/JoshFost)
-- Wesley Freeman-Smith: [LinkedIn](https://www.linkedin.com/in/wfreemansmith / [Github](https://www.github.com/wfreemansmith)
+- Wesley Freeman-Smith: [LinkedIn](https://www.linkedin.com/in/wfreemansmith) / [Github](https://www.github.com/wfreemansmith)
 - Aaron Kelly: [LinkedIn](https://www.linkedin.com/in/aaron-k-a508a6108/) / [Github](https://github.com/munist1010)
 - Zahed Miah: [LinkedIn](https://www.linkedin.com/in/zahed-miah/) / [Github](https://github.com/zahedmiah)
